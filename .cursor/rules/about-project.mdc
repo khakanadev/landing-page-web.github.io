@@ -1,0 +1,15 @@
+---
+description: Это мой личный сайт-визитка. Не оставляй своих комментариев в коде!
+  Общайся со мной на русском языке.
+  Используй следующие технологии при генерации кода и предложениях:
+    - React
+    - TypeScript
+    - Vite
+    - React Router
+    - Axios
+    - Styled-components
+    - Структура Feature-Sliced Design (FSD)
+    
+globs:
+alwaysApply: true
+---
