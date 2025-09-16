@@ -1,5 +1,7 @@
 import { Header } from './widgets/header'
 import { MainHeader } from './widgets/main-header'
+import { About } from './widgets/about'
+import { Projects } from './widgets/projects'
 import styled from 'styled-components'
 import numberInput from './assets/number-input.png'
 import spotlightLeft from './assets/spotlight-left.png'
@@ -24,8 +26,8 @@ const GridBackground = styled.div`
   pointer-events: none;
   background-image: url(${numberInput});
   background-repeat: no-repeat;
-  background-position: top center;
-  background-size: cover; /* fill the entire screen */
+  background-position: top left;
+  background-size: 100% auto; /* stretch full width, keep aspect ratio */
   opacity: 0.7;
 `
 
@@ -68,6 +70,8 @@ function App() {
       <Content>
         <Header />
         <MainHeader />
+        <About />
+        <Projects />
       </Content>
     </Root>
     
