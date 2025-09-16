@@ -2,6 +2,7 @@ import { Header } from './widgets/header'
 import { MainHeader } from './widgets/main-header'
 import { About } from './widgets/about'
 import { Projects } from './widgets/projects'
+import { Reviews } from './widgets/reviews'
 import styled from 'styled-components'
 import numberInput from './assets/number-input.png'
 import spotlightLeft from './assets/spotlight-left.png'
@@ -72,6 +73,7 @@ function App() {
         <MainHeader />
         <About />
         <Projects />
+        <Reviews />
       </Content>
     </Root>
     
