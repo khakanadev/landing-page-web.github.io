@@ -32,7 +32,7 @@ const Background = styled.div`
   opacity: 0.6;
 `
 
-const AboutBg = styled.div`
+const AdvantagesBg = styled.div`
   position: absolute;
   inset: 0;
   z-index: 0;
@@ -42,7 +42,6 @@ const AboutBg = styled.div`
   background-position: top left;
   background-size: 100% auto;
   opacity: 0.3;
-  /* fade from visible at top to transparent at bottom */
   -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 85%);
   mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 85%);
 `
@@ -72,7 +71,7 @@ const Left = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   position: relative;
-  height: 541px; /* match right stack height to prevent macbook height from pushing Row2 */
+  height: 541px;
   
   &:hover img[alt='Macbook'],
   &:hover div[data-macbook-overlay] {
@@ -88,7 +87,7 @@ const Right = styled.div`
   grid-template-rows: auto auto;
   row-gap: 30px;
   justify-items: start;
-  margin-top: 77px; /* center 541px stack inside 695px height: (695-541)/2 */
+  margin-top: 77px;
 `
 
 const Card = styled.div`
@@ -327,13 +326,13 @@ const BtnOverlay = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 291px; /* fit text + button stack within 351x180 safely */
+  width: 291px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   transform-origin: center;
-  pointer-events: none; /* let hover target the image/card */
+  pointer-events: none;
 `
 
 const BtnOverlayInner = styled.div`
@@ -368,7 +367,7 @@ const BtnOverlayCta = styled.button`
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  pointer-events: auto; /* clickable despite parent being none */
+  pointer-events: auto;
 
   background: linear-gradient(135deg, #6C5DD3 0%, #CBACF9 50%, #6C5DD3 100%);
   background-size: 200% 200%;
@@ -481,11 +480,10 @@ const CodeSubtitle = styled.div`
   line-height: 1.2;
 `
 
-
-export function About() {
+export function Advantages() {
   return (
     <Root>
-      <AboutBg />
+      <AdvantagesBg />
       <Background />
       <Content>
         <Container>
@@ -555,5 +553,3 @@ export function About() {
 }
 
 
-
- 
