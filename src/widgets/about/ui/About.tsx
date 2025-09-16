@@ -76,10 +76,10 @@ const Left = styled.div`
   
   &:hover img[alt='Macbook'],
   &:hover div[data-macbook-overlay] {
-    transform: translateY(-4px) scale(1.03) rotateZ(-0.25deg);
-    filter: saturate(1.04) brightness(1.03)
-      drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22))
-      drop-shadow(0 0 10px rgba(203, 172, 249, 0.35));
+    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
+    filter: saturate(1.03) brightness(1.02)
+      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
+      drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
   }
 `
 
@@ -98,10 +98,10 @@ const Card = styled.div`
   &:hover img,
   &:hover div[data-countries-overlay],
   &:hover div[data-stack-overlay-inner] {
-    transform: translateY(-4px) scale(1.03) rotateZ(0.25deg);
-    filter: saturate(1.04) brightness(1.03)
-      drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22))
-      drop-shadow(0 0 9px rgba(203, 172, 249, 0.35));
+    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
+    filter: saturate(1.03) brightness(1.02)
+      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
+      drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
   }
 `
 
@@ -151,10 +151,10 @@ const SmallImg = styled.img`
     filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
   border-radius: 12px;
   &:hover {
-    transform: translateY(-4px) scale(1.03) rotateZ(0.25deg);
-    filter: saturate(1.04) brightness(1.03)
-      drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22))
-      drop-shadow(0 0 9px rgba(203, 172, 249, 0.35));
+    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
+    filter: saturate(1.03) brightness(1.02)
+      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
+      drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
   }
 `
 
@@ -249,10 +249,10 @@ const DevImg = styled.img`
     filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
   border-radius: 12px;
   &:hover {
-    transform: translateY(-4px) scale(1.03);
-    filter: saturate(1.04) brightness(1.03)
-      drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22))
-      drop-shadow(0 0 8px rgba(203, 172, 249, 0.35));
+    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
+    filter: saturate(1.03) brightness(1.02)
+      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
+      drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
   }
 `
 
@@ -264,10 +264,10 @@ const DevCard = styled.div`
 
   &:hover img,
   &:hover div[data-dev-overlay] {
-    transform: translateY(-4px) scale(1.03);
-    filter: saturate(1.04) brightness(1.03)
-      drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22))
-      drop-shadow(0 0 8px rgba(203, 172, 249, 0.35));
+    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
+    filter: saturate(1.03) brightness(1.02)
+      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
+      drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
   }
 `
 
@@ -300,10 +300,10 @@ const BtnImg = styled.img`
     filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
   border-radius: 12px;
   &:hover {
-    transform: translateY(-4px) scale(1.03);
-    filter: saturate(1.04) brightness(1.03)
-      drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22))
-      drop-shadow(0 0 8px rgba(203, 172, 249, 0.35));
+    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
+    filter: saturate(1.03) brightness(1.02)
+      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
+      drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
   }
 `
 
@@ -315,10 +315,10 @@ const BtnCard = styled.div`
 
   &:hover img,
   &:hover div[data-button-overlay-inner] {
-    transform: translateY(-4px) scale(1.03);
-    filter: saturate(1.04) brightness(1.03)
-      drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22))
-      drop-shadow(0 0 8px rgba(203, 172, 249, 0.35));
+    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
+    filter: saturate(1.03) brightness(1.02)
+      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
+      drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
   }
 `
 
@@ -418,10 +418,10 @@ const CodeImg = styled.img`
     filter 350ms cubic-bezier(0.22, 1, 0.36, 1);
   border-radius: 12px;
   &:hover {
-    transform: translateY(-4px) scale(1.02);
-    filter: saturate(1.04) brightness(1.03)
-      drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22))
-      drop-shadow(0 0 10px rgba(203, 172, 249, 0.35));
+    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
+    filter: saturate(1.03) brightness(1.02)
+      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
+      drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
   }
 `
 
@@ -433,10 +433,10 @@ const CodeCard = styled.div`
 
   &:hover img,
   &:hover div[data-code-overlay-inner] {
-    transform: translateY(-4px) scale(1.02);
-    filter: saturate(1.04) brightness(1.03)
-      drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22))
-      drop-shadow(0 0 10px rgba(203, 172, 249, 0.35));
+    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
+    filter: saturate(1.03) brightness(1.02)
+      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
+      drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
   }
 `
 
