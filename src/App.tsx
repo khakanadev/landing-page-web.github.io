@@ -5,6 +5,7 @@ import { About } from './widgets/about'
 import { Projects } from './widgets/projects'
 import { Reviews } from './widgets/reviews'
 import { Approach } from './widgets/approach'
+import { Footer } from './widgets/footer'
 import styled from 'styled-components'
 import numberInput from './assets/number-input.png'
 import spotlightLeft from './assets/spotlight-left.png'
@@ -78,6 +79,7 @@ function App() {
         <Projects />
         <Reviews />
         <Approach />
+        <Footer />
       </Content>
     </Root>
     

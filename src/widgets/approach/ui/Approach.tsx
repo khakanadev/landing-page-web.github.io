@@ -51,6 +51,7 @@ const Row = styled.div`
   column-gap: 40px;
   align-items: start;
   justify-content: center;
+  margin-bottom: 20px;
 `
 
 const Card = styled.div`
