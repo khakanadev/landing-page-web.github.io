@@ -1,6 +1,7 @@
 import { Header } from './widgets/header'
 import { MainHeader } from './widgets/main-header'
 import { Advantages } from './widgets/advantages'
+import { About } from './widgets/about'
 import { Projects } from './widgets/projects'
 import { Reviews } from './widgets/reviews'
 import styled from 'styled-components'
@@ -72,6 +73,7 @@ function App() {
         <Header />
         <MainHeader />
         <Advantages />
+        <About />
         <Projects />
         <Reviews />
       </Content>
