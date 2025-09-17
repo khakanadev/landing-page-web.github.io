@@ -72,6 +72,7 @@ const Left = styled.div`
   justify-content: flex-start;
   position: relative;
   height: 541px;
+  border-radius: 12px;
   
   &:hover img[alt='Macbook'],
   &:hover div[data-macbook-overlay] {
@@ -79,6 +80,13 @@ const Left = styled.div`
     filter: saturate(1.03) brightness(1.02)
       drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
       drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
+  }
+
+  &:hover img[alt='Macbook'] {
+    /* Minimal: thin outline following PNG alpha + very subtle glow */
+    filter: saturate(1.02) brightness(1.01)
+      drop-shadow(0 0 2px rgba(203, 172, 249, 1))
+      drop-shadow(0 0 16px rgba(203, 172, 249, 0.35));
   }
 `
 
@@ -93,6 +101,21 @@ const Right = styled.div`
 const Card = styled.div`
   display: block;
   position: relative;
+  border-radius: 12px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: -3px; 
+    border-radius: 12px;
+    border: 1.5px solid transparent;
+    box-shadow: 0 0 0 0 rgba(203, 172, 249, 0);
+    transition: border-color 250ms ease, box-shadow 250ms ease;
+    pointer-events: none;
+  }
 
   &:hover img,
   &:hover div[data-countries-overlay],
@@ -101,6 +124,11 @@ const Card = styled.div`
     filter: saturate(1.03) brightness(1.02)
       drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
       drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
+  }
+
+  &:hover::after {
+    border-color: rgba(203, 172, 249, 0.6);
+    box-shadow: 0 0 18px rgba(203, 172, 249, 0.35), 0 6px 14px rgba(108, 93, 211, 0.28);
   }
 `
 
@@ -115,7 +143,8 @@ const MacbookImg = styled.img`
   transform-origin: center;
   will-change: transform, filter;
   transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 350ms cubic-bezier(0.22, 1, 0.36, 1);
+    filter 350ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 250ms ease;
   border-radius: 12px;
 `
 
@@ -137,6 +166,25 @@ const MacbookOverlay = styled.div`
   transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 350ms cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
+
+  /* Gradient text shimmer like in About */
+  background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  will-change: background-position, color;
+
+  @keyframes titleShimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  ${Left}:hover & {
+    color: transparent;
+    animation: titleShimmer 1.4s ease-in-out infinite;
+  }
 `
 
 const SmallImg = styled.img`
@@ -173,6 +221,25 @@ const CountriesOverlay = styled.div`
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
+
+  /* Gradient text shimmer like in About */
+  background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  will-change: background-position, color;
+
+  ${Card}:hover & {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    display: inline;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    animation: titleShimmer 1.4s ease-in-out infinite;
+  }
 `
 
 const StackOverlay = styled.div`
@@ -213,8 +280,21 @@ const StackTitle = styled.div`
   font-weight: 700;
   font-size: 30px;
   width: 300px;
-  height: 38px;
+  height: 70px;
   line-height: 38px;
+
+  /* Gradient text shimmer like in About */
+  background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  will-change: background-position, color;
+
+  ${Card}:hover & {
+    color: transparent;
+    animation: titleShimmer 1.4s ease-in-out infinite;
+  }
 `
 
 const Row2 = styled.div`
@@ -260,6 +340,18 @@ const DevCard = styled.div`
   display: block;
   width: 351px;
   height: 180px;
+  border-radius: 12px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    border: 1.5px solid transparent;
+    box-shadow: 0 0 0 0 rgba(203, 172, 249, 0);
+    transition: border-color 250ms ease, box-shadow 250ms ease;
+    pointer-events: none;
+  }
 
   &:hover img,
   &:hover div[data-dev-overlay] {
@@ -267,6 +359,11 @@ const DevCard = styled.div`
     filter: saturate(1.03) brightness(1.02)
       drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
       drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
+  }
+
+  &:hover::after {
+    border-color: rgba(203, 172, 249, 0.6);
+    box-shadow: 0 0 18px rgba(203, 172, 249, 0.35), 0 6px 14px rgba(108, 93, 211, 0.28);
   }
 `
 
@@ -286,6 +383,19 @@ const DevOverlay = styled.div`
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
+
+  /* Gradient text shimmer like in About */
+  background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  will-change: background-position, color;
+
+  ${DevCard}:hover & {
+    color: transparent;
+    animation: titleShimmer 1.4s ease-in-out infinite;
+  }
 `
 
 const BtnImg = styled.img`
@@ -311,6 +421,18 @@ const BtnCard = styled.div`
   display: block;
   width: 351px;
   height: 180px;
+  border-radius: 12px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    border: 1.5px solid transparent;
+    box-shadow: 0 0 0 0 rgba(203, 172, 249, 0);
+    transition: border-color 250ms ease, box-shadow 250ms ease;
+    pointer-events: none;
+  }
 
   &:hover img,
   &:hover div[data-button-overlay-inner] {
@@ -318,6 +440,11 @@ const BtnCard = styled.div`
     filter: saturate(1.03) brightness(1.02)
       drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
       drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
+  }
+
+  &:hover::after {
+    border-color: rgba(203, 172, 249, 0.6);
+    box-shadow: 0 0 18px rgba(203, 172, 249, 0.35), 0 6px 14px rgba(108, 93, 211, 0.28);
   }
 `
 
@@ -353,6 +480,19 @@ const BtnOverlayText = styled.div`
   width: 300px;
   height: 58px;
   line-height: 1.2;
+
+  /* Gradient text shimmer like in About */
+  background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  will-change: background-position, color;
+
+  ${BtnCard}:hover & {
+    color: transparent;
+    animation: titleShimmer 1.4s ease-in-out infinite;
+  }
 `
 
 const BtnOverlayCta = styled.button`
@@ -414,8 +554,9 @@ const CodeImg = styled.img`
   transform-origin: center;
   will-change: transform, filter;
   transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 350ms cubic-bezier(0.22, 1, 0.36, 1);
-  border-radius: 12px;
+    filter 350ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 250ms ease;
+  border-radius: 18px;
   &:hover {
     transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
     filter: saturate(1.03) brightness(1.02)
@@ -429,6 +570,7 @@ const CodeCard = styled.div`
   display: block;
   width: 859px;
   height: 390px;
+  border-radius: 18px;
 
   &:hover img,
   &:hover div[data-code-overlay-inner] {
@@ -436,6 +578,10 @@ const CodeCard = styled.div`
     filter: saturate(1.03) brightness(1.02)
       drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
       drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
+  }
+
+  &:hover img {
+    box-shadow: 0 0 0 1.5px rgba(203, 172, 249, 0.6), 0 0 18px rgba(203, 172, 249, 0.35), 0 6px 14px rgba(108, 93, 211, 0.28);
   }
 `
 
@@ -476,8 +622,27 @@ const CodeSubtitle = styled.div`
   font-weight: 700;
   font-size: 32px;
   width: 311px;
-  height: 76px;
+  height: 150px;
   line-height: 1.2;
+
+  /* Gradient text shimmer like in About */
+  background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  will-change: background-position, color;
+
+  ${CodeCard}:hover & {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    display: inline;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    animation: titleShimmer 1.4s ease-in-out infinite;
+  }
 `
 
 export function Advantages() {
