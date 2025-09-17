@@ -75,11 +75,11 @@ function App() {
         <Header />
         <MainHeader />
         <Advantages />
-        <About />
-        <Projects />
-        <Reviews />
+        <About id="about" />
+        <Projects id="projects" />
+        <Reviews id="reviews" />
         <Approach />
-        <Footer />
+        <Footer id="footer" />
       </Content>
     </Root>
     

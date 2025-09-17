@@ -12,6 +12,7 @@ const Root = styled.section`
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  scroll-margin-top: 100px;
 `
 
 const Inner = styled.div`
@@ -173,9 +174,12 @@ const CardSubtitle = styled.div`
   transition: none;
 `
 
-export function About() {
+type AboutProps = { id?: string }
+
+export function About({ id }: AboutProps) {
   return (
-    <Root>
+    <Root id={id}
+    >
       <Inner>
         <Title>
           Ваш <span>будущий разработчик</span>

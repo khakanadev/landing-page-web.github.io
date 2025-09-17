@@ -15,6 +15,7 @@ const Root = styled.section`
   justify-content: flex-start;
   height: auto; 
   background: #000319; 
+  scroll-margin-top: 100px;
 `
 
 const Title = styled.h2`
@@ -34,7 +35,9 @@ const Title = styled.h2`
   }
 `
 
-export function Reviews() {
+type ReviewsProps = { id?: string }
+
+export function Reviews({ id }: ReviewsProps) {
   const reviews = useMemo(
     () => [
       { id: 1, text: '" 1 Отличная работа! Сайт получился быстрым и красивым — именно то, что было нужно."', name: 'Иван Петров' },
@@ -92,7 +95,8 @@ export function Reviews() {
   }, [resetAuto])
 
   return (
-    <Root>
+    <Root id={id}
+    >
       <Title>
         Отзывы <span>довольных клиентов</span>
       </Title>
@@ -200,12 +204,12 @@ function getInitials(fullName: string) {
 
 const Carousel = styled.div`
   margin-top: 60px; 
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 910px 1fr; 
+  width: 1400px;
+  display: flex;
   align-items: center;
-  justify-items: center;
+  justify-content: center;
   position: relative;
+  gap: 115px;
 `
 
 const Frame = styled.div`
@@ -325,6 +329,7 @@ const ArrowBase = styled.button`
   cursor: pointer;
   transition: transform 180ms ease, filter 180ms ease, opacity 180ms ease;
   opacity: 0.95;
+  flex-shrink: 0;
 
   animation: shimmerColor 2.6s ease-in-out infinite;
 

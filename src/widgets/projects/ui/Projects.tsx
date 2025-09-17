@@ -10,6 +10,7 @@ const Root = styled.section`
   height: auto;
   padding-bottom: 100px;
   background: #000319;
+  scroll-margin-top: 100px;
 `
 
 const Title = styled.h2`
@@ -160,9 +161,12 @@ const ProjectLink = styled.a`
   &:focus-visible { outline: 2px solid rgba(203, 172, 249, 0.6); outline-offset: 3px; border-radius: 6px; }
 `
 
-export function Projects() {
+type ProjectsProps = { id?: string }
+
+export function Projects({ id }: ProjectsProps) {
   return (
-    <Root>
+    <Root id={id}
+    >
       <Title>
         Ключевые <span>реализованные проекты</span>
       </Title>

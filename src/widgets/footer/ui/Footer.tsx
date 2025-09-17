@@ -9,6 +9,7 @@ const Root = styled.footer`
   background: #000319;
   padding: 200px 0 50px 0;
   position: relative;
+  scroll-margin-top: 100px;
 `
 
 const MainContent = styled.div`
@@ -160,7 +161,7 @@ const ArrowIcon = styled.svg`
 
 const BottomSection = styled.div`
   margin-top: 200px;
-  width: 1280px;
+  width: 1255px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -204,9 +205,12 @@ const SocialLink = styled.a`
   &:hover svg path { fill: url(#grad-social); }
 `
 
-export function Footer() {
+type FooterProps = { id?: string }
+
+export function Footer({ id }: FooterProps) {
   return (
-    <Root>
+    <Root id={id}
+    >
       <PatternLayer />
       <MainContent>
         <Title>
