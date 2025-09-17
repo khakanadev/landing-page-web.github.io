@@ -4,6 +4,7 @@ import { Advantages } from './widgets/advantages'
 import { About } from './widgets/about'
 import { Projects } from './widgets/projects'
 import { Reviews } from './widgets/reviews'
+import { Approach } from './widgets/approach'
 import styled from 'styled-components'
 import numberInput from './assets/number-input.png'
 import spotlightLeft from './assets/spotlight-left.png'
@@ -76,6 +77,7 @@ function App() {
         <About />
         <Projects />
         <Reviews />
+        <Approach />
       </Content>
     </Root>
     

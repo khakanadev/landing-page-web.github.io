@@ -59,7 +59,6 @@ const Card = styled.div`
 
   &:hover {
     transform: translateY(-4px) scale(1.02) rotateZ(0.25deg);
-    filter: saturate(1.02) brightness(1.02);
     border-color: rgba(203, 172, 249, 0.5);
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35),
       0 0 18px rgba(203, 172, 249, 0.25),
@@ -105,10 +104,8 @@ const OverlayInner = styled.div`
   top: calc(56% + 145px);
   transform: translateY(-50%);
   transform-origin: center;
-  will-change: transform, filter, opacity;
-  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 260ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 200ms ease;
+  will-change: transform;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
 
   ${Card}:hover & {
     transform: translateY(calc(-50% - 6px));
@@ -123,6 +120,9 @@ const ProjectTitle = styled.div`
   width: 485px;
   height: 36px;
   line-height: 1.1;
+  opacity: 1;
+  filter: none;
+  transition: none;
 `
 
 const ProjectDescription = styled.div`
@@ -134,6 +134,9 @@ const ProjectDescription = styled.div`
   width: 552px;
   height: 52px;
   line-height: 1.3;
+  opacity: 1;
+  filter: none;
+  transition: none;
 `
 
 const ProjectLink = styled.a`

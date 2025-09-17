@@ -118,7 +118,6 @@ const Card = styled.div`
   }
 
   &:hover img,
-  &:hover div[data-countries-overlay],
   &:hover div[data-stack-overlay-inner] {
     transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
     filter: saturate(1.03) brightness(1.02)
@@ -217,9 +216,8 @@ const CountriesOverlay = styled.div`
   font-size: 30px;
   line-height: 1.2;
   transform-origin: center;
-  will-change: transform, filter;
-  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
 
   /* Gradient text shimmer like in About */
@@ -230,16 +228,7 @@ const CountriesOverlay = styled.div`
   background-clip: text;
   will-change: background-position, color;
 
-  ${Card}:hover & {
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-    display: inline;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-    animation: titleShimmer 1.4s ease-in-out infinite;
-  }
+  ${Card}:hover & { color: #ffffff; }
 `
 
 const StackOverlay = styled.div`
@@ -255,9 +244,8 @@ const StackOverlay = styled.div`
 
 const StackOverlayInner = styled.div`
   transform-origin: center;
-  will-change: transform, filter;
-  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -291,10 +279,7 @@ const StackTitle = styled.div`
   background-clip: text;
   will-change: background-position, color;
 
-  ${Card}:hover & {
-    color: transparent;
-    animation: titleShimmer 1.4s ease-in-out infinite;
-  }
+  ${Card}:hover & { color: #ffffff; }
 `
 
 const Row2 = styled.div`

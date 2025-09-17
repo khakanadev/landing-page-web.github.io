@@ -92,7 +92,6 @@ const Card = styled.div`
 
   &:hover {
     transform: translateY(-3px) scale(1.012) rotateZ(0.15deg);
-    filter: saturate(1.02) brightness(1.02);
   }
 
   &:hover::before {
@@ -146,6 +145,9 @@ const CardTitle = styled.div`
   -webkit-background-clip: text;
   background-clip: text;
   will-change: background-position, color;
+  opacity: 1;
+  filter: none;
+  transition: none;
 
   @keyframes titleShimmer {
     0% { background-position: 0% 50%; }
@@ -154,7 +156,7 @@ const CardTitle = styled.div`
   }
 
   ${Card}:hover & {
-    color: transparent;
+    color: transparent; /* градиентный шиммер без изменения прозрачности слоя */
     animation: titleShimmer 1.4s ease-in-out infinite;
   }
 `
@@ -166,6 +168,9 @@ const CardSubtitle = styled.div`
   font-size: 16px;
   line-height: 1.4;
   max-width: 520px;
+  opacity: 1;
+  filter: none;
+  transition: none;
 `
 
 export function About() {
