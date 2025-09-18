@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
+import { useEffect, useState } from 'react'
 import macbook from '../../../assets/macbook.png'
 import countries from '../../../assets/countries.png'
 import stack from '../../../assets/stack.png'
@@ -7,6 +8,28 @@ import development from '../../../assets/development.png'
 import button from '../../../assets/button.png'
 import code from '../../../assets/code.png'
 import bg from '../../../assets/bg.png'
+
+const fadeSlideUp = keyframes`
+  from { 
+    opacity: 0; 
+    transform: translateY(30px) scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+`
+
+const fadeInScale = keyframes`
+  from { 
+    opacity: 0; 
+    transform: translateY(40px) scale(0.9); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+`
 
 const Root = styled.section`
   width: 100%;
@@ -66,13 +89,19 @@ const Container = styled.div`
   justify-content: center;
 `
 
-const Left = styled.div`
+const Left = styled.div<{ animate?: boolean }>`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   position: relative;
   height: 541px;
   border-radius: 12px;
+  
+  ${props => props.animate && css`
+    opacity: 0;
+    animation: ${fadeInScale} 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 200ms;
+  `}
   
   &:hover img[alt='Macbook'],
   &:hover div[data-macbook-overlay] {
@@ -90,12 +119,18 @@ const Left = styled.div`
   }
 `
 
-const Right = styled.div`
+const Right = styled.div<{ animate?: boolean }>`
   display: grid;
   grid-template-rows: auto auto;
   row-gap: 30px;
   justify-items: start;
   margin-top: 77px;
+
+  ${props => props.animate && css`
+    opacity: 0;
+    animation: ${fadeSlideUp} 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 400ms;
+  `}
 `
 
 const Card = styled.div`
@@ -216,9 +251,8 @@ const CountriesOverlay = styled.div`
   font-size: 30px;
   line-height: 1.2;
   transform-origin: center;
-  will-change: transform;
+  will-change: transform, background-position, color;
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
 
   /* Gradient text shimmer like in About */
   background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
@@ -226,9 +260,18 @@ const CountriesOverlay = styled.div`
   background-position: 0% 50%;
   -webkit-background-clip: text;
   background-clip: text;
-  will-change: background-position, color;
 
-  ${Card}:hover & { color: #ffffff; }
+  @keyframes titleShimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  ${Card}:hover & {
+    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
+    color: transparent;
+    animation: titleShimmer 1.4s ease-in-out infinite;
+  }
 `
 
 const StackOverlay = styled.div`
@@ -279,10 +322,19 @@ const StackTitle = styled.div`
   background-clip: text;
   will-change: background-position, color;
 
-  ${Card}:hover & { color: #ffffff; }
+  @keyframes titleShimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  ${Card}:hover & {
+    color: transparent;
+    animation: titleShimmer 1.4s ease-in-out infinite;
+  }
 `
 
-const Row2 = styled.div`
+const Row2 = styled.div<{ animate?: boolean }>`
   width: 1280px;
   margin-top: 30px;
   display: grid;
@@ -290,6 +342,12 @@ const Row2 = styled.div`
   column-gap: 30px;
   align-items: start;
   justify-content: center;
+
+  ${props => props.animate && css`
+    opacity: 0;
+    animation: ${fadeSlideUp} 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 600ms;
+  `}
 `
 
 const Left2 = styled.div`
@@ -631,19 +689,26 @@ const CodeSubtitle = styled.div`
 `
 
 export function Advantages() {
+  const [shouldAnimate, setShouldAnimate] = useState(false)
+
+  useEffect(() => {
+    // Trigger animation on mount
+    setShouldAnimate(true)
+  }, [])
+
   return (
     <Root>
       <AdvantagesBg />
       <Background />
       <Content>
         <Container>
-          <Left>
+          <Left animate={shouldAnimate}>
             <MacbookImg src={macbook} alt="Macbook" />
             <MacbookOverlay data-macbook-overlay>
               Уникальный дизайн в Figma, а не шаблоны с конструкторов
             </MacbookOverlay>
           </Left>
-          <Right>
+          <Right animate={shouldAnimate}>
             <Card>
               <SmallImg src={countries} alt="Countries" />
               <CountriesOverlay data-countries-overlay>
@@ -665,7 +730,7 @@ export function Advantages() {
             </Card>
           </Right>
         </Container>
-        <Row2>
+        <Row2 animate={shouldAnimate}>
           <Left2>
             <DevCard>
               <DevImg src={development} alt="Development" />
@@ -678,7 +743,7 @@ export function Advantages() {
               <BtnOverlay>
                 <BtnOverlayInner data-button-overlay-inner>
                   <BtnOverlayText>Начнем разработку сайта уже сегодня?</BtnOverlayText>
-                  <BtnOverlayCta>Заказать!</BtnOverlayCta>
+                  <BtnOverlayCta as="a" href="https://t.me/khakanadev" target="_blank" rel="noopener noreferrer">Заказать!</BtnOverlayCta>
                 </BtnOverlayInner>
               </BtnOverlay>
             </BtnCard>

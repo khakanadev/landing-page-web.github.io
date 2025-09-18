@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
+import { useEffect, useState } from 'react'
 
 const Root = styled.section`
   width: 100%;
@@ -9,7 +10,29 @@ const Root = styled.section`
   margin-top: 123px;
 `
 
-const Title = styled.h1`
+const fadeSlideUp = keyframes`
+  from { 
+    opacity: 0; 
+    transform: translateY(30px) scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+`
+
+const fadeInScale = keyframes`
+  from { 
+    opacity: 0; 
+    transform: translateY(40px) scale(0.9); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+`
+
+const Title = styled.h1<{ animate?: boolean }>`
   margin: 0;
   font-family: Inter, sans-serif;
   font-weight: 200;
@@ -18,9 +41,15 @@ const Title = styled.h1`
   color: #e4ecff;
   letter-spacing: 0.25em; /* 25% */
   text-align: center;
+
+  ${props => props.animate && css`
+    opacity: 0;
+    animation: ${fadeSlideUp} 600ms ease forwards;
+    animation-delay: 120ms;
+  `}
 `
 
-const Headline = styled.h2`
+const Headline = styled.h2<{ animate?: boolean }>`
   margin: 22px 0 0;
   font-family: Inter, sans-serif;
   font-weight: 700;
@@ -35,18 +64,30 @@ const Headline = styled.h2`
   span {
     color: #CBACF9;
   }
+
+  ${props => props.animate && css`
+    opacity: 0;
+    animation: ${fadeInScale} 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 300ms;
+  `}
 `
 
-const SubTitle = styled.p`
+const SubTitle = styled.p<{ animate?: boolean }>`
   margin: 30px 0 0;
   font-family: Inter, sans-serif;
   font-weight: 300;
   font-size: 24px;
   color: #e4ecff;
   text-align: center;
+
+  ${props => props.animate && css`
+    opacity: 0;
+    animation: ${fadeSlideUp} 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 600ms;
+  `}
 `
 
-const CtaButton = styled.button`
+const CtaButton = styled.button<{ animate?: boolean }>`
   margin: 30px 0 0;
   display: inline-flex;
   align-items: center;
@@ -102,18 +143,41 @@ const CtaButton = styled.button`
 
   /* Arrow slide on hover */
   &:hover svg { transform: translateX(4px); opacity: 1; }
+
+  ${props => props.animate && css`
+    opacity: 0;
+    animation: ${fadeSlideUp} 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 900ms;
+  `}
 `
 
 
 export function MainHeader() {
+  const [shouldAnimate, setShouldAnimate] = useState(false)
+
+  useEffect(() => {
+    // Always trigger animation on mount (every page refresh)
+    setShouldAnimate(true)
+  }, [])
+
+  const scrollToProjects = () => {
+    const projectsElement = document.getElementById('projects')
+    if (projectsElement) {
+      projectsElement.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
+
   return (
     <Root>
-      <Title>Современные сайты и приложения на React</Title>
-      <Headline>
-      Разрабатываю сайты, которые повышают <span>онлайн-продажи</span>
+      <Title animate={shouldAnimate}>Современные сайты и приложения на React</Title>
+      <Headline animate={shouldAnimate}>
+        Разрабатываю сайты, которые повышают <span>онлайн-продажи</span>
       </Headline>
-      <SubTitle>Приветствую! Я Александр Хакана, веб-разработчик с опытом более двух лет</SubTitle>
-      <CtaButton>
+      <SubTitle animate={shouldAnimate}>Приветствую! Я Александр Хакана, веб-разработчик с опытом более двух лет</SubTitle>
+      <CtaButton animate={shouldAnimate} onClick={scrollToProjects}>
         Посмотреть работы
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M4.5 9H13.5" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round"/>

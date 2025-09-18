@@ -7,7 +7,7 @@ const Root = styled.header`
   position: sticky;
   top: 0;
   z-index: 5;
-  height: 116px; /* reserve space for fixed nav */
+  height: 116px; 
 `
 
 const Container = styled.div`
@@ -118,7 +118,6 @@ export function Header() {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id)
     if (!el) return
-    // Delay scroll to let dot animation finish first
     setTimeout(() => {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }, 120)
@@ -148,13 +147,11 @@ export function Header() {
           requestAnimationFrame(() => { ticking = false })
           return
         }
-        // If at top of the page — clear active state
         if (window.scrollY <= 20) {
           setActive(null)
           requestAnimationFrame(() => { ticking = false })
           return
         }
-        // Choose the entry with the greatest intersection ratio that's in view
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => (b.intersectionRatio || 0) - (a.intersectionRatio || 0))
@@ -167,7 +164,6 @@ export function Header() {
       {
         root: null,
         threshold: [0.3, 0.5, 0.7],
-        // account for fixed nav height so a section counts a bit earlier
         rootMargin: '-80px 0px -40% 0px',
       }
     )
