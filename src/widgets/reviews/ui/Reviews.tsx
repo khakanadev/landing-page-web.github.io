@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import reviewFrame from '../../../assets/review.png'
 import reactLogo from '../../../assets/react.svg'
 import firebaseLogo from '../../../assets/firebase.png'
 import figmaLogo from '../../../assets/figma.png'
@@ -40,13 +39,13 @@ type ReviewsProps = { id?: string }
 export function Reviews({ id }: ReviewsProps) {
   const reviews = useMemo(
     () => [
-      { id: 1, text: '" 1 Отличная работа! Сайт получился быстрым и красивым — именно то, что было нужно."', name: 'Иван Петров' },
-      { id: 2, text: '" 2 Внимание к деталям и сроки — всё чётко. Рекомендую к сотрудничеству!"', name: 'Мария Смирнова' },
-      { id: 3, text: '" 3 Коммуникация на высоте, все правки внесены оперативно. Остались только положительные эмоции."', name: 'Алексей Иванов' },
-      { id: 4, text: '" 4 Понравился дизайн и адаптивность. На мобильных всё выглядит отлично!"', name: 'Ольга Соколова' },
-      { id: 5, text: '" 5 Подсказали с архитектурой, сделали чистый код. Приятно работать с профессионалами."', name: 'Дмитрий Кузнецов' },
-      { id: 6, text: '" 6 Надёжно, быстро, качественно. Обязательно вернусь с новым проектом."', name: 'Анна Попова' },
-      { id: 7, text: '" 7 Получили именно то, что хотели. Спасибо за терпение и крутую реализацию!"', name: 'Сергей Волков' }
+      { id: 1, text: '"Очень довольна сотрудничеством! Сайт получился стильный и удобный, всё работает без ошибок."', name: 'Астахова Марина' },
+      { id: 2, text: '"Александр разработал для нашей компании корпоративный сайт. Всё было сделано в срок, дизайн аккуратный, структура продуманная. Особенно понравилось, что он сам предложил несколько идей, которые улучшили проект. Теперь сайт приносит клиентов, спасибо!"', name: 'Горчаков Артём' },
+      { id: 3, text: '"Работаем с Александром уже второй раз. Первый был лендинг, второй — интернет-магазин. В обоих случаях он проявил себя как ответственный разработчик: всегда на связи, все правки вносил быстро. Рекомендую!"', name: 'Демидов Кирилл' },
+      { id: 4, text: '"Заказывала сайт-визитку. Получилось даже лучше, чем я представляла! Дизайн современный, открывается отлично и на телефоне, и на компьютере."', name: 'Калинина Анна' },
+      { id: 5, text: '"Мы обратились к Александру, потому что нужен был сайт под ключ. Он взял на себя всё: от прототипа и дизайна до запуска и подключения аналитики. Видно, что человек работает на результат. Уже через неделю после запуска пошли первые заявки!"', name: 'Рябинин Сергей' },
+      { id: 6, text: '"Хочу отметить пунктуальность и внимательность к деталям. Все этапы работы обсуждались, Александр объяснял, как будет работать каждая функция. Для нас это было важно, так как раньше не имели опыта создания сайтов. Получили именно то, что нужно."', name: 'Шаповалова Екатерина' },
+      { id: 7, text: '"Сайт работает быстро и без багов. Хорошая работа."', name: 'Черепанов Андрей' }
     ],
     []
   )
@@ -149,7 +148,6 @@ export function Reviews({ id }: ReviewsProps) {
               const isActive = realIdx === (index < 0 ? maxIndex : index > maxIndex ? 0 : index)
               return (
                 <Slide key={`${r.id}-${i}`} data-active={isActive}>
-                  <FrameImage src={reviewFrame} alt="Review frame" />
                   <SlideInner>
                     <ReviewText>{r.text}</ReviewText>
                     <Reviewer>
@@ -218,8 +216,8 @@ const Frame = styled.div`
   overflow: hidden;
   position: relative;
   contain: layout paint;
-  border-radius: 16px;
-  clip-path: inset(0 round 16px);
+  border-radius: 20px;
+  clip-path: inset(0 round 20px);
 `
 
 const Track = styled.div<{ $instant?: boolean }>`
@@ -238,22 +236,46 @@ const Slide = styled.div`
   width: 910px;
   height: 300px;
   flex: 0 0 auto;
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
-  filter: none;
+  /* background moved to ::after to keep only a thin outer ring visible */
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: linear-gradient(45deg, #CBACF9, #6C5CE7, #FFFFFF, #CBACF9);
+    background-size: 300% 300%;
+    animation: shimmerBorder 2.6s ease-in-out infinite;
+    z-index: 0;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 1px; /* ultra-thin border */
+    border-radius: 19px; /* 20px - 1px to preserve curvature */
+    background: linear-gradient(135deg, #04071D 0%, #0C0E23 100%);
+    z-index: 1;
+  }
+  
+  @keyframes shimmerBorder {
+    0% { 
+      background-position: 0% 50%;
+    }
+    33% { 
+      background-position: 100% 50%;
+    }
+    66% { 
+      background-position: 200% 50%;
+    }
+    100% { 
+      background-position: 0% 50%;
+    }
+  }
 `
 
-const FrameImage = styled.img`
-  position: absolute;
-  inset: 0;
-  width: 910px;
-  height: 300px;
-  object-fit: cover;
-  pointer-events: none;
-  user-select: none;
-  border-radius: inherit;
-  will-change: transform;
-`
 
 const SlideInner = styled.div`
   position: absolute;
@@ -263,6 +285,7 @@ const SlideInner = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  z-index: 2;
 `
 
 const ReviewText = styled.div`
@@ -309,7 +332,7 @@ const ReviewerName = styled.div`
   font-family: Inter, sans-serif;
   font-weight: 600; 
   font-size: 18px;
-  width: 145px; 
+  width: 260px; 
   height: 25px; 
   line-height: 25px;
   white-space: nowrap;
