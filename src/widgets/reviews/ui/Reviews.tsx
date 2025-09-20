@@ -213,11 +213,9 @@ const Carousel = styled.div`
 const Frame = styled.div`
   width: 910px; 
   height: 300px; 
-  overflow: hidden;
   position: relative;
   contain: layout paint;
   border-radius: 20px;
-  clip-path: inset(0 round 20px);
 `
 
 const Track = styled.div<{ $instant?: boolean }>`
@@ -237,14 +235,12 @@ const Slide = styled.div`
   height: 300px;
   flex: 0 0 auto;
   border-radius: 20px;
-  overflow: hidden;
-  /* background moved to ::after to keep only a thin outer ring visible */
   
   &::before {
     content: '';
     position: absolute;
-    inset: 0;
-    border-radius: 20px;
+    inset: -2px;
+    border-radius: 22px;
     background: linear-gradient(45deg, #CBACF9, #6C5CE7, #FFFFFF, #CBACF9);
     background-size: 300% 300%;
     animation: shimmerBorder 2.6s ease-in-out infinite;
@@ -254,8 +250,8 @@ const Slide = styled.div`
   &::after {
     content: '';
     position: absolute;
-    inset: 1px; /* ultra-thin border */
-    border-radius: 19px; /* 20px - 1px to preserve curvature */
+    inset: 1px;
+    border-radius: 19px;
     background: linear-gradient(135deg, #04071D 0%, #0C0E23 100%);
     z-index: 1;
   }
@@ -297,7 +293,7 @@ const ReviewText = styled.div`
   width: 810px; 
   height: 120px; 
   overflow: hidden;
-  opacity: 1; /* всегда видно, без внезапных проявлений */
+  opacity: 1;
   transform: none;
   transition: none;
 `
@@ -306,7 +302,7 @@ const Reviewer = styled.div`
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  opacity: 1; /* всегда видно */
+  opacity: 1;
   transform: none;
   transition: none;
 `
@@ -347,7 +343,7 @@ const ArrowBase = styled.button`
   width: 80px;
   height: 80px;
   border: 0;
-  background: transparent; /* без кружков */
+  background: transparent;
   color: #CBACF9;
   cursor: pointer;
   transition: transform 180ms ease, filter 180ms ease, opacity 180ms ease;

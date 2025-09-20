@@ -112,7 +112,6 @@ const Left = styled.div<{ animate?: boolean }>`
   }
 
   &:hover img[alt='Macbook'] {
-    /* Minimal: thin outline following PNG alpha + very subtle glow */
     filter: saturate(1.02) brightness(1.01)
       drop-shadow(0 0 2px rgba(203, 172, 249, 1))
       drop-shadow(0 0 16px rgba(203, 172, 249, 0.35));
@@ -201,7 +200,6 @@ const MacbookOverlay = styled.div`
     filter 350ms cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
 
-  /* Gradient text shimmer like in About */
   background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
   background-size: 200% 100%;
   background-position: 0% 50%;
@@ -254,7 +252,6 @@ const CountriesOverlay = styled.div`
   will-change: transform, background-position, color;
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Gradient text shimmer like in About */
   background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
   background-size: 200% 100%;
   background-position: 0% 50%;
@@ -314,7 +311,6 @@ const StackTitle = styled.div`
   height: 70px;
   line-height: 38px;
 
-  /* Gradient text shimmer like in About */
   background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
   background-size: 200% 100%;
   background-position: 0% 50%;
@@ -427,7 +423,6 @@ const DevOverlay = styled.div`
     filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
 
-  /* Gradient text shimmer like in About */
   background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
   background-size: 200% 100%;
   background-position: 0% 50%;
@@ -524,7 +519,6 @@ const BtnOverlayText = styled.div`
   height: 58px;
   line-height: 1.2;
 
-  /* Gradient text shimmer like in About */
   background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
   background-size: 200% 100%;
   background-position: 0% 50%;
@@ -668,7 +662,6 @@ const CodeSubtitle = styled.div`
   height: 150px;
   line-height: 1.2;
 
-  /* Gradient text shimmer like in About */
   background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
   background-size: 200% 100%;
   background-position: 0% 50%;
@@ -692,7 +685,6 @@ export function Advantages() {
   const [shouldAnimate, setShouldAnimate] = useState(false)
 
   useEffect(() => {
-    // Trigger animation on mount
     setShouldAnimate(true)
   }, [])
 

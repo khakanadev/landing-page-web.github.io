@@ -39,7 +39,7 @@ const Title = styled.h1<{ animate?: boolean }>`
   font-size: 16px;
   line-height: 120%;
   color: #e4ecff;
-  letter-spacing: 0.25em; /* 25% */
+  letter-spacing: 0.25em;
   text-align: center;
 
   ${props => props.animate && css`
@@ -100,7 +100,6 @@ const CtaButton = styled.button<{ animate?: boolean }>`
   position: relative;
   overflow: hidden;
 
-  /* Vibrant gradient background with subtle movement */
   background: linear-gradient(135deg, #6C5DD3 0%, #CBACF9 50%, #6C5DD3 100%);
   background-size: 200% 200%;
   color: #FFFFFF;
@@ -114,7 +113,6 @@ const CtaButton = styled.button<{ animate?: boolean }>`
   transform: translateY(0);
   transition: transform 200ms ease, box-shadow 200ms ease, background-position 300ms ease;
 
-  /* soft glossy sheen */
   &::before {
     content: '';
     position: absolute;
@@ -141,7 +139,6 @@ const CtaButton = styled.button<{ animate?: boolean }>`
   &:active { transform: translateY(0); }
   &:focus-visible { outline: 2px solid rgba(203, 172, 249, 0.7); outline-offset: 3px; }
 
-  /* Arrow slide on hover */
   &:hover svg { transform: translateX(4px); opacity: 1; }
 
   ${props => props.animate && css`
@@ -156,7 +153,6 @@ export function MainHeader() {
   const [shouldAnimate, setShouldAnimate] = useState(false)
 
   useEffect(() => {
-    // Always trigger animation on mount (every page refresh)
     setShouldAnimate(true)
   }, [])
 
@@ -176,7 +172,7 @@ export function MainHeader() {
       <Headline animate={shouldAnimate}>
         Разрабатываю сайты, которые повышают <span>онлайн-продажи</span>
       </Headline>
-      <SubTitle animate={shouldAnimate}>Приветствую! Я Александр Хакана, веб-разработчик с опытом более двух лет</SubTitle>
+      <SubTitle animate={shouldAnimate}>Приветствую! Я Александр Хакана, веб-разработчик с опытом в сфере более двух лет</SubTitle>
       <CtaButton animate={shouldAnimate} onClick={scrollToProjects}>
         Посмотреть работы
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">

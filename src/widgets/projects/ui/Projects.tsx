@@ -35,7 +35,7 @@ const Title = styled.h2`
 
 const Grid = styled.div`
   margin-top: 50px;
-  width: 1240px; /* 600 + 600 + 40 gap */
+  width: 1240px;
   display: grid;
   grid-template-columns: 600px 600px;
   grid-template-rows: 678px 678px;
@@ -187,7 +187,6 @@ const ProjectLink = styled.a`
 
  
 
-// removed inner content components per new empty card design
 
 type ProjectsProps = { id?: string }
 
@@ -236,7 +235,7 @@ export function Projects({ id }: ProjectsProps) {
           <TextBlock>
             <ProjectTitle>Фитнес-пространство "FitnessArt"</ProjectTitle>
             <ProjectSubtitle>Современное фитнес-пространство с разнообразными тренировками и зонами для спорта.</ProjectSubtitle>
-            <ProjectLink href="#">
+            <ProjectLink href="https://fitness-art-antei.ru/tcz-antej/" target="_blank" rel="noopener noreferrer">
               Перейти на сайт
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 13L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>

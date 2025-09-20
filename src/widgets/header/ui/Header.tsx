@@ -86,7 +86,7 @@ const NavButton = styled.button<{ active?: boolean }>`
     height: 6px;
     border-radius: 50%;
     background: #FFFFFF;
-    opacity: 0; /* hidden: shared animated dot used */
+    opacity: 0;
     transition: opacity 0.15s ease;
   }
 `

@@ -73,7 +73,6 @@ const Card = styled.div`
     filter 280ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 200ms ease;
 
-  /* Tight, contour-following highlight */
   &::after {
     content: '';
     position: absolute;
@@ -165,7 +164,6 @@ const CardTitle = styled.div`
   will-change: auto;
   backface-visibility: hidden;
 
-  /* Gradient shimmer on hover of card (title only) */
   @keyframes titleShimmer {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }

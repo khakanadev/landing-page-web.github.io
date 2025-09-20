@@ -139,7 +139,6 @@ const CardTitle = styled.div`
   font-weight: 700;
   font-size: 26px;
   line-height: 1.2;
-  /* Prepare gradient text without revealing it until hover */
   background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
   background-size: 200% 100%;
   background-position: 0% 50%;
@@ -157,7 +156,7 @@ const CardTitle = styled.div`
   }
 
   ${Card}:hover & {
-    color: transparent; /* градиентный шиммер без изменения прозрачности слоя */
+    color: transparent;
     animation: titleShimmer 1.4s ease-in-out infinite;
   }
 `
