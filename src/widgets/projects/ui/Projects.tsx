@@ -21,31 +21,55 @@ const Title = styled.h2`
   padding: 80px 0 50px 0;
   font-family: Inter, sans-serif;
   font-weight: 700;
-  font-size: 48px;
+  font-size: clamp(24px, 4.5vw, 48px);
   line-height: 100%;
   color: #ffffff;
-  width: 900px;
-  height: 48px;
+  width: clamp(320px, 90vw, 900px);
+  height: auto;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   span {
     color: #CBACF9;
+  }
+
+  @media (max-width: 800px) {
+    padding: 60px 16px 40px 16px;
+    width: calc(100% - 32px);
+    font-size: clamp(20px, 5vw, 32px);
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+
+  @media (max-width: 480px) {
+    font-size: clamp(18px, 6vw, 24px);
   }
 `
 
 const Grid = styled.div`
   margin-top: 50px;
-  width: 1240px;
+  width: clamp(800px, 95vw, 1240px);
   display: grid;
-  grid-template-columns: 600px 600px;
-  grid-template-rows: 678px 678px;
-  gap: 40px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 3vw, 40px);
+
+  @media (max-width: 800px) {
+    width: calc(100% - 32px);
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
 `
 
 const Card = styled.div`
   position: relative;
-  width: 600px;
-  height: 678px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 600 / 678;
   border-radius: 16px;
   overflow: visible;
   border: 0.1px solid #242938;
@@ -61,6 +85,11 @@ const Card = styled.div`
     box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 280ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 200ms ease;
+
+  @media (max-width: 800px) {
+    aspect-ratio: unset;
+    height: auto;
+  }
 
   &::after {
     content: '';
@@ -84,25 +113,21 @@ const Card = styled.div`
 `
 
 const VideoPlaceholder = styled.div`
-  width: 552px;
-  height: 360px;
-  margin: 48px 2px 0 2px;
+  width: 92%;
+  aspect-ratio: 552 / 360;
+  margin: clamp(28px, 4vw, 48px) 2px 0 2px;
   border-radius: 8px;
   background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 50%, rgba(15, 52, 96, 0.95) 100%);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 6px 18px rgba(0,0,0,0.25);
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
-  min-width: 552px;
-  max-width: 552px;
-  min-height: 360px;
-  max-height: 360px;
   flex: 0 0 auto;
 `
 
 const Video = styled.video`
-  width: 450px;
-  height: calc(100% - 25px);
+  width: 81.5%;
+  height: calc(100% - clamp(12px, 2vw, 25px));
   position: absolute;
   left: 50%;
   bottom: 0;
@@ -120,8 +145,8 @@ const Video = styled.video`
 `
 
 const TextBlock = styled.div`
-  width: 552px;
-  margin: 36px 2px 30px 2px;
+  width: 92%;
+  margin: clamp(22px, 3.2vw, 36px) 2px clamp(18px, 2.6vw, 30px) 2px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -131,7 +156,7 @@ const TextBlock = styled.div`
 const ProjectTitle = styled.div`
   font-family: Inter, sans-serif;
   font-weight: 700;
-  font-size: 32px;
+  font-size: clamp(20px, 2.6vw, 32px);
   line-height: 1.1;
   color: #FFFFFF;
   background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
@@ -160,7 +185,7 @@ const ProjectSubtitle = styled.div`
   margin-top: 18px;
   font-family: Inter, sans-serif;
   font-weight: 400;
-  font-size: 20px;
+  font-size: clamp(13px, 1.6vw, 20px);
   line-height: 1.3;
   color: #BEC1DD;
 `
@@ -173,7 +198,7 @@ const ProjectLink = styled.a`
   align-self: flex-end;
   font-family: Inter, sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: clamp(13px, 1.6vw, 20px);
   color: #CBACF9;
   text-decoration: none;
   cursor: pointer;
@@ -233,7 +258,7 @@ export function Projects({ id }: ProjectsProps) {
             />
           </VideoPlaceholder>
           <TextBlock>
-            <ProjectTitle>Фитнес-пространство "FitnessArt"</ProjectTitle>
+            <ProjectTitle>Проект "FitnessArt"</ProjectTitle>
             <ProjectSubtitle>Современное фитнес-пространство с разнообразными тренировками и зонами для спорта.</ProjectSubtitle>
             <ProjectLink href="https://fitness-art-antei.ru/tcz-antej/" target="_blank" rel="noopener noreferrer">
               Перейти на сайт
