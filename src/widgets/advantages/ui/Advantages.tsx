@@ -1,12 +1,18 @@
 import styled, { keyframes, css } from 'styled-components'
 import { useEffect, useState } from 'react'
 import macbook from '../../../assets/macbook.png'
+import macbookAd from '../../../assets/macbook-ad.png'
 import countries from '../../../assets/countries.png'
+import countriesAd from '../../../assets/countries-ad.png'
 import stack from '../../../assets/stack.png'
+import stackAd from '../../../assets/stack-ad.png'
 import gridPattern from '../../../assets/grid-pattern.png'
 import development from '../../../assets/development.png'
+import developmentAd from '../../../assets/development-ad.png'
 import button from '../../../assets/button.png'
+import buttonAd from '../../../assets/button-ad.png'
 import code from '../../../assets/code.png'
+import codeAd from '../../../assets/code-ad.png'
 import bg from '../../../assets/bg.png'
 
 const fadeSlideUp = keyframes`
@@ -41,6 +47,16 @@ const Root = styled.section`
   overflow: hidden;
   height: 1175px;
   background: #000319;
+
+  @media (max-width: 1300px) {
+    height: auto;
+    padding-top: 30px;
+    padding-bottom: 60px;
+  }
+  @media (max-width: 450px) {
+    margin-top: 120px;
+    padding-top: 16px;
+  }
 `
 
 const Background = styled.div`
@@ -77,16 +93,26 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+
+  @media (max-width: 1300px) {
+    padding-top: 40px;
+  }
 `
 
 const Container = styled.div`
-  width: 1280px;
+  width: min(1280px, 92vw);
   display: grid;
-  grid-template-columns: 694px 521px;
-  column-gap: 30px;
+  grid-template-columns: 55.8% 41.8%;
+  column-gap: clamp(16px, 2.34vw, 30px);
   row-gap: 0;
   align-items: start;
   justify-content: center;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+    & > * { margin: 0; }
+  }
 `
 
 const Left = styled.div<{ animate?: boolean }>`
@@ -96,6 +122,7 @@ const Left = styled.div<{ animate?: boolean }>`
   position: relative;
   height: 541px;
   border-radius: 12px;
+  aspect-ratio: 694 / 541;
   
   &::after {
     content: '';
@@ -133,6 +160,21 @@ const Left = styled.div<{ animate?: boolean }>`
     box-shadow: 0 0 22px rgba(203, 172, 249, 0.5), 0 10px 22px rgba(108, 93, 211, 0.38);
     transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
   }
+
+  @media (max-width: 800px) {
+    &:hover::after {
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
+
+  @media (max-width: 1300px) {
+    height: auto;
+    min-height: 0;
+  }
+  @media (max-width: 800px) {
+    order: 1;
+  }
 `
 
 const Right = styled.div<{ animate?: boolean }>`
@@ -147,6 +189,12 @@ const Right = styled.div<{ animate?: boolean }>`
     animation: ${fadeSlideUp} 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     animation-delay: 400ms;
   `}
+
+  @media (max-width: 800px) {
+    order: 2;
+    width: 100%;
+    row-gap: 24px;
+  }
 `
 
 const Card = styled.div`
@@ -183,16 +231,26 @@ const Card = styled.div`
     box-shadow: 0 0 18px rgba(203, 172, 249, 0.35), 0 6px 14px rgba(108, 93, 211, 0.28);
     transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
   }
+
+  @media (max-width: 800px) {
+    &:hover::after {
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
+
+  @media (max-width: 800px) {
+    width: 100%;
+  }
 `
 
 const MacbookImg = styled.img`
-  width: 694px;
-  height: 541px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   display: block;
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   z-index: 1;
   transform-origin: center;
   will-change: transform, filter;
@@ -200,53 +258,30 @@ const MacbookImg = styled.img`
     filter 350ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 250ms ease;
   border-radius: 12px;
-  pointer-events: none;
-`
+  pointer-events: auto;
 
-const MacbookFrame = styled.div``
-
-const MacbookOverlay = styled.div`
-  position: absolute;
-  left: 50px;
-  bottom: 70px;
-  width: 393px;
-  height: 114px;
-  color: #ffffff;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 1.2;
-  letter-spacing: 0;
-  text-align: left;
-  z-index: 2;
-  transform-origin: center;
-  will-change: transform, filter;
-  transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 350ms cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-
-  background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
-  background-size: 200% 100%;
-  background-position: 0% 50%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  will-change: background-position, color;
-
-  @keyframes titleShimmer {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  ${Left}:hover & {
-    color: transparent;
-    animation: titleShimmer 1.4s ease-in-out infinite;
+  @media (max-width: 1300px) {
+    position: absolute;
   }
 `
+
+const MacbookFrame = styled.div`
+  @media (max-width: 1300px) {
+    display: none;
+  }
+`
+
+const ResponsivePicture = styled.picture`
+  display: block;
+  line-height: 0;
+  width: 100%;
+`
+
+const MacbookOverlay = styled.div``
 
 const SmallImg = styled.img`
-  width: 521px;
-  height: 255.5px;
+  width: 100%;
+  height: auto;
   object-fit: cover;
   display: block;
   border-radius: 15px;
@@ -262,39 +297,7 @@ const SmallImg = styled.img`
   }
 `
 
-const CountriesOverlay = styled.div`
-  position: absolute;
-  left: 30px;
-  top: 30px;
-  width: 370px;
-  height: 72px;
-  color: #ffffff;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 30px;
-  line-height: 1.2;
-  transform-origin: center;
-  will-change: transform, background-position, color;
-  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
-
-  background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
-  background-size: 200% 100%;
-  background-position: 0% 50%;
-  -webkit-background-clip: text;
-  background-clip: text;
-
-  @keyframes titleShimmer {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  ${Card}:hover & {
-    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
-    color: transparent;
-    animation: titleShimmer 1.4s ease-in-out infinite;
-  }
-`
+const CountriesOverlay = styled.div``
 
 const StackOverlay = styled.div`
   position: absolute;
@@ -317,50 +320,16 @@ const StackOverlayInner = styled.div`
   gap: 5px;
 `
 
-const StackSubtitle = styled.div`
-  color: #c1c2d3;
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  width: 190px;
-  height: 17px;
-  line-height: 17px;
-`
+const StackSubtitle = styled.div``
 
-const StackTitle = styled.div`
-  color: #ffffff;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 30px;
-  width: 300px;
-  height: 70px;
-  line-height: 38px;
-
-  background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
-  background-size: 200% 100%;
-  background-position: 0% 50%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  will-change: background-position, color;
-
-  @keyframes titleShimmer {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  ${Card}:hover & {
-    color: transparent;
-    animation: titleShimmer 1.4s ease-in-out infinite;
-  }
-`
+const StackTitle = styled.div``
 
 const Row2 = styled.div<{ animate?: boolean }>`
-  width: 1280px;
+  width: min(1280px, 92vw);
   margin-top: 30px;
   display: grid;
-  grid-template-columns: 351px 859px;
-  column-gap: 30px;
+  grid-template-columns: 28.3% 69.3%;
+  column-gap: clamp(16px, 2.34vw, 30px);
   align-items: start;
   justify-content: center;
 
@@ -369,21 +338,35 @@ const Row2 = styled.div<{ animate?: boolean }>`
     animation: ${fadeSlideUp} 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     animation-delay: 600ms;
   `}
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+  }
 `
 
 const Left2 = styled.div`
   display: grid;
   grid-template-rows: auto auto;
   row-gap: 30px;
+
+  @media (max-width: 800px) {
+    order: 2;
+    row-gap: 24px;
+  }
 `
 
 const Right2 = styled.div`
   display: block;
+
+  @media (max-width: 800px) {
+    order: 1;
+  }
 `
 
 const DevImg = styled.img`
-  width: 351px;
-  height: 180px;
+  width: 100%;
+  height: auto;
   object-fit: cover;
   display: block;
   transform-origin: center;
@@ -402,9 +385,10 @@ const DevImg = styled.img`
 const DevCard = styled.div`
   position: relative;
   display: block;
-  width: 351px;
-  height: 180px;
+  width: 100%;
+  height: auto;
   border-radius: 12px;
+  margin: 0;
 
   &::after {
     content: '';
@@ -429,43 +413,24 @@ const DevCard = styled.div`
     border-color: rgba(203, 172, 249, 0.6);
     box-shadow: 0 0 18px rgba(203, 172, 249, 0.35), 0 6px 14px rgba(108, 93, 211, 0.28);
   }
-`
 
-const DevOverlay = styled.div`
-  position: absolute;
-  left: 30px;
-  top: 29px;
-  width: 301px;
-  height: 58px;
-  color: #ffffff;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 1.2;
-  transform-origin: center;
-  will-change: transform, filter;
-  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-
-  background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
-  background-size: 200% 100%;
-  background-position: 0% 50%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  will-change: background-position, color;
-
-  ${DevCard}:hover & {
-    color: transparent;
-    animation: titleShimmer 1.4s ease-in-out infinite;
+  @media (max-width: 800px) {
+    &:hover::after {
+      border-color: transparent;
+      box-shadow: none;
+    }
   }
 `
 
+const DevOverlay = styled.div``
+
 const BtnImg = styled.img`
-  width: 351px;
-  height: 180px;
+  width: 100%;
+  height: auto;
   object-fit: cover;
+  object-position: top;
   display: block;
+  margin: 0;
   transform-origin: center;
   will-change: transform, filter;
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -482,9 +447,12 @@ const BtnImg = styled.img`
 const BtnCard = styled.div`
   position: relative;
   display: block;
-  width: 351px;
-  height: 180px;
+  width: 100%;
+  height: auto;
   border-radius: 20px;
+  z-index: 1;
+  overflow: hidden;
+  margin: 0;
 
   &::after {
     content: '';
@@ -509,6 +477,13 @@ const BtnCard = styled.div`
     border-color: rgba(203, 172, 249, 0.6);
     box-shadow: 0 0 18px rgba(203, 172, 249, 0.35), 0 6px 14px rgba(108, 93, 211, 0.28);
   }
+
+  @media (max-width: 800px) {
+    &:hover::after {
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
 `
 
 const BtnOverlay = styled.div`
@@ -523,6 +498,22 @@ const BtnOverlay = styled.div`
   text-align: center;
   transform-origin: center;
   pointer-events: none;
+
+  @media (max-width: 1300px) {
+    width: min(291px, 65%);
+  }
+  @media (max-width: 800px) {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    transform: translate(-50%, -54%) translateY(20px);
+    width: min(320px, 90%);
+  }
+  @media (max-width: 450px) {
+    top: 50%;
+    transform: translate(-50%, -50%) translateY(8px);
+    width: min(78vw, 280px);
+  }
 `
 
 const BtnOverlayInner = styled.div`
@@ -535,41 +526,22 @@ const BtnOverlayInner = styled.div`
   align-items: center;
 `
 
-const BtnOverlayText = styled.div`
-  color: #ffffff;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 24px;
-  width: 300px;
-  height: 58px;
-  line-height: 1.2;
-
-  background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
-  background-size: 200% 100%;
-  background-position: 0% 50%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  will-change: background-position, color;
-
-  ${BtnCard}:hover & {
-    color: transparent;
-    animation: titleShimmer 1.4s ease-in-out infinite;
-  }
-`
+const BtnOverlayText = styled.div``
 
 const BtnOverlayCta = styled.button`
-  margin-top: 14px;
+  margin: 56px 0 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 12px 18px;
+  padding: 12px 22px;
   border-radius: 14px;
   border: 0;
   cursor: pointer;
   position: relative;
   overflow: hidden;
   pointer-events: auto;
+  box-sizing: border-box;
 
   background: linear-gradient(135deg, #6C5DD3 0%, #CBACF9 50%, #6C5DD3 100%);
   background-size: 200% 200%;
@@ -606,11 +578,26 @@ const BtnOverlayCta = styled.button`
   &:hover::before { transform: rotate(20deg) translateX(40%); opacity: 0.8; }
   &:active { transform: translateY(0); }
   &:focus-visible { outline: 2px solid rgba(203, 172, 249, 0.7); outline-offset: 3px; }
+
+  @media (max-width: 1000px) and (min-width: 801px) {
+    width: calc(25vw - 50px);
+  }
+  @media (max-width: 800px) {
+    padding: 14px 24px;
+    width: 200px;
+  }
+  @media (max-width: 450px) {
+    margin-top: 28px;
+    font-size: clamp(13px, 4vw, 15px);
+    padding: 12px clamp(16px, 6vw, 22px);
+    border-radius: 12px;
+    width: 150px;
+  }
 `
 
 const CodeImg = styled.img`
-  width: 859px;
-  height: 390px;
+  width: 100%;
+  height: auto;
   object-fit: cover;
   display: block;
   transform-origin: center;
@@ -630,9 +617,10 @@ const CodeImg = styled.img`
 const CodeCard = styled.div`
   position: relative;
   display: block;
-  width: 859px;
-  height: 390px;
+  width: 100%;
+  height: auto;
   border-radius: 18px;
+  margin: 0;
 
   &:hover img,
   &:hover div[data-code-overlay-inner] {
@@ -645,16 +633,30 @@ const CodeCard = styled.div`
   &:hover img {
     box-shadow: 0 0 0 1.5px rgba(203, 172, 249, 0.6), 0 0 18px rgba(203, 172, 249, 0.35), 0 6px 14px rgba(108, 93, 211, 0.28);
   }
+
+  @media (max-width: 800px) {
+    &:hover img {
+      box-shadow: none;
+    }
+  }
 `
 
 const CodeOverlay = styled.div`
   position: absolute;
+  inset: 0;
   left: 30px;
-  top: 0;
-  height: 390px;
   display: flex;
   align-items: center;
   pointer-events: none;
+
+  @media (max-width: 1300px) {
+    left: 20px;
+  }
+  @media (max-width: 800px) {
+    position: relative;
+    left: 0;
+    padding: 0;
+  }
 `
 
 const CodeOverlayInner = styled.div`
@@ -668,43 +670,18 @@ const CodeOverlayInner = styled.div`
   gap: 10px;
   position: relative;
   top: -35px;
-`
 
-const CodeTitle = styled.div`
-  color: #e4ecff;
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.2;
-`
-
-const CodeSubtitle = styled.div`
-  color: #ffffff;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 32px;
-  width: 311px;
-  height: 150px;
-  line-height: 1.2;
-
-  background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
-  background-size: 200% 100%;
-  background-position: 0% 50%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  will-change: background-position, color;
-
-  ${CodeCard}:hover & {
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-    display: inline;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-    animation: titleShimmer 1.4s ease-in-out infinite;
+  @media (max-width: 1300px) {
+    top: -20px;
+  }
+  @media (max-width: 800px) {
+    top: 0;
   }
 `
+
+const CodeTitle = styled.div``
+
+const CodeSubtitle = styled.div``
 
 export function Advantages() {
   const [shouldAnimate, setShouldAnimate] = useState(false)
@@ -720,28 +697,37 @@ export function Advantages() {
       <Content>
         <Container>
           <Left animate={shouldAnimate}>
-            <MacbookImg src={macbook} alt="Macbook" />
+            <ResponsivePicture>
+              <source media="(max-width: 800px)" srcSet={`${macbookAd} 1x, ${macbook} 2x`} />
+              <MacbookImg src={macbook} alt="Macbook" />
+            </ResponsivePicture>
             <MacbookFrame />
             <MacbookOverlay data-macbook-overlay>
-              Уникальный дизайн в Figma, а не шаблоны с конструкторов
+              
             </MacbookOverlay>
           </Left>
           <Right animate={shouldAnimate}>
             <Card>
-              <SmallImg src={countries} alt="Countries" />
+              <ResponsivePicture>
+                <source media="(max-width: 800px)" srcSet={`${countriesAd} 1x, ${countries} 2x`} />
+                <SmallImg src={countries} alt="Countries" />
+              </ResponsivePicture>
               <CountriesOverlay data-countries-overlay>
-                Ответственный подход к каждому проекту
+                
               </CountriesOverlay>
             </Card>
             <Card>
-              <SmallImg src={stack} alt="Stack" />
+              <ResponsivePicture>
+                <source media="(max-width: 800px)" srcSet={`${stackAd} 1x, ${stack} 2x`} />
+                <SmallImg src={stack} alt="Stack" />
+              </ResponsivePicture>
               <StackOverlay>
                 <StackOverlayInner data-stack-overlay-inner>
                   <StackSubtitle>
-                    Всё для веб-сайта
+                    
                   </StackSubtitle>
                   <StackTitle>
-                    Используемые технологии
+                    
                   </StackTitle>
                 </StackOverlayInner>
               </StackOverlay>
@@ -751,29 +737,38 @@ export function Advantages() {
         <Row2 animate={shouldAnimate}>
           <Left2>
             <DevCard>
-              <DevImg src={development} alt="Development" />
+              <ResponsivePicture>
+                <source media="(max-width: 800px)" srcSet={`${developmentAd} 1x, ${development} 2x`} />
+                <DevImg src={development} alt="Development" />
+              </ResponsivePicture>
               <DevOverlay data-dev-overlay>
-                Полная адаптивность под любые устройства
+                
               </DevOverlay>
             </DevCard>
             <BtnCard>
-              <BtnImg src={button} alt="Button" />
+              <ResponsivePicture>
+                <source media="(max-width: 800px)" srcSet={`${buttonAd} 1x, ${button} 2x`} />
+                <BtnImg src={button} alt="Button" />
+              </ResponsivePicture>
               <BtnOverlay>
                 <BtnOverlayInner data-button-overlay-inner>
-                  <BtnOverlayText>Начнем разработку сайта уже сегодня?</BtnOverlayText>
-                  <BtnOverlayCta as="a" href="https://t.me/khakanadev" target="_blank" rel="noopener noreferrer">Заказать!</BtnOverlayCta>
+                  <BtnOverlayText></BtnOverlayText>
+                  <BtnOverlayCta as="a" href="https://t.me/khakanadev" target="_blank" rel="noopener noreferrer">Заказать</BtnOverlayCta>
                 </BtnOverlayInner>
               </BtnOverlay>
             </BtnCard>
           </Left2>
           <Right2>
             <CodeCard>
-              <CodeImg src={code} alt="Code" />
+              <ResponsivePicture>
+                <source media="(max-width: 800px)" srcSet={`${codeAd} 1x, ${code} 2x`} />
+                <CodeImg src={code} alt="Code" />
+              </ResponsivePicture>
               <CodeOverlay>
                 <CodeOverlayInner data-code-overlay-inner>
-                  <CodeTitle>Гарантия качества</CodeTitle>
+                  <CodeTitle></CodeTitle>
                   <CodeSubtitle>
-                    Делаю проекты, которые работают стабильно и без ошибок
+                    
                   </CodeSubtitle>
                 </CodeOverlayInner>
               </CodeOverlay>

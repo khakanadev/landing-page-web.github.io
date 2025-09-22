@@ -197,7 +197,7 @@ export function MainHeader() {
       <Title animate={shouldAnimate}>Современные сайты и приложения на React</Title>
       <Headline animate={shouldAnimate}>
         Разрабатываю сайты, которые повышают <ForcedBreak />
-        <span>онлайн-продажи</span>
+        <span>онлайн продажи</span>
       </Headline>
       <SubTitle animate={shouldAnimate}>Приветствую! Я Александр Хакана, веб-разработчик с опытом в сфере более двух лет</SubTitle>
       <CtaButton animate={shouldAnimate} onClick={scrollToProjects}>
