@@ -7,7 +7,7 @@ const Root = styled.section`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 123px;
+  margin-top: clamp(56px, 15.375vw, 123px);
 `
 
 const fadeSlideUp = keyframes`
@@ -42,6 +42,15 @@ const Title = styled.h1<{ animate?: boolean }>`
   letter-spacing: 0.25em;
   text-align: center;
 
+  @media (max-width: 700px) {
+    font-size: clamp(12px, 2.29vw, 16px);
+  }
+
+  @media (max-width: 400px) {
+    white-space: nowrap;
+    font-size: clamp(10px, 3.2vw, 12px);
+  }
+
   ${props => props.animate && css`
     opacity: 0;
     animation: ${fadeSlideUp} 600ms ease forwards;
@@ -53,12 +62,13 @@ const Headline = styled.h2<{ animate?: boolean }>`
   margin: 22px 0 0;
   font-family: Inter, sans-serif;
   font-weight: 700;
-  font-size: 72px;
+  font-size: clamp(36px, 8vw, 72px);
   line-height: 100%;
   letter-spacing: -3.6px;
   color: #ffffff;
-  width: 1100px;
-  height: 144px;
+  width: 100%;
+  max-width: 1100px;
+  padding: 0 16px;
   text-align: center;
 
   span {
@@ -76,9 +86,11 @@ const SubTitle = styled.p<{ animate?: boolean }>`
   margin: 30px 0 0;
   font-family: Inter, sans-serif;
   font-weight: 300;
-  font-size: 24px;
+  font-size: clamp(14px, 2.4vw, 24px);
   color: #e4ecff;
   text-align: center;
+  padding: 0 16px;
+  white-space: normal;
 
   ${props => props.animate && css`
     opacity: 0;
@@ -146,6 +158,20 @@ const CtaButton = styled.button<{ animate?: boolean }>`
     animation: ${fadeSlideUp} 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     animation-delay: 900ms;
   `}
+
+  @media (max-width: 800px) {
+    align-self: stretch;
+    width: calc(100% - 32px);
+    margin: 30px 16px 0;
+  }
+`
+
+const ForcedBreak = styled.br`
+  display: none;
+
+  @media (max-width: 1047px) {
+    display: initial;
+  }
 `
 
 
@@ -170,7 +196,8 @@ export function MainHeader() {
     <Root>
       <Title animate={shouldAnimate}>Современные сайты и приложения на React</Title>
       <Headline animate={shouldAnimate}>
-        Разрабатываю сайты, которые повышают <span>онлайн-продажи</span>
+        Разрабатываю сайты, которые повышают <ForcedBreak />
+        <span>онлайн-продажи</span>
       </Headline>
       <SubTitle animate={shouldAnimate}>Приветствую! Я Александр Хакана, веб-разработчик с опытом в сфере более двух лет</SubTitle>
       <CtaButton animate={shouldAnimate} onClick={scrollToProjects}>

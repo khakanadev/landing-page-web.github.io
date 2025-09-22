@@ -8,6 +8,10 @@ const Root = styled.header`
   top: 0;
   z-index: 5;
   height: 116px; 
+
+  @media (max-width: 500px) {
+    height: calc(116px * (100vw / 500));
+  }
 `
 
 const Container = styled.div`
@@ -32,6 +36,13 @@ const Nav = styled.nav`
   transform: translateX(-50%);
   z-index: 1000;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+
+  @media (max-width: 500px) {
+    width: min(92vw, 451px);
+    height: calc(66px * (100vw / 500));
+    border-radius: calc(13px * (100vw / 500));
+    top: calc(16px * (100vw / 500));
+  }
 `
 
 const StrokeOuter = styled.div`
@@ -46,6 +57,10 @@ const StrokeOuter = styled.div`
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+
+  @media (max-width: 500px) {
+    border-radius: calc(13px * (100vw / 500));
+  }
 `
 
 const shimmer = keyframes`
@@ -89,6 +104,15 @@ const NavButton = styled.button<{ active?: boolean }>`
     opacity: 0;
     transition: opacity 0.15s ease;
   }
+
+  @media (max-width: 500px) {
+    font-size: calc(16px * (100vw / 500));
+    &::after {
+      bottom: calc(-10px * (100vw / 500));
+      width: calc(6px * (100vw / 500));
+      height: calc(6px * (100vw / 500));
+    }
+  }
 `
 
 const ActiveDot = styled.div<{ $visible: boolean; $x: number }>`
@@ -104,6 +128,12 @@ const ActiveDot = styled.div<{ $visible: boolean; $x: number }>`
   opacity: ${({ $visible }) => ($visible ? 1 : 0)};
   pointer-events: none;
   will-change: transform, opacity;
+
+  @media (max-width: 500px) {
+    bottom: calc(10px * (100vw / 500));
+    width: calc(6px * (100vw / 500));
+    height: calc(6px * (100vw / 500));
+  }
 `
 
 export function Header() {
