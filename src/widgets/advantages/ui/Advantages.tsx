@@ -97,6 +97,22 @@ const Left = styled.div<{ animate?: boolean }>`
   height: 541px;
   border-radius: 12px;
   
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 1px;
+    bottom: -1px;
+    left: 0px;
+    border-radius: 25px;
+    border: 1.5px solid transparent;
+    box-shadow: 0 0 0 0 rgba(203, 172, 249, 0);
+    transform-origin: center;
+    will-change: transform, box-shadow, border-color;
+    transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1), border-color 250ms ease, box-shadow 250ms ease;
+    pointer-events: none;
+  }
+  
   ${props => props.animate && css`
     opacity: 0;
     animation: ${fadeInScale} 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
@@ -106,15 +122,16 @@ const Left = styled.div<{ animate?: boolean }>`
   &:hover img[alt='Macbook'],
   &:hover div[data-macbook-overlay] {
     transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
-    filter: saturate(1.03) brightness(1.02)
-      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
-      drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
   }
 
   &:hover img[alt='Macbook'] {
-    filter: saturate(1.02) brightness(1.01)
-      drop-shadow(0 0 2px rgba(203, 172, 249, 1))
-      drop-shadow(0 0 16px rgba(203, 172, 249, 0.35));
+    filter: none;
+  }
+
+  &:hover::after {
+    border-color: rgba(203, 172, 249, 0.85);
+    box-shadow: 0 0 22px rgba(203, 172, 249, 0.5), 0 10px 22px rgba(108, 93, 211, 0.38);
+    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
   }
 `
 
@@ -123,7 +140,7 @@ const Right = styled.div<{ animate?: boolean }>`
   grid-template-rows: auto auto;
   row-gap: 30px;
   justify-items: start;
-  margin-top: 77px;
+  margin-top: 0px;
 
   ${props => props.animate && css`
     opacity: 0;
@@ -135,7 +152,7 @@ const Right = styled.div<{ animate?: boolean }>`
 const Card = styled.div`
   display: block;
   position: relative;
-  border-radius: 12px;
+  border-radius: 20px;
 
   &::after {
     content: '';
@@ -143,11 +160,13 @@ const Card = styled.div`
     top: 0;
     right: 0;
     bottom: 0;
-    left: -3px; 
-    border-radius: 12px;
+    left: -1px; 
+    border-radius: 23px;
     border: 1.5px solid transparent;
     box-shadow: 0 0 0 0 rgba(203, 172, 249, 0);
-    transition: border-color 250ms ease, box-shadow 250ms ease;
+    transform-origin: center;
+    will-change: transform, border-color, box-shadow;
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), border-color 250ms ease, box-shadow 250ms ease;
     pointer-events: none;
   }
 
@@ -162,29 +181,34 @@ const Card = styled.div`
   &:hover::after {
     border-color: rgba(203, 172, 249, 0.6);
     box-shadow: 0 0 18px rgba(203, 172, 249, 0.35), 0 6px 14px rgba(108, 93, 211, 0.28);
+    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
   }
 `
 
 const MacbookImg = styled.img`
   width: 694px;
-  height: 695px;
+  height: 541px;
   object-fit: contain;
   display: block;
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
   transform-origin: center;
   will-change: transform, filter;
   transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 350ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 250ms ease;
   border-radius: 12px;
+  pointer-events: none;
 `
+
+const MacbookFrame = styled.div``
 
 const MacbookOverlay = styled.div`
   position: absolute;
   left: 50px;
-  bottom: 10px;
+  bottom: 70px;
   width: 393px;
   height: 114px;
   color: #ffffff;
@@ -194,6 +218,7 @@ const MacbookOverlay = styled.div`
   line-height: 1.2;
   letter-spacing: 0;
   text-align: left;
+  z-index: 2;
   transform-origin: center;
   will-change: transform, filter;
   transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -224,11 +249,11 @@ const SmallImg = styled.img`
   height: 255.5px;
   object-fit: cover;
   display: block;
+  border-radius: 15px;
   transform-origin: center;
   will-change: transform, filter;
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  border-radius: 12px;
   &:hover {
     transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
     filter: saturate(1.03) brightness(1.02)
@@ -445,7 +470,7 @@ const BtnImg = styled.img`
   will-change: transform, filter;
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  border-radius: 12px;
+  border-radius: 20px;
   &:hover {
     transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
     filter: saturate(1.03) brightness(1.02)
@@ -459,13 +484,13 @@ const BtnCard = styled.div`
   display: block;
   width: 351px;
   height: 180px;
-  border-radius: 12px;
+  border-radius: 20px;
 
   &::after {
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: 12px;
+    border-radius: 20px;
     border: 1.5px solid transparent;
     box-shadow: 0 0 0 0 rgba(203, 172, 249, 0);
     transition: border-color 250ms ease, box-shadow 250ms ease;
@@ -696,6 +721,7 @@ export function Advantages() {
         <Container>
           <Left animate={shouldAnimate}>
             <MacbookImg src={macbook} alt="Macbook" />
+            <MacbookFrame />
             <MacbookOverlay data-macbook-overlay>
               Уникальный дизайн в Figma, а не шаблоны с конструкторов
             </MacbookOverlay>
