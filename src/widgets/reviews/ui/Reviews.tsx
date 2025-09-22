@@ -145,10 +145,39 @@ export function Reviews({ id }: ReviewsProps) {
           >
             {[reviews[count - 1], ...reviews, reviews[0]].map((r, i) => {
               const realIdx = i - 1
-              const isActive = realIdx === (index < 0 ? maxIndex : index > maxIndex ? 0 : index)
+              const activeIdx = (index < 0 ? maxIndex : index > maxIndex ? 0 : index)
+              const isActive = realIdx === activeIdx
+
+              // Circular delta between current slide and active slide
+              let delta = realIdx - activeIdx
+              if (delta > count / 2) delta -= count
+              if (delta < -count / 2) delta += count
+              // Limit influence distance
+              const clamped = Math.max(-2, Math.min(2, delta))
+
+              // Derive 3D coverflow transforms
+              const angle = clamped === 0 ? 0 : (clamped < 0 ? 24 : -24)
+              const depth = clamped === 0 ? 140 : clamped === -1 || clamped === 1 ? 60 : 20
+              const scale = clamped === 0 ? 1 : clamped === -1 || clamped === 1 ? 0.9 : 0.82
+              const opacity = clamped === 0 ? 1 : clamped === -1 || clamped === 1 ? 0.85 : 0.5
+              const zIndex = clamped === 0 ? 30 : clamped === -1 || clamped === 1 ? 20 : 10
+
               return (
-                <Slide key={`${r.id}-${i}`} data-active={isActive}>
-                  <SlideInner>
+                <Slide
+                  key={`${r.id}-${i}`}
+                  data-active={isActive}
+                  style={{
+                    zIndex,
+                    filter: isActive ? 'drop-shadow(0 18px 40px rgba(203,172,249,0.25))' : 'drop-shadow(0 10px 26px rgba(0,0,0,0.35))'
+                  }}
+                >
+                  <SlideInner
+                    $instant={isInstant}
+                    style={{
+                      transform: `translateZ(${depth}px) rotateY(${angle}deg) scale(${scale})`,
+                      opacity
+                    }}
+                  >
                     <ReviewText>{r.text}</ReviewText>
                     <Reviewer>
                       <Avatar>{getInitials(r.name)}</Avatar>
@@ -216,6 +245,8 @@ const Frame = styled.div`
   position: relative;
   contain: layout paint;
   border-radius: 20px;
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
 `
 
 const Track = styled.div<{ $instant?: boolean }>`
@@ -226,15 +257,18 @@ const Track = styled.div<{ $instant?: boolean }>`
   width: max-content;
   will-change: transform;
   transition: ${({ $instant }) => ($instant ? 'none' : 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1)')};
+  transform-style: preserve-3d;
 `
 
 
-const Slide = styled.div`
+const Slide = styled.div<{ $instant?: boolean }>`
   position: relative;
   width: 910px;
   height: 300px;
   flex: 0 0 auto;
   border-radius: 20px;
+  overflow: hidden;
+  transition: ${({ $instant }) => ($instant ? 'none' : 'filter 320ms ease')};
   
   &::before {
     content: '';
@@ -250,7 +284,7 @@ const Slide = styled.div`
   &::after {
     content: '';
     position: absolute;
-    inset: 1px;
+    inset: 1px 1px 7px 1px;
     border-radius: 19px;
     background: linear-gradient(135deg, #04071D 0%, #0C0E23 100%);
     z-index: 1;
@@ -273,7 +307,7 @@ const Slide = styled.div`
 `
 
 
-const SlideInner = styled.div`
+const SlideInner = styled.div<{ $instant?: boolean }>`
   position: absolute;
   inset: 0;
   padding: 30px 36px; 
@@ -282,6 +316,9 @@ const SlideInner = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   z-index: 2;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+  transition: ${({ $instant }) => ($instant ? 'none' : 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 320ms ease')};
 `
 
 const ReviewText = styled.div`
