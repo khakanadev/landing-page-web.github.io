@@ -13,6 +13,15 @@ const Root = styled.section`
   align-items: flex-start;
   justify-content: center;
   scroll-margin-top: 100px;
+
+  @media (max-width: 1300px) and (min-width: 801px) {
+    /* slightly reduce bottom space on medium screens */
+    padding-bottom: calc(70px + (100 - 70) * ((100vw - 800px) / 500));
+  }
+
+  @media (max-width: 800px) {
+    padding-bottom: 60px;
+  }
 `
 
 const Inner = styled.div`
@@ -21,6 +30,10 @@ const Inner = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+
+  @media (max-width: 800px) {
+    padding: 0 16px;
+  }
 `
 
 const Title = styled.h2`
@@ -32,6 +45,21 @@ const Title = styled.h2`
   line-height: 100%;
   color: #ffffff;
   text-align: center;
+
+  @media (max-width: 1300px) and (min-width: 801px) {
+    margin-top: calc(80px + (120 - 80) * ((100vw - 800px) / 500));
+    font-size: calc(38px + (48 - 38) * ((100vw - 800px) / 500));
+  }
+
+  @media (max-width: 800px) {
+    margin-top: 56px;
+    font-size: 34px;
+  }
+
+  @media (max-width: 500px) {
+    white-space: nowrap;
+    font-size: clamp(18px, 7.2vw, 34px);
+  }
 
   span {
     color: #CBACF9;
@@ -46,6 +74,25 @@ const Grid = styled.div`
   grid-template-rows: 190px 190px;
   column-gap: 40px;
   row-gap: 40px;
+
+  @media (max-width: 1300px) and (min-width: 801px) {
+    /* keep two columns, scale container and gaps proportionally */
+    width: calc(760px + (1240 - 760) * ((100vw - 800px) / 500));
+    grid-template-columns: 1fr 1fr;
+    /* rows height will be driven by Card height */
+    grid-template-rows: none;
+    column-gap: calc(24px + (40 - 24) * ((100vw - 800px) / 500));
+    row-gap: calc(24px + (40 - 24) * ((100vw - 800px) / 500));
+  }
+
+  @media (max-width: 800px) {
+    width: 100%;
+    margin-top: 40px;
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    column-gap: 0;
+    row-gap: 20px;
+  }
 `
 
 const Card = styled.div`
@@ -64,6 +111,21 @@ const Card = styled.div`
   transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 280ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 200ms ease;
+
+  @media (max-width: 1300px) and (min-width: 801px) {
+    width: 100%;
+    height: calc(160px + (190 - 160) * ((100vw - 800px) / 500));
+    padding: calc(18px + (26 - 18) * ((100vw - 800px) / 500))
+      calc(20px + (28 - 20) * ((100vw - 800px) / 500));
+  }
+
+  @media (max-width: 800px) {
+    width: 100%;
+    height: auto;
+    padding: 16px 16px 18px;
+    border-radius: 12px;
+    align-items: center;
+  }
 
   &::before {
     content: '';
@@ -91,6 +153,20 @@ const Card = styled.div`
       box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
+  @media (max-width: 1300px) and (min-width: 801px) {
+    &::after {
+      height: calc(8px + (10 - 8) * ((100vw - 800px) / 500));
+    }
+  }
+
+  @media (max-width: 800px) {
+    &::after {
+      height: 8px;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+  }
+
   &:hover {
     transform: translateY(-3px) scale(1.012) rotateZ(0.15deg);
   }
@@ -115,6 +191,15 @@ const CardContent = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 18px;
+
+  @media (max-width: 1300px) and (min-width: 801px) {
+    gap: calc(12px + (18 - 12) * ((100vw - 800px) / 500));
+  }
+
+  @media (max-width: 800px) {
+    align-items: center;
+    gap: 14px;
+  }
 `
 
 const CardIcon = styled.img`
@@ -123,6 +208,18 @@ const CardIcon = styled.img`
   object-fit: contain;
   display: block;
   flex: 0 0 94px;
+
+  @media (max-width: 1300px) and (min-width: 801px) {
+    width: calc(80px + (94 - 80) * ((100vw - 800px) / 500));
+    height: calc(74px + (87 - 74) * ((100vw - 800px) / 500));
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 800px) {
+    width: 72px;
+    height: 66px;
+    flex: 0 0 72px;
+  }
 `
 
 const CardText = styled.div`
@@ -131,6 +228,14 @@ const CardText = styled.div`
   align-items: flex-start;
   justify-content: center;
   gap: 8px;
+
+  @media (max-width: 1300px) and (min-width: 801px) {
+    gap: calc(6px + (8 - 6) * ((100vw - 800px) / 500));
+  }
+
+  @media (max-width: 800px) {
+    gap: 6px;
+  }
 `
 
 const CardTitle = styled.div`
@@ -148,6 +253,14 @@ const CardTitle = styled.div`
   opacity: 1;
   filter: none;
   transition: none;
+
+  @media (max-width: 1300px) and (min-width: 801px) {
+    font-size: calc(22px + (26 - 22) * ((100vw - 800px) / 500));
+  }
+
+  @media (max-width: 800px) {
+    font-size: 20px;
+  }
 
   @keyframes titleShimmer {
     0% { background-position: 0% 50%; }
@@ -171,6 +284,16 @@ const CardSubtitle = styled.div`
   opacity: 1;
   filter: none;
   transition: none;
+
+  @media (max-width: 1300px) and (min-width: 801px) {
+    font-size: calc(14px + (16 - 14) * ((100vw - 800px) / 500));
+    max-width: calc(440px + (520 - 440) * ((100vw - 800px) / 500));
+  }
+
+  @media (max-width: 800px) {
+    font-size: 14px;
+    max-width: none;
+  }
 `
 
 type AboutProps = { id?: string }
@@ -188,8 +311,8 @@ export function About({ id }: AboutProps) {
             <CardContent>
               <CardIcon src={cardone} alt="icon one" />
               <CardText>
-                <CardTitle>Привет! Я Александр Хакана</CardTitle>
-                <CardSubtitle>Веб-разработчик, создающий современные сайты, которые помогают бизнесу расти и находить новых клиентов.</CardSubtitle>
+                <CardTitle>Обо мне</CardTitle>
+                <CardSubtitle>Я веб-разработчик, создающий современные сайты, которые помогают бизнесу расти и находить новых клиентов.</CardSubtitle>
               </CardText>
             </CardContent>
           </Card>
