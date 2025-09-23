@@ -15,17 +15,21 @@ const Root = styled.section`
   height: auto; 
   background: #000319; 
   scroll-margin-top: 100px;
+
+  @media (max-width: 500px) {
+    padding-bottom: 40px;
+  }
 `
 
-const Title = styled.h2`
+const Title = styled.h2<{ $fs?: number; $maxw?: number }>`
   margin: 0;
   padding-top: 0;
   font-family: Inter, sans-serif;
   font-weight: 700; 
-  font-size: 48px; 
+  font-size: ${({ $fs }) => ($fs ? `${$fs}px` : '48px')}; 
   line-height: 100%;
   color: #FFFFFF; 
-  width: 900px;
+  width: ${({ $maxw }) => ($maxw ? `${$maxw}px` : '900px')};
   height: 48px;
   text-align: center;
 
@@ -51,24 +55,132 @@ export function Reviews({ id }: ReviewsProps) {
   )
 
 
-  const SLIDE_WIDTH = 910
-  const GAP = 52
+  // Responsive sizing based on viewport
+  const [viewportWidth, setViewportWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1440)
+
+  useEffect(() => {
+    const onResize = () => setViewportWidth(window.innerWidth)
+    window.addEventListener('resize', onResize, { passive: true })
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  const sizes = useMemo(() => {
+    const w = viewportWidth
+
+    // Scale content gradually below 1000px, keep 1 above
+    const scale = w >= 1000 ? 1 : Math.max(0.65, w / 1000)
+
+    const baseSlideW = 910
+    const baseSlideH = 300
+    const baseGap = 52
+    const baseCarouselGap = 115
+    const baseArrow = 80
+    const baseTitleFs = 48
+    const baseTextFs = 20
+    const baseNameFs = 18
+    const baseAvatar = 50
+
+    // Bring arrows closer between 1000-1300 so they don't overflow
+    let carouselGap = baseCarouselGap
+    if (w <= 1300) {
+      // Linearly reduce gap from 1300->1000
+      const t = Math.max(0, Math.min(1, (w - 1000) / 300))
+      carouselGap = Math.max(24, Math.round(baseCarouselGap * (0.5 + 0.5 * t)))
+    }
+    if (w <= 650) {
+      carouselGap = 16
+    }
+
+    // Clamp to viewport to avoid overflow on small screens
+    const clampedWidth = Math.max(240, w - 32)
+    const slideWidth = w <= 700
+      ? Math.min(Math.round(baseSlideW * scale), clampedWidth)
+      : Math.round(baseSlideW * scale)
+    const slideHeightBase = Math.round(baseSlideH * scale)
+    let gap = Math.max(20, Math.round(baseGap * scale))
+    if (w <= 650) {
+      gap = Math.max(10, Math.round(32 * scale))
+    }
+
+    const arrowSize = w <= 1300 ? Math.max(56, Math.round(baseArrow * (w < 1000 ? scale : 0.85))) : baseArrow
+    let titleFontSize = Math.round(baseTitleFs * (w < 1200 ? Math.max(0.8, Math.min(1, w / 1200)) : 1))
+    if (w <= 650) {
+      titleFontSize = Math.max(24, Math.round(baseTitleFs * 0.54))
+    }
+    let titleMaxWidth = Math.min(900, Math.round(900 * (w < 1000 ? Math.max(0.75, w / 1000) : 1)))
+    if (w <= 650) {
+      titleMaxWidth = Math.max(220, Math.min(titleMaxWidth, w - 32))
+    }
+    const reviewFontSize = Math.max(14, Math.round(baseTextFs * scale))
+    const reviewWidth = Math.round(slideWidth * 0.89)
+    const reviewHeightBase = Math.max(90, Math.round(120 * scale))
+
+    // Increase heights under 650px to keep text inside
+    let slideHeight = w <= 650 ? slideHeightBase + 80 : slideHeightBase
+    let reviewHeight = w <= 650 ? Math.max(reviewHeightBase, 160) : reviewHeightBase
+    // Extra safety for <=500px
+    if (w <= 500) {
+      slideHeight += 40
+      reviewHeight = Math.max(reviewHeight, 200)
+    }
+
+    const nameFontSize = Math.max(14, Math.round(baseNameFs * scale))
+    const nameWidth = Math.round(260 * scale)
+    const avatarSize = Math.max(40, Math.round(baseAvatar * scale))
+
+    // Border geometry derived from scale so it stays aligned
+    let borderThickness = Math.max(1, Math.round(2 * scale))
+    if (w <= 650) borderThickness = Math.max(borderThickness + 1, 2)
+    const slideRadius = Math.max(14, Math.round(20 * scale))
+    const beforeRadius = slideRadius + borderThickness + 2
+    const afterRadius = Math.max(12, slideRadius - 1)
+    const innerBottomInset = Math.max(4, Math.round(7 * scale))
+    const innerTopInset = Math.max(3, borderThickness + 2)
+    const innerSideInset = Math.max(2, borderThickness)
+
+    // Tech logos and labels scaling
+    const techLogoSize = w <= 650 ? 22 : 30
+    const techTextFs = w <= 650 ? 16 : 24
+
+    return {
+      slideWidth,
+      slideHeight,
+      gap,
+      carouselGap,
+      arrowSize,
+      titleFontSize,
+      titleMaxWidth,
+      reviewFontSize,
+      reviewWidth,
+      reviewHeight,
+      nameFontSize,
+      nameWidth,
+      avatarSize,
+      borderThickness,
+      slideRadius,
+      beforeRadius,
+      afterRadius,
+      innerBottomInset,
+      innerTopInset,
+      innerSideInset,
+      techLogoSize,
+      techTextFs
+    }
+  }, [viewportWidth])
+
+  const SLIDE_WIDTH = sizes.slideWidth
+  const GAP = sizes.gap
   const STEP = SLIDE_WIDTH + GAP
-  const count = reviews.length
-  const [index, setIndex] = useState(0)
-  const [isInstant, setIsInstant] = useState(false)
+  const enableSwipe = viewportWidth <= 1300
+
+  // Auto-advance timer and navigation
   const autoTimerRef = useRef<number | null>(null)
   const isJumpingRef = useRef(false)
   const isAnimatingRef = useRef(false)
+  const count = reviews.length
+  const [index, setIndex] = useState(0)
+  const [isInstant, setIsInstant] = useState(false)
   const maxIndex = count - 1
-
-  const go = (dir: 'left' | 'right') => {
-    if (isJumpingRef.current || isAnimatingRef.current) return
-    setIsInstant(false)
-    isAnimatingRef.current = true
-    setIndex((prev) => (dir === 'right' ? prev + 1 : prev - 1))
-    resetAuto()
-  }
 
   const resetAuto = useCallback(() => {
     if (autoTimerRef.current) clearInterval(autoTimerRef.current)
@@ -79,6 +191,46 @@ export function Reviews({ id }: ReviewsProps) {
       setIndex((prev) => prev + 1)
     }, 30000)
   }, [])
+
+  const go = useCallback((dir: 'left' | 'right') => {
+    if (isJumpingRef.current || isAnimatingRef.current) return
+    setIsInstant(false)
+    isAnimatingRef.current = true
+    setIndex((prev) => (dir === 'right' ? prev + 1 : prev - 1))
+    resetAuto()
+  }, [resetAuto])
+
+  // Swipe state
+  const isPointerDownRef = useRef(false)
+  const startXRef = useRef(0)
+  const lastXRef = useRef(0)
+
+  const onPointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (!enableSwipe) return
+    isPointerDownRef.current = true
+    startXRef.current = e.clientX
+    lastXRef.current = e.clientX
+    ;(e.currentTarget as HTMLDivElement).setPointerCapture?.(e.pointerId)
+  }, [enableSwipe])
+
+  const onPointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (!enableSwipe || !isPointerDownRef.current) return
+    lastXRef.current = e.clientX
+  }, [enableSwipe])
+
+  const endPointer = useCallback(() => {
+    if (!isPointerDownRef.current) return
+    isPointerDownRef.current = false
+    const dx = lastXRef.current - startXRef.current
+    const threshold = Math.max(50, Math.round(SLIDE_WIDTH * 0.15))
+    if (Math.abs(dx) >= threshold) {
+      if (dx > 0) {
+        go('left')
+      } else {
+        go('right')
+      }
+    }
+  }, [SLIDE_WIDTH, go])
 
   useEffect(() => {
     resetAuto()
@@ -96,18 +248,29 @@ export function Reviews({ id }: ReviewsProps) {
   return (
     <Root id={id}
     >
-      <Title>
+      <Title $fs={sizes.titleFontSize} $maxw={sizes.titleMaxWidth}>
         Отзывы <span>довольных клиентов</span>
       </Title>
-      <Carousel>
-        <ArrowLeft onClick={() => go('left')} aria-label="Назад">
-          <ArrowSvg viewBox="0 0 32 32" width="64" height="64" aria-hidden>
-            <path d="M20 8l-8 8 8 8" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-          </ArrowSvg>
-        </ArrowLeft>
-        <Frame>
+      <Carousel $gap={sizes.carouselGap}>
+        {viewportWidth > 1300 && (
+          <ArrowLeft onClick={() => go('left')} aria-label="Назад" $size={sizes.arrowSize}>
+            <ArrowSvg viewBox="0 0 32 32" width={sizes.arrowSize * 0.8} height={sizes.arrowSize * 0.8} aria-hidden>
+              <path d="M20 8l-8 8 8 8" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+            </ArrowSvg>
+          </ArrowLeft>
+        )}
+        <Frame 
+          $w={sizes.slideWidth} 
+          $h={sizes.slideHeight}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endPointer}
+          onPointerCancel={endPointer}
+          onPointerLeave={endPointer}
+        >
           <Track
             $instant={isInstant}
+            $gap={sizes.gap}
             style={{ transform: `translateX(-${(() => {
               if (index === -1) return 0 * STEP
               if (index === count) return (count + 1) * STEP
@@ -166,6 +329,15 @@ export function Reviews({ id }: ReviewsProps) {
                 <Slide
                   key={`${r.id}-${i}`}
                   data-active={isActive}
+                  $w={sizes.slideWidth}
+                  $h={sizes.slideHeight}
+                  $sr={sizes.slideRadius}
+                  $bt={sizes.borderThickness}
+                  $rOut={sizes.beforeRadius}
+                  $rIn={sizes.afterRadius}
+                  $insetB={sizes.innerBottomInset}
+                  $insetT={sizes.innerTopInset}
+                  $insetS={sizes.innerSideInset}
                   style={{
                     zIndex,
                     filter: isActive ? 'drop-shadow(0 18px 40px rgba(203,172,249,0.25))' : 'drop-shadow(0 10px 26px rgba(0,0,0,0.35))'
@@ -178,10 +350,10 @@ export function Reviews({ id }: ReviewsProps) {
                       opacity
                     }}
                   >
-                    <ReviewText>{r.text}</ReviewText>
+                    <ReviewText $fs={sizes.reviewFontSize} $w={sizes.reviewWidth} $h={sizes.reviewHeight}>{r.text}</ReviewText>
                     <Reviewer>
-                      <Avatar>{getInitials(r.name)}</Avatar>
-                      <ReviewerName>{r.name}</ReviewerName>
+                      <Avatar $size={sizes.avatarSize}>{getInitials(r.name)}</Avatar>
+                      <ReviewerName $fs={sizes.nameFontSize} $w={sizes.nameWidth}>{r.name}</ReviewerName>
                     </Reviewer>
                   </SlideInner>
                 </Slide>
@@ -189,33 +361,35 @@ export function Reviews({ id }: ReviewsProps) {
             })}
           </Track>
         </Frame>
-        <ArrowRight onClick={() => go('right')} aria-label="Вперёд">
-          <ArrowSvg viewBox="0 0 32 32" width="64" height="64" aria-hidden>
-            <path d="M12 8l8 8-8 8" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-          </ArrowSvg>
-        </ArrowRight>
+        {viewportWidth > 1300 && (
+          <ArrowRight onClick={() => go('right')} aria-label="Вперёд" $size={sizes.arrowSize}>
+            <ArrowSvg viewBox="0 0 32 32" width={sizes.arrowSize * 0.8} height={sizes.arrowSize * 0.8} aria-hidden>
+              <path d="M12 8l8 8-8 8" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+            </ArrowSvg>
+          </ArrowRight>
+        )}
       </Carousel>
 
       <TechList>
         <TechItem>
-          <LogoImg src={figmaLogo} alt="figma" />
-          <TechText>figma</TechText>
+          <LogoImg src={figmaLogo} alt="figma" $size={sizes.techLogoSize} />
+          <TechText $fs={sizes.techTextFs}>figma</TechText>
         </TechItem>
         <TechItem>
-          <LogoCircle style={{ background: '#3178C6' }}>TS</LogoCircle>
-          <TechText>typescript</TechText>
+          <LogoCircle style={{ background: '#3178C6' }} $size={sizes.techLogoSize}>TS</LogoCircle>
+          <TechText $fs={sizes.techTextFs}>typescript</TechText>
         </TechItem>
         <TechItem>
-          <LogoImg src={reactLogo} alt="React" />
-          <TechText>React</TechText>
+          <LogoImg src={reactLogo} alt="React" $size={sizes.techLogoSize} />
+          <TechText $fs={sizes.techTextFs}>React</TechText>
         </TechItem>
         <TechItem>
-          <LogoImg src={firebaseLogo} alt="firebase" />
-          <TechText>firebase</TechText>
+          <LogoImg src={firebaseLogo} alt="firebase" $size={sizes.techLogoSize} />
+          <TechText $fs={sizes.techTextFs}>firebase</TechText>
         </TechItem>
         <TechItem>
-          <LogoCircle style={{ background: '#F7DF1E', color: '#000319' }}>JS</LogoCircle>
-          <TechText>javascript</TechText>
+          <LogoCircle style={{ background: '#F7DF1E', color: '#000319' }} $size={sizes.techLogoSize}>JS</LogoCircle>
+          <TechText $fs={sizes.techTextFs}>javascript</TechText>
         </TechItem>
       </TechList>
     </Root>
@@ -229,31 +403,32 @@ function getInitials(fullName: string) {
   return (first + second).toUpperCase()
 }
 
-const Carousel = styled.div`
+const Carousel = styled.div<{ $gap?: number }>`
   margin-top: 60px; 
-  width: 1400px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  gap: 115px;
+  gap: ${({ $gap }) => ($gap ? `${$gap}px` : '115px')};
 `
 
-const Frame = styled.div`
-  width: 910px; 
-  height: 300px; 
+const Frame = styled.div<{ $w?: number; $h?: number }>`
+  width: ${({ $w }) => ($w ? `${$w}px` : '910px')}; 
+  height: ${({ $h }) => ($h ? `${$h}px` : '300px')}; 
   position: relative;
   contain: layout paint;
   border-radius: 20px;
   perspective: 1200px;
   perspective-origin: 50% 50%;
+  touch-action: pan-y;
 `
 
-const Track = styled.div<{ $instant?: boolean }>`
+const Track = styled.div<{ $instant?: boolean; $gap?: number }>`
   display: flex;
   align-items: stretch;
   height: 100%;
-  gap: 52px;
+  gap: ${({ $gap }) => ($gap ? `${$gap}px` : '52px')};
   width: max-content;
   will-change: transform;
   transition: ${({ $instant }) => ($instant ? 'none' : 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1)')};
@@ -261,20 +436,20 @@ const Track = styled.div<{ $instant?: boolean }>`
 `
 
 
-const Slide = styled.div<{ $instant?: boolean }>`
+const Slide = styled.div<{ $instant?: boolean; $w?: number; $h?: number; $sr?: number; $bt?: number; $rOut?: number; $rIn?: number; $insetB?: number; $insetT?: number; $insetS?: number }>`
   position: relative;
-  width: 910px;
-  height: 300px;
+  width: ${({ $w }) => ($w ? `${$w}px` : '910px')};
+  height: ${({ $h }) => ($h ? `${$h}px` : '300px')};
   flex: 0 0 auto;
-  border-radius: 20px;
+  border-radius: ${({ $sr }) => ($sr ? `${$sr}px` : '20px')};
   overflow: hidden;
   transition: ${({ $instant }) => ($instant ? 'none' : 'filter 320ms ease')};
   
   &::before {
     content: '';
     position: absolute;
-    inset: -2px;
-    border-radius: 22px;
+    inset: ${({ $bt }) => ($bt ? `-${$bt}px` : '-2px')};
+    border-radius: ${({ $rOut }) => ($rOut ? `${$rOut}px` : '22px')};
     background: linear-gradient(45deg, #CBACF9, #6C5CE7, #FFFFFF, #CBACF9);
     background-size: 300% 300%;
     animation: shimmerBorder 2.6s ease-in-out infinite;
@@ -284,8 +459,12 @@ const Slide = styled.div<{ $instant?: boolean }>`
   &::after {
     content: '';
     position: absolute;
-    inset: 1px 1px 7px 1px;
-    border-radius: 19px;
+    inset: ${({ $insetT, $insetS, $insetB }) => (
+      $insetT !== undefined && $insetS !== undefined && $insetB !== undefined
+        ? `${$insetT}px ${$insetS}px ${$insetB}px ${$insetS}px`
+        : '2px 2px 7px 2px'
+    )};
+    border-radius: ${({ $rIn }) => ($rIn ? `${$rIn}px` : '19px')};
     background: linear-gradient(135deg, #04071D 0%, #0C0E23 100%);
     z-index: 1;
   }
@@ -319,20 +498,37 @@ const SlideInner = styled.div<{ $instant?: boolean }>`
   transform-origin: 50% 50%;
   backface-visibility: hidden;
   transition: ${({ $instant }) => ($instant ? 'none' : 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 320ms ease')};
+
+  @media (max-width: 500px) {
+    padding: 22px 22px;
+  }
 `
 
-const ReviewText = styled.div`
+const ReviewText = styled.div<{ $fs?: number; $w?: number; $h?: number }>`
   color: #FFFFFF;
   font-family: Inter, sans-serif;
   font-weight: 400; 
-  font-size: 20px;
+  font-size: ${({ $fs }) => ($fs ? `${$fs}px` : '20px')};
   line-height: 1.4;
-  width: 810px; 
-  height: 120px; 
+  width: ${({ $w }) => ($w ? `${$w}px` : '810px')}; 
+  height: ${({ $h }) => ($h ? `${$h}px` : '120px')}; 
   overflow: hidden;
   opacity: 1;
   transform: none;
   transition: none;
+  text-align: left;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  @media (max-width: 500px) {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `
 
 const Reviewer = styled.div`
@@ -345,9 +541,9 @@ const Reviewer = styled.div`
 `
 
 
-const Avatar = styled.div`
-  width: 50px;
-  height: 50px;
+const Avatar = styled.div<{ $size?: number }>`
+  width: ${({ $size }) => ($size ? `${$size}px` : '50px')};
+  height: ${({ $size }) => ($size ? `${$size}px` : '50px')};
   border-radius: 50%;
   background: #242938;
   color: #ffffff;
@@ -360,12 +556,12 @@ const Avatar = styled.div`
   letter-spacing: 0.5px;
 `
 
-const ReviewerName = styled.div`
+const ReviewerName = styled.div<{ $fs?: number; $w?: number }>`
   color: #FFFFFF;
   font-family: Inter, sans-serif;
   font-weight: 600; 
-  font-size: 18px;
-  width: 260px; 
+  font-size: ${({ $fs }) => ($fs ? `${$fs}px` : '18px')};
+  width: ${({ $w }) => ($w ? `${$w}px` : '260px')}; 
   height: 25px; 
   line-height: 25px;
   white-space: nowrap;
@@ -373,12 +569,12 @@ const ReviewerName = styled.div`
   text-overflow: ellipsis;
 `
 
-const ArrowBase = styled.button`
+const ArrowBase = styled.button<{ $size?: number }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
-  height: 80px;
+  width: ${({ $size }) => ($size ? `${$size}px` : '80px')};
+  height: ${({ $size }) => ($size ? `${$size}px` : '80px')};
   border: 0;
   background: transparent;
   color: #CBACF9;
@@ -410,7 +606,7 @@ const ArrowSvg = styled.svg`
   filter: drop-shadow(0 2px 8px rgba(108,93,211,0.35));
 `
 
-
+// Tech list and logos (restored)
 const TechList = styled.div`
   margin-top: 70px;
   margin-bottom: 100px;
@@ -420,6 +616,10 @@ const TechList = styled.div`
   justify-content: center;
   gap: 80px;
   flex-wrap: wrap;
+
+  @media (max-width: 500px) {
+    margin-bottom: 50px;
+  }
 `
 
 const TechItem = styled.div`
@@ -429,26 +629,26 @@ const TechItem = styled.div`
   gap: 16px;
 `
 
-const TechText = styled.div`
+const TechText = styled.div<{ $fs?: number }>`
   color: #FFFFFF;
   font-family: Inter, sans-serif;
   font-weight: 600;
-  font-size: 24px;
+  font-size: ${({ $fs }) => ($fs ? `${$fs}px` : '24px')};
   letter-spacing: 0.2px;
   text-transform: uppercase;
 `
 
-const LogoImg = styled.img`
-  width: 30px;
-  height: 30px;
+const LogoImg = styled.img<{ $size?: number }>`
+  width: ${({ $size }) => ($size ? `${$size}px` : '30px')};
+  height: ${({ $size }) => ($size ? `${$size}px` : '30px')};
   object-fit: contain;
   display: block;
   filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25));
 `
 
-const LogoCircle = styled.div`
-  width: 30px;
-  height: 30px;
+const LogoCircle = styled.div<{ $size?: number }>`
+  width: ${({ $size }) => ($size ? `${$size}px` : '30px')};
+  height: ${({ $size }) => ($size ? `${$size}px` : '30px')};
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -460,4 +660,3 @@ const LogoCircle = styled.div`
   letter-spacing: 0.4px;
   box-shadow: 0 6px 16px rgba(0,0,0,0.25);
 `
-

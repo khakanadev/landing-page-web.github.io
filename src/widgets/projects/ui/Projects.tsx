@@ -14,6 +14,14 @@ const Root = styled.section`
   padding-bottom: 100px;
   background: #000319;
   scroll-margin-top: 100px;
+
+  @media (max-width: 1000px) {
+    padding-bottom: 70px;
+  }
+
+  @media (max-width: 600px) {
+    padding-bottom: 50px;
+  }
 `
 
 const Title = styled.h2`
