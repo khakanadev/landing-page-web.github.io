@@ -107,7 +107,6 @@ const Card = styled.div`
   justify-content: flex-start;
   padding: 26px 28px;
   transform-origin: center;
-  will-change: transform, box-shadow, filter, border-color;
   transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 280ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 200ms ease;
@@ -249,7 +248,7 @@ const CardTitle = styled.div`
   background-position: 0% 50%;
   -webkit-background-clip: text;
   background-clip: text;
-  will-change: background-position, color;
+  
   opacity: 1;
   filter: none;
   transition: none;

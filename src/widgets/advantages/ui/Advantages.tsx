@@ -115,7 +115,7 @@ const Container = styled.div`
   }
 `
 
-const Left = styled.div<{ animate?: boolean }>`
+const Left = styled.div<{ $animate?: boolean }>`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -135,12 +135,12 @@ const Left = styled.div<{ animate?: boolean }>`
     border: 1.5px solid transparent;
     box-shadow: 0 0 0 0 rgba(203, 172, 249, 0);
     transform-origin: center;
-    will-change: transform, box-shadow, border-color;
+    
     transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1), border-color 250ms ease, box-shadow 250ms ease;
     pointer-events: none;
   }
   
-  ${props => props.animate && css`
+  ${props => props.$animate && css`
     opacity: 0;
     animation: ${fadeInScale} 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     animation-delay: 200ms;
@@ -177,14 +177,14 @@ const Left = styled.div<{ animate?: boolean }>`
   }
 `
 
-const Right = styled.div<{ animate?: boolean }>`
+const Right = styled.div<{ $animate?: boolean }>`
   display: grid;
   grid-template-rows: auto auto;
   row-gap: 30px;
   justify-items: start;
   margin-top: 0px;
 
-  ${props => props.animate && css`
+  ${props => props.$animate && css`
     opacity: 0;
     animation: ${fadeSlideUp} 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     animation-delay: 400ms;
@@ -213,7 +213,7 @@ const Card = styled.div`
     border: 1.5px solid transparent;
     box-shadow: 0 0 0 0 rgba(203, 172, 249, 0);
     transform-origin: center;
-    will-change: transform, border-color, box-shadow;
+    
     transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), border-color 250ms ease, box-shadow 250ms ease;
     pointer-events: none;
   }
@@ -253,7 +253,7 @@ const MacbookImg = styled.img`
   inset: 0;
   z-index: 1;
   transform-origin: center;
-  will-change: transform, filter;
+  
   transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 350ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 250ms ease;
@@ -286,7 +286,7 @@ const SmallImg = styled.img`
   display: block;
   border-radius: 15px;
   transform-origin: center;
-  will-change: transform, filter;
+  
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
   &:hover {
@@ -312,7 +312,7 @@ const StackOverlay = styled.div`
 
 const StackOverlayInner = styled.div`
   transform-origin: center;
-  will-change: transform;
+  
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
   flex-direction: column;
@@ -324,7 +324,7 @@ const StackSubtitle = styled.div``
 
 const StackTitle = styled.div``
 
-const Row2 = styled.div<{ animate?: boolean }>`
+const Row2 = styled.div<{ $animate?: boolean }>`
   width: min(1280px, 92vw);
   margin-top: 30px;
   display: grid;
@@ -333,7 +333,7 @@ const Row2 = styled.div<{ animate?: boolean }>`
   align-items: start;
   justify-content: center;
 
-  ${props => props.animate && css`
+  ${props => props.$animate && css`
     opacity: 0;
     animation: ${fadeSlideUp} 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     animation-delay: 600ms;
@@ -370,7 +370,7 @@ const DevImg = styled.img`
   object-fit: cover;
   display: block;
   transform-origin: center;
-  will-change: transform, filter;
+  
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
   border-radius: 12px;
@@ -432,7 +432,7 @@ const BtnImg = styled.img`
   display: block;
   margin: 0;
   transform-origin: center;
-  will-change: transform, filter;
+  
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
   border-radius: 20px;
@@ -518,7 +518,7 @@ const BtnOverlay = styled.div`
 
 const BtnOverlayInner = styled.div`
   transform-origin: center;
-  will-change: transform, filter;
+  
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
@@ -601,7 +601,7 @@ const CodeImg = styled.img`
   object-fit: cover;
   display: block;
   transform-origin: center;
-  will-change: transform, filter;
+  
   transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 350ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 250ms ease;
@@ -696,7 +696,7 @@ export function Advantages() {
       <Background />
       <Content>
         <Container>
-          <Left animate={shouldAnimate}>
+          <Left $animate={shouldAnimate}>
             <ResponsivePicture>
               <source media="(max-width: 800px)" srcSet={`${macbookAd} 1x, ${macbook} 2x`} />
               <MacbookImg src={macbook} alt="Macbook" />
@@ -706,7 +706,7 @@ export function Advantages() {
               
             </MacbookOverlay>
           </Left>
-          <Right animate={shouldAnimate}>
+          <Right $animate={shouldAnimate}>
             <Card>
               <ResponsivePicture>
                 <source media="(max-width: 800px)" srcSet={`${countriesAd} 1x, ${countries} 2x`} />
@@ -734,7 +734,7 @@ export function Advantages() {
             </Card>
           </Right>
         </Container>
-        <Row2 animate={shouldAnimate}>
+        <Row2 $animate={shouldAnimate}>
           <Left2>
             <DevCard>
               <ResponsivePicture>

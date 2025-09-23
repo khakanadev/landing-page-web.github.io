@@ -69,27 +69,27 @@ const shimmer = keyframes`
   100% { background-position: 0% 50%; }
 `
 
-const NavButton = styled.button<{ active?: boolean }>`
+const NavButton = styled.button<{ $active?: boolean }>`
   background: transparent;
   border: 0;
   padding: 0;
-  color: ${({ active }) => (active ? 'transparent' : '#C1C2D3')};
+  color: ${({ $active }) => ($active ? 'transparent' : '#C1C2D3')};
   font-size: 16px;
   line-height: 110%;
   font-weight: 500;
   cursor: pointer;
   position: relative;
   transition: color 0.15s ease;
-  &:hover { color: ${({ active }) => (active ? 'transparent' : '#FFFFFF')}; }
+  &:hover { color: ${({ $active }) => ($active ? 'transparent' : '#FFFFFF')}; }
 
-  ${({ active }) => active && css`
+  ${({ $active }) => $active && css`
     background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
     background-size: 200% 100%;
     background-position: 0% 50%;
     -webkit-background-clip: text;
     background-clip: text;
     animation: ${shimmer} 1.4s ease-in-out infinite;
-    will-change: background-position;
+    
   `}
   &::after {
     content: '';
@@ -127,7 +127,7 @@ const ActiveDot = styled.div<{ $visible: boolean; $x: number }>`
   transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), opacity 160ms ease;
   opacity: ${({ $visible }) => ($visible ? 1 : 0)};
   pointer-events: none;
-  will-change: transform, opacity;
+  
 
   @media (max-width: 500px) {
     bottom: calc(10px * (100vw / 500));
@@ -233,25 +233,25 @@ export function Header() {
       <Container>
         <Nav ref={navRef}>
           <StrokeOuter />
-          <NavButton ref={aboutRef} active={active === 'about'} onClick={() => {
+          <NavButton ref={aboutRef} $active={active === 'about'} onClick={() => {
             setIsClicking(true)
             setActive('about')
             scrollTo('about')
             setTimeout(() => setIsClicking(false), 360)
           }}>Обо мне</NavButton>
-          <NavButton ref={projectsRef} active={active === 'projects'} onClick={() => {
+          <NavButton ref={projectsRef} $active={active === 'projects'} onClick={() => {
             setIsClicking(true)
             setActive('projects')
             scrollTo('projects')
             setTimeout(() => setIsClicking(false), 360)
           }}>Проекты</NavButton>
-          <NavButton ref={skillsRef} active={active === 'skills'} onClick={() => {
+          <NavButton ref={skillsRef} $active={active === 'skills'} onClick={() => {
             setIsClicking(true)
             setActive('skills')
             scrollTo('reviews')
             setTimeout(() => setIsClicking(false), 360)
           }}>Отзывы</NavButton>
-          <NavButton ref={contactsRef} active={active === 'contacts'} onClick={() => {
+          <NavButton ref={contactsRef} $active={active === 'contacts'} onClick={() => {
             setIsClicking(true)
             setActive('contacts')
             scrollTo('footer')

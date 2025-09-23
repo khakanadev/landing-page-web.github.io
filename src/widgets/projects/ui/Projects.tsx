@@ -88,7 +88,6 @@ const Card = styled.div`
   align-items: center;
   justify-content: flex-start;
   transform-origin: center;
-  will-change: transform, box-shadow, filter, border-color;
   transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 280ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -144,7 +143,7 @@ const Video = styled.video`
   object-fit: cover;
   object-position: center;
   transform-origin: center;
-  will-change: transform;
+  
   transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
 
   ${Card}:hover & {
@@ -172,7 +171,7 @@ const ProjectTitle = styled.div`
   background-position: 0% 50%;
   -webkit-background-clip: text;
   background-clip: text;
-  will-change: background-position, color;
+  
   opacity: 1;
   filter: none;
   transition: none;

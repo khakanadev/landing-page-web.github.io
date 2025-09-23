@@ -32,7 +32,7 @@ const fadeInScale = keyframes`
   }
 `
 
-const Title = styled.h1<{ animate?: boolean }>`
+const Title = styled.h1<{ $animate?: boolean }>`
   margin: 0;
   font-family: Inter, sans-serif;
   font-weight: 200;
@@ -51,14 +51,14 @@ const Title = styled.h1<{ animate?: boolean }>`
     font-size: clamp(10px, 3.2vw, 12px);
   }
 
-  ${props => props.animate && css`
+  ${props => props.$animate && css`
     opacity: 0;
     animation: ${fadeSlideUp} 600ms ease forwards;
     animation-delay: 120ms;
   `}
 `
 
-const Headline = styled.h2<{ animate?: boolean }>`
+const Headline = styled.h2<{ $animate?: boolean }>`
   margin: 22px 0 0;
   font-family: Inter, sans-serif;
   font-weight: 700;
@@ -75,14 +75,14 @@ const Headline = styled.h2<{ animate?: boolean }>`
     color: #CBACF9;
   }
 
-  ${props => props.animate && css`
+  ${props => props.$animate && css`
     opacity: 0;
     animation: ${fadeInScale} 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     animation-delay: 300ms;
   `}
 `
 
-const SubTitle = styled.p<{ animate?: boolean }>`
+const SubTitle = styled.p<{ $animate?: boolean }>`
   margin: 30px 0 0;
   font-family: Inter, sans-serif;
   font-weight: 300;
@@ -92,14 +92,14 @@ const SubTitle = styled.p<{ animate?: boolean }>`
   padding: 0 16px;
   white-space: normal;
 
-  ${props => props.animate && css`
+  ${props => props.$animate && css`
     opacity: 0;
     animation: ${fadeSlideUp} 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     animation-delay: 600ms;
   `}
 `
 
-const CtaButton = styled.button<{ animate?: boolean }>`
+const CtaButton = styled.button<{ $animate?: boolean }>`
   margin: 30px 0 0;
   display: inline-flex;
   align-items: center;
@@ -153,7 +153,7 @@ const CtaButton = styled.button<{ animate?: boolean }>`
 
   &:hover svg { transform: translateX(4px); opacity: 1; }
 
-  ${props => props.animate && css`
+  ${props => props.$animate && css`
     opacity: 0;
     animation: ${fadeSlideUp} 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     animation-delay: 900ms;
@@ -194,13 +194,13 @@ export function MainHeader() {
 
   return (
     <Root>
-      <Title animate={shouldAnimate}>Современные сайты и приложения на React</Title>
-      <Headline animate={shouldAnimate}>
+      <Title $animate={shouldAnimate}>Современные сайты и приложения на React</Title>
+      <Headline $animate={shouldAnimate}>
         Разрабатываю сайты, которые повышают <ForcedBreak />
         <span>онлайн продажи</span>
       </Headline>
-      <SubTitle animate={shouldAnimate}>Приветствую! Я Александр Хакана, веб-разработчик с опытом в сфере более двух лет</SubTitle>
-      <CtaButton animate={shouldAnimate} onClick={scrollToProjects}>
+      <SubTitle $animate={shouldAnimate}>Приветствую! Я Александр Хакана, веб-разработчик с опытом в сфере более двух лет</SubTitle>
+      <CtaButton $animate={shouldAnimate} onClick={scrollToProjects}>
         Посмотреть работы
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M4.5 9H13.5" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round"/>
