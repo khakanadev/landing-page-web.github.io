@@ -227,7 +227,7 @@ export function Projects({ id }: ProjectsProps) {
     <Root id={id}
     >
       <Title>
-        Последние <span>реализованные проекты</span>
+        Последние <span>проекты</span>
       </Title>
       <Grid>
         <Card>

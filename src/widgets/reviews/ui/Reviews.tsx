@@ -6,8 +6,11 @@ import figmaLogo from '../../../assets/figma.png'
 
 const Root = styled.section`
   width: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
   padding-top: 150px; 
   padding-bottom: 70px;
+  margin-bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,7 +19,13 @@ const Root = styled.section`
   background: #000319; 
   scroll-margin-top: 100px;
 
+  @media (max-width: 800px) {
+    padding-top: 90px;
+    margin-bottom: 16px; /* tighter space before Projects on small screens */
+  }
+
   @media (max-width: 500px) {
+    padding-top: 70px;
     padding-bottom: 40px;
   }
 `
@@ -143,9 +152,21 @@ export function Reviews({ id }: ReviewsProps) {
     const innerTopInset = Math.max(3, borderThickness + 2)
     const innerSideInset = Math.max(2, borderThickness)
 
-    // Tech logos and labels scaling
-    const techLogoSize = w <= 650 ? 22 : 30
-    const techTextFs = w <= 650 ? 16 : 24
+  // Tech logos and labels scaling + responsive gap after 800px
+  let techLogoSize = 30
+  let techTextFs = 24
+  let techGap = 80
+  if (w <= 1000) techGap = 64
+  if (w <= 800) {
+    techLogoSize = 24
+    techTextFs = 18
+    techGap = 40
+  }
+  if (w <= 650) {
+    techLogoSize = 22
+    techTextFs = 16
+    techGap = 28
+  }
 
     return {
       slideWidth,
@@ -169,7 +190,8 @@ export function Reviews({ id }: ReviewsProps) {
       innerTopInset,
       innerSideInset,
       techLogoSize,
-      techTextFs
+      techTextFs,
+      techGap
     }
   }, [viewportWidth])
 
@@ -375,7 +397,7 @@ export function Reviews({ id }: ReviewsProps) {
         )}
       </Carousel>
 
-      <TechList>
+      <TechList $gap={sizes.techGap}>
         <TechItem>
           <LogoImg src={figmaLogo} alt="figma" $size={sizes.techLogoSize} />
           <TechText $fs={sizes.techTextFs}>figma</TechText>
@@ -612,14 +634,14 @@ const ArrowSvg = styled.svg`
 `
 
 // Tech list and logos (restored)
-const TechList = styled.div`
+const TechList = styled.div<{ $gap?: number }>`
   margin-top: 70px;
   margin-bottom: 100px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 80px;
+  gap: ${({ $gap }) => ($gap ? `${$gap}px` : '80px')};
   flex-wrap: wrap;
 
   @media (max-width: 500px) {
