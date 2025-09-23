@@ -1,5 +1,8 @@
 import styled from 'styled-components'
 import sectionInput from '../../../assets/section input.png'
+import card1 from '../../../assets/card1-ad.png'
+import card2 from '../../../assets/card2-ad.png'
+import card3 from '../../../assets/card3-ad.png'
 
 const Root = styled.section`
   width: 100%;
@@ -17,13 +20,18 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+
+  @media (max-width: 1300px) {
+    width: 100%;
+    padding: 0 16px;
+  }
 `
 
 const Title = styled.h2`
   margin: 0;
   font-family: Inter, sans-serif;
   font-weight: 700;
-  font-size: 48px;
+  font-size: 36px;
   line-height: 100%;
   color: #FFFFFF;
   text-align: center;
@@ -37,10 +45,13 @@ const Subtitle = styled.div`
   margin-top: 10px;
   font-family: Inter, sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: clamp(12px, 1.25vw, 16px);
   line-height: 1.4;
   color: #E4ECFF;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 const Row = styled.div`
@@ -52,6 +63,10 @@ const Row = styled.div`
   align-items: start;
   justify-content: center;
   margin-bottom: 20px;
+
+  @media (max-width: 1300px) {
+    display: none;
+  }
 `
 
 const Card = styled.div`
@@ -220,6 +235,42 @@ const Corner = styled.img<{ $pos: 'tl' | 'tr' | 'bl' | 'br' }>`
   }
 `
 
+// Alternative row with images for <= 1300px width
+const AltRow = styled.div`
+  display: none;
+  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  
+  @media (max-width: 1300px) {
+    display: flex;
+  }
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+`
+
+const AltImg = styled.img`
+  display: block;
+  height: auto;
+  /* Keep natural look: fit three per row with a reasonable cap */
+  width: min(380px, calc((100vw - 32px - 2 * 16px) / 3));
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+
+  @media (max-width: 800px) {
+    /* Stack and keep pleasant size, centered */
+    width: min(500px, calc(100vw - 32px));
+    margin: 0 auto;
+  }
+`
+
 export function Approach() {
   return (
     <Root>
@@ -269,6 +320,11 @@ export function Approach() {
             </CardOverlay>
           </Card>
         </Row>
+        <AltRow>
+          <AltImg src={card1} alt="Этап 1" />
+          <AltImg src={card2} alt="Этап 2" />
+          <AltImg src={card3} alt="Этап 3" />
+        </AltRow>
       </Container>
     </Root>
   )

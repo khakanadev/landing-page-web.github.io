@@ -30,11 +30,16 @@ const Title = styled.h2<{ $fs?: number; $maxw?: number }>`
   line-height: 100%;
   color: #FFFFFF; 
   width: ${({ $maxw }) => ($maxw ? `${$maxw}px` : '900px')};
-  height: 48px;
+  height: auto;
   text-align: center;
 
   span {
     color: #CBACF9; 
+  }
+
+  @media (max-width: 800px) {
+    font-size: 36px;
+    white-space: normal;
   }
 `
 

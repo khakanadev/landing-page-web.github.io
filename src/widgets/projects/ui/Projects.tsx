@@ -46,14 +46,14 @@ const Title = styled.h2`
   @media (max-width: 800px) {
     padding: 60px 16px 40px 16px;
     width: calc(100% - 32px);
-    font-size: clamp(20px, 5vw, 32px);
+    font-size: 36px;
     white-space: normal;
     overflow: visible;
     text-overflow: unset;
   }
 
   @media (max-width: 480px) {
-    font-size: clamp(18px, 6vw, 24px);
+    font-size: 36px;
   }
 `
 

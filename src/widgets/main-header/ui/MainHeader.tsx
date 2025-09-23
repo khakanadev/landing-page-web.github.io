@@ -86,11 +86,16 @@ const SubTitle = styled.p<{ $animate?: boolean }>`
   margin: 30px 0 0;
   font-family: Inter, sans-serif;
   font-weight: 300;
-  font-size: clamp(14px, 2.4vw, 24px);
+  font-size: clamp(8px, 1.8vw, 24px);
   color: #e4ecff;
   text-align: center;
   padding: 0 16px;
-  white-space: normal;
+  white-space: nowrap;
+
+  @media (max-width: 800px) {
+    white-space: normal;
+    font-size: 14px;
+  }
 
   ${props => props.$animate && css`
     opacity: 0;
