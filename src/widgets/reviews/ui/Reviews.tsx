@@ -21,7 +21,7 @@ const Root = styled.section`
 
   @media (max-width: 800px) {
     padding-top: 90px;
-    margin-bottom: 16px; /* tighter space before Projects on small screens */
+    margin-bottom: 16px;
   }
 
   @media (max-width: 500px) {
@@ -67,9 +67,6 @@ export function Reviews({ id }: ReviewsProps) {
     ],
     []
   )
-
-
-  // Responsive sizing based on viewport
   const [viewportWidth, setViewportWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1440)
 
   useEffect(() => {
@@ -94,10 +91,8 @@ export function Reviews({ id }: ReviewsProps) {
     const baseNameFs = 18
     const baseAvatar = 50
 
-    // Bring arrows closer between 1000-1300 so they don't overflow
     let carouselGap = baseCarouselGap
     if (w <= 1300) {
-      // Linearly reduce gap from 1300->1000
       const t = Math.max(0, Math.min(1, (w - 1000) / 300))
       carouselGap = Math.max(24, Math.round(baseCarouselGap * (0.5 + 0.5 * t)))
     }
@@ -105,7 +100,6 @@ export function Reviews({ id }: ReviewsProps) {
       carouselGap = 16
     }
 
-    // Clamp to viewport to avoid overflow on small screens
     const clampedWidth = Math.max(240, w - 32)
     const slideWidth = w <= 700
       ? Math.min(Math.round(baseSlideW * scale), clampedWidth)
@@ -129,10 +123,8 @@ export function Reviews({ id }: ReviewsProps) {
     const reviewWidth = Math.round(slideWidth * 0.89)
     const reviewHeightBase = Math.max(90, Math.round(120 * scale))
 
-    // Increase heights under 650px to keep text inside
     let slideHeight = w <= 650 ? slideHeightBase + 80 : slideHeightBase
     let reviewHeight = w <= 650 ? Math.max(reviewHeightBase, 160) : reviewHeightBase
-    // Extra safety for <=500px
     if (w <= 500) {
       slideHeight += 40
       reviewHeight = Math.max(reviewHeight, 200)
@@ -152,7 +144,6 @@ export function Reviews({ id }: ReviewsProps) {
     const innerTopInset = Math.max(3, borderThickness + 2)
     const innerSideInset = Math.max(2, borderThickness)
 
-  // Tech logos and labels scaling + responsive gap after 800px
   let techLogoSize = 30
   let techTextFs = 24
   let techGap = 80

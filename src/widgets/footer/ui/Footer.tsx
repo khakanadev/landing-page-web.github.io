@@ -255,7 +255,6 @@ const BottomSection = styled.div`
     padding: 0 24px;
   }
 
-  /* Swap order of elements after 800px: show buttons before copyright */
   @media (max-width: 800px) {
     > *:first-child { order: 2; }
     > *:last-child { order: 1; }

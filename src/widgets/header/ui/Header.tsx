@@ -127,7 +127,6 @@ const ActiveDot = styled.div<{ $visible: boolean; $x: number }>`
   transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), opacity 160ms ease;
   opacity: ${({ $visible }) => ($visible ? 1 : 0)};
   pointer-events: none;
-  
 
   @media (max-width: 500px) {
     bottom: calc(10px * (100vw / 500));

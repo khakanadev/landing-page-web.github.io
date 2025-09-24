@@ -15,7 +15,6 @@ const Root = styled.section`
   scroll-margin-top: 100px;
 
   @media (max-width: 1300px) and (min-width: 801px) {
-    /* slightly reduce bottom space on medium screens */
     padding-bottom: calc(70px + (100 - 70) * ((100vw - 800px) / 500));
   }
 
@@ -76,10 +75,8 @@ const Grid = styled.div`
   row-gap: 40px;
 
   @media (max-width: 1300px) and (min-width: 801px) {
-    /* keep two columns, scale container and gaps proportionally */
     width: calc(760px + (1240 - 760) * ((100vw - 800px) / 500));
     grid-template-columns: 1fr 1fr;
-    /* rows height will be driven by Card height */
     grid-template-rows: none;
     column-gap: calc(24px + (40 - 24) * ((100vw - 800px) / 500));
     row-gap: calc(24px + (40 - 24) * ((100vw - 800px) / 500));

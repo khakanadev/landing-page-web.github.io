@@ -235,7 +235,6 @@ const Corner = styled.img<{ $pos: 'tl' | 'tr' | 'bl' | 'br' }>`
   }
 `
 
-// Alternative row with images for <= 1300px width
 const AltRow = styled.div`
   display: none;
   width: 100%;
@@ -259,13 +258,11 @@ const AltRow = styled.div`
 const AltImg = styled.img`
   display: block;
   height: auto;
-  /* Keep natural look: fit three per row with a reasonable cap */
   width: min(380px, calc((100vw - 32px - 2 * 16px) / 3));
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.25);
 
   @media (max-width: 800px) {
-    /* Stack and keep pleasant size, centered */
     width: min(500px, calc(100vw - 32px));
     margin: 0 auto;
   }
