@@ -55,18 +55,16 @@ const Title = styled.h2<{ $fs?: number; $maxw?: number }>`
 type ReviewsProps = { id?: string }
 
 export function Reviews({ id }: ReviewsProps) {
-  const reviews = useMemo(
-    () => [
-      { id: 1, text: '"Очень довольна сотрудничеством! Сайт получился стильный и удобный, всё работает без ошибок."', name: 'Астахова Марина' },
-      { id: 2, text: '"Александр разработал для нашей компании корпоративный сайт. Всё было сделано в срок, дизайн аккуратный, структура продуманная. Особенно понравилось, что он сам предложил несколько идей, которые улучшили проект. Теперь сайт приносит клиентов, спасибо!"', name: 'Горчаков Артём' },
-      { id: 3, text: '"Работаем с Александром уже второй раз. Первый был лендинг, второй — интернет-магазин. В обоих случаях он проявил себя как ответственный разработчик: всегда на связи, все правки вносил быстро. Рекомендую!"', name: 'Демидов Кирилл' },
-      { id: 4, text: '"Заказывала сайт-визитку. Получилось даже лучше, чем я представляла! Дизайн современный, открывается отлично и на телефоне, и на компьютере."', name: 'Калинина Анна' },
-      { id: 5, text: '"Мы обратились к Александру, потому что нужен был сайт под ключ. Он взял на себя всё: от прототипа и дизайна до запуска и подключения аналитики. Видно, что человек работает на результат. Уже через неделю после запуска пошли первые заявки!"', name: 'Рябинин Сергей' },
-      { id: 6, text: '"Хочу отметить пунктуальность и внимательность к деталям. Все этапы работы обсуждались, Александр объяснял, как будет работать каждая функция. Для нас это было важно, так как раньше не имели опыта создания сайтов. Получили именно то, что нужно."', name: 'Шаповалова Екатерина' },
-      { id: 7, text: '"Сайт работает быстро и без багов. Хорошая работа."', name: 'Черепанов Андрей' }
-    ],
-    []
-  )
+  const reviews = useMemo(() => [
+    { id: 1, text: '"Очень довольна сотрудничеством! Сайт получился стильный и удобный, всё работает без ошибок."', name: 'Астахова Марина' },
+    { id: 2, text: '"Александр разработал для нашей компании корпоративный сайт. Всё было сделано в срок, дизайн аккуратный, структура продуманная. Особенно понравилось, что он сам предложил несколько идей, которые улучшили проект. Теперь сайт приносит клиентов, спасибо!"', name: 'Горчаков Артём' },
+    { id: 3, text: '"Работаем с Александром уже второй раз. Первый был лендинг, второй — интернет-магазин. В обоих случаях он проявил себя как ответственный разработчик: всегда на связи, все правки вносил быстро. Рекомендую!"', name: 'Демидов Кирилл' },
+    { id: 4, text: '"Заказывала сайт-визитку. Получилось даже лучше, чем я представляла! Дизайн современный, открывается отлично и на телефоне, и на компьютере."', name: 'Калинина Анна' },
+    { id: 5, text: '"Мы обратились к Александру, потому что нужен был сайт под ключ. Он взял на себя всё: от прототипа и дизайна до запуска и подключения аналитики. Видно, что человек работает на результат. Уже через неделю после запуска пошли первые заявки!"', name: 'Рябинин Сергей' },
+    { id: 6, text: '"Хочу отметить пунктуальность и внимательность к деталям. Все этапы работы обсуждались, Александр объяснял, как будет работать каждая функция. Для нас это было важно, так как раньше не имели опыта создания сайтов. Получили именно то, что нужно."', name: 'Шаповалова Екатерина' },
+    { id: 7, text: '"Сайт работает быстро и без багов. Хорошая работа."', name: 'Черепанов Андрей' }
+  ], [])
+
   const [viewportWidth, setViewportWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1440)
 
   useEffect(() => {
@@ -77,48 +75,30 @@ export function Reviews({ id }: ReviewsProps) {
 
   const sizes = useMemo(() => {
     const w = viewportWidth
-
-    // Scale content gradually below 1000px, keep 1 above
     const scale = w >= 1000 ? 1 : Math.max(0.65, w / 1000)
 
-    const baseSlideW = 910
-    const baseSlideH = 300
-    const baseGap = 52
-    const baseCarouselGap = 115
-    const baseArrow = 80
-    const baseTitleFs = 48
-    const baseTextFs = 20
-    const baseNameFs = 18
-    const baseAvatar = 50
+    const baseSlideW = 910, baseSlideH = 300, baseGap = 52, baseCarouselGap = 115
+    const baseArrow = 80, baseTitleFs = 48, baseTextFs = 20, baseNameFs = 18, baseAvatar = 50
 
     let carouselGap = baseCarouselGap
     if (w <= 1300) {
       const t = Math.max(0, Math.min(1, (w - 1000) / 300))
       carouselGap = Math.max(24, Math.round(baseCarouselGap * (0.5 + 0.5 * t)))
     }
-    if (w <= 650) {
-      carouselGap = 16
-    }
+    if (w <= 650) carouselGap = 16
 
     const clampedWidth = Math.max(240, w - 32)
-    const slideWidth = w <= 700
-      ? Math.min(Math.round(baseSlideW * scale), clampedWidth)
-      : Math.round(baseSlideW * scale)
+    const slideWidth = w <= 700 ? Math.min(Math.round(baseSlideW * scale), clampedWidth) : Math.round(baseSlideW * scale)
     const slideHeightBase = Math.round(baseSlideH * scale)
     let gap = Math.max(20, Math.round(baseGap * scale))
-    if (w <= 650) {
-      gap = Math.max(10, Math.round(32 * scale))
-    }
+    if (w <= 650) gap = Math.max(10, Math.round(32 * scale))
 
     const arrowSize = w <= 1300 ? Math.max(56, Math.round(baseArrow * (w < 1000 ? scale : 0.85))) : baseArrow
     let titleFontSize = Math.round(baseTitleFs * (w < 1200 ? Math.max(0.8, Math.min(1, w / 1200)) : 1))
-    if (w <= 650) {
-      titleFontSize = Math.max(24, Math.round(baseTitleFs * 0.54))
-    }
+    if (w <= 650) titleFontSize = Math.max(24, Math.round(baseTitleFs * 0.54))
     let titleMaxWidth = Math.min(900, Math.round(900 * (w < 1000 ? Math.max(0.75, w / 1000) : 1)))
-    if (w <= 650) {
-      titleMaxWidth = Math.max(220, Math.min(titleMaxWidth, w - 32))
-    }
+    if (w <= 650) titleMaxWidth = Math.max(220, Math.min(titleMaxWidth, w - 32))
+
     const reviewFontSize = Math.max(14, Math.round(baseTextFs * scale))
     const reviewWidth = Math.round(slideWidth * 0.89)
     const reviewHeightBase = Math.max(90, Math.round(120 * scale))
@@ -134,7 +114,6 @@ export function Reviews({ id }: ReviewsProps) {
     const nameWidth = Math.round(260 * scale)
     const avatarSize = Math.max(40, Math.round(baseAvatar * scale))
 
-    // Border geometry derived from scale so it stays aligned
     let borderThickness = Math.max(1, Math.round(2 * scale))
     if (w <= 650) borderThickness = Math.max(borderThickness + 1, 2)
     const slideRadius = Math.max(14, Math.round(20 * scale))
@@ -144,151 +123,73 @@ export function Reviews({ id }: ReviewsProps) {
     const innerTopInset = Math.max(3, borderThickness + 2)
     const innerSideInset = Math.max(2, borderThickness)
 
-  let techLogoSize = 30
-  let techTextFs = 24
-  let techGap = 80
-  if (w <= 1000) techGap = 64
-  if (w <= 800) {
-    techLogoSize = 24
-    techTextFs = 18
-    techGap = 40
-  }
-  if (w <= 650) {
-    techLogoSize = 22
-    techTextFs = 16
-    techGap = 28
-  }
+    let techLogoSize = 30, techTextFs = 24, techGap = 80
+    if (w <= 1000) techGap = 64
+    if (w <= 800) { techLogoSize = 24; techTextFs = 18; techGap = 40 }
+    if (w <= 650) { techLogoSize = 22; techTextFs = 16; techGap = 28 }
 
     return {
-      slideWidth,
-      slideHeight,
-      gap,
-      carouselGap,
-      arrowSize,
-      titleFontSize,
-      titleMaxWidth,
-      reviewFontSize,
-      reviewWidth,
-      reviewHeight,
-      nameFontSize,
-      nameWidth,
-      avatarSize,
-      borderThickness,
-      slideRadius,
-      beforeRadius,
-      afterRadius,
-      innerBottomInset,
-      innerTopInset,
-      innerSideInset,
-      techLogoSize,
-      techTextFs,
-      techGap
+      slideWidth, slideHeight, gap, carouselGap, arrowSize, titleFontSize, titleMaxWidth,
+      reviewFontSize, reviewWidth, reviewHeight, nameFontSize, nameWidth, avatarSize,
+      borderThickness, slideRadius, beforeRadius, afterRadius, innerBottomInset,
+      innerTopInset, innerSideInset, techLogoSize, techTextFs, techGap
     }
   }, [viewportWidth])
 
-  const SLIDE_WIDTH = sizes.slideWidth
-  const GAP = sizes.gap
-  const STEP = SLIDE_WIDTH + GAP
-  const enableSwipe = viewportWidth <= 1300
+  const { slideWidth, gap, carouselGap, arrowSize, titleFontSize, titleMaxWidth, 
+          reviewFontSize, reviewWidth, reviewHeight, nameFontSize, nameWidth, avatarSize,
+          borderThickness, slideRadius, beforeRadius, afterRadius, innerBottomInset,
+          innerTopInset, innerSideInset, techLogoSize, techTextFs, techGap } = sizes
 
-  // Auto-advance timer and navigation
-  const autoTimerRef = useRef<number | null>(null)
-  const isJumpingRef = useRef(false)
-  const isAnimatingRef = useRef(false)
+  const STEP = slideWidth + gap
+  const enableClickNavigation = viewportWidth < 1300
   const count = reviews.length
-  const [index, setIndex] = useState(0)
-  const [isInstant, setIsInstant] = useState(false)
   const maxIndex = count - 1
 
-  const resetAuto = useCallback(() => {
-    if (autoTimerRef.current) clearInterval(autoTimerRef.current)
-    autoTimerRef.current = window.setInterval(() => {
-      if (isJumpingRef.current || isAnimatingRef.current) return
-      setIsInstant(false)
-      isAnimatingRef.current = true
-      setIndex((prev) => prev + 1)
-    }, 30000)
-  }, [])
+  const isJumpingRef = useRef(false)
+  const isAnimatingRef = useRef(false)
+  const lastClickTimeRef = useRef(0)
+  const [index, setIndex] = useState(0)
+  const [isInstant, setIsInstant] = useState(false)
 
   const go = useCallback((dir: 'left' | 'right') => {
+    const now = Date.now()
+    if (now - lastClickTimeRef.current < 800) return // 800ms cooldown
     if (isJumpingRef.current || isAnimatingRef.current) return
+    
+    lastClickTimeRef.current = now
     setIsInstant(false)
     isAnimatingRef.current = true
     setIndex((prev) => (dir === 'right' ? prev + 1 : prev - 1))
-    resetAuto()
-  }, [resetAuto])
+  }, [])
 
-  // Swipe state
-  const isPointerDownRef = useRef(false)
-  const startXRef = useRef(0)
-  const lastXRef = useRef(0)
-
-  const onPointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    if (!enableSwipe) return
-    isPointerDownRef.current = true
-    startXRef.current = e.clientX
-    lastXRef.current = e.clientX
-    ;(e.currentTarget as HTMLDivElement).setPointerCapture?.(e.pointerId)
-  }, [enableSwipe])
-
-  const onPointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    if (!enableSwipe || !isPointerDownRef.current) return
-    lastXRef.current = e.clientX
-  }, [enableSwipe])
-
-  const endPointer = useCallback(() => {
-    if (!isPointerDownRef.current) return
-    isPointerDownRef.current = false
-    const dx = lastXRef.current - startXRef.current
-    const threshold = Math.max(50, Math.round(SLIDE_WIDTH * 0.15))
-    if (Math.abs(dx) >= threshold) {
-      if (dx > 0) {
-        go('left')
-      } else {
-        go('right')
-      }
-    }
-  }, [SLIDE_WIDTH, go])
-
-  useEffect(() => {
-    resetAuto()
-    const visibilityHandler = () => {
-      if (document.visibilityState === 'visible') {
-        resetAuto()
-      } else if (autoTimerRef.current) {
-        clearInterval(autoTimerRef.current)
-      }
-    }
-    document.addEventListener('visibilitychange', visibilityHandler)
-    return () => { if (autoTimerRef.current) clearInterval(autoTimerRef.current) }
-  }, [resetAuto])
+  const handleSlideClick = useCallback(() => {
+    const now = Date.now()
+    if (now - lastClickTimeRef.current < 800) return // 800ms cooldown
+    if (!enableClickNavigation || isJumpingRef.current || isAnimatingRef.current) return
+    
+    lastClickTimeRef.current = now
+    setIsInstant(false)
+    isAnimatingRef.current = true
+    setIndex((prev) => prev + 1)
+  }, [enableClickNavigation])
 
   return (
     <Root id={id}
     >
-      <Title $fs={sizes.titleFontSize} $maxw={sizes.titleMaxWidth}>
+      <Title $fs={titleFontSize} $maxw={titleMaxWidth}>
         Отзывы <span>довольных клиентов</span>
       </Title>
-      <Carousel $gap={sizes.carouselGap}>
+      <Carousel $gap={carouselGap}>
         {viewportWidth > 1300 && (
-          <ArrowLeft onClick={() => go('left')} aria-label="Назад" $size={sizes.arrowSize}>
-            <ArrowSvg viewBox="0 0 32 32" width={sizes.arrowSize * 0.8} height={sizes.arrowSize * 0.8} aria-hidden>
+          <ArrowLeft onClick={() => go('left')} aria-label="Назад" $size={arrowSize}>
+            <ArrowSvg viewBox="0 0 32 32" width={arrowSize * 0.8} height={arrowSize * 0.8} aria-hidden>
               <path d="M20 8l-8 8 8 8" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
             </ArrowSvg>
           </ArrowLeft>
         )}
-        <Frame 
-          $w={sizes.slideWidth} 
-          $h={sizes.slideHeight}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={endPointer}
-          onPointerCancel={endPointer}
-          onPointerLeave={endPointer}
-        >
-          <Track
-            $instant={isInstant}
-            $gap={sizes.gap}
+        <Frame $w={slideWidth} $h={sizes.slideHeight}>
+          <Track $instant={isInstant} $gap={gap}
             style={{ transform: `translateX(-${(() => {
               if (index === -1) return 0 * STEP
               if (index === count) return (count + 1) * STEP
@@ -321,13 +222,14 @@ export function Reviews({ id }: ReviewsProps) {
               } else {
                 isAnimatingRef.current = false
               }
-              resetAuto()
             }}
           >
             {[reviews[count - 1], ...reviews, reviews[0]].map((r, i) => {
               const realIdx = i - 1
               const activeIdx = (index < 0 ? maxIndex : index > maxIndex ? 0 : index)
               const isActive = realIdx === activeIdx
+              
+              // No need to calculate slide index since we always go to next slide
 
               // Circular delta between current slide and active slide
               let delta = realIdx - activeIdx
@@ -347,31 +249,34 @@ export function Reviews({ id }: ReviewsProps) {
                 <Slide
                   key={`${r.id}-${i}`}
                   data-active={isActive}
-                  $w={sizes.slideWidth}
-                  $h={sizes.slideHeight}
-                  $sr={sizes.slideRadius}
-                  $bt={sizes.borderThickness}
-                  $rOut={sizes.beforeRadius}
-                  $rIn={sizes.afterRadius}
-                  $insetB={sizes.innerBottomInset}
-                  $insetT={sizes.innerTopInset}
-                  $insetS={sizes.innerSideInset}
+                  $w={slideWidth} $h={sizes.slideHeight} $sr={slideRadius} $bt={borderThickness}
+                  $rOut={beforeRadius} $rIn={afterRadius} $insetB={innerBottomInset}
+                  $insetT={innerTopInset} $insetS={innerSideInset}
+                  onClick={enableClickNavigation ? handleSlideClick : undefined}
                   style={{
                     zIndex,
-                    filter: isActive ? 'drop-shadow(0 18px 40px rgba(203,172,249,0.25))' : 'drop-shadow(0 10px 26px rgba(0,0,0,0.35))'
+                    filter: isActive ? 'drop-shadow(0 18px 40px rgba(203,172,249,0.25))' : 'drop-shadow(0 10px 26px rgba(0,0,0,0.35))',
+                    cursor: enableClickNavigation ? 'pointer' : 'default'
                   }}
                 >
                   <SlideInner
                     $instant={isInstant}
+                    onClick={enableClickNavigation ? (e) => {
+                      e.stopPropagation()
+                      handleSlideClick()
+                    } : undefined}
                     style={{
                       transform: `translateZ(${depth}px) rotateY(${angle}deg) scale(${scale})`,
                       opacity
                     }}
                   >
-                    <ReviewText $fs={sizes.reviewFontSize} $w={sizes.reviewWidth} $h={sizes.reviewHeight}>{r.text}</ReviewText>
-                    <Reviewer>
-                      <Avatar $size={sizes.avatarSize}>{getInitials(r.name)}</Avatar>
-                      <ReviewerName $fs={sizes.nameFontSize} $w={sizes.nameWidth}>{r.name}</ReviewerName>
+                    <ReviewText $fs={reviewFontSize} $w={reviewWidth} $h={reviewHeight}
+                      onClick={enableClickNavigation ? (e) => { e.stopPropagation(); handleSlideClick() } : undefined}>
+                      {r.text}
+                    </ReviewText>
+                    <Reviewer onClick={enableClickNavigation ? (e) => { e.stopPropagation(); handleSlideClick() } : undefined}>
+                      <Avatar $size={avatarSize}>{getInitials(r.name)}</Avatar>
+                      <ReviewerName $fs={nameFontSize} $w={nameWidth}>{r.name}</ReviewerName>
                     </Reviewer>
                   </SlideInner>
                 </Slide>
@@ -380,34 +285,34 @@ export function Reviews({ id }: ReviewsProps) {
           </Track>
         </Frame>
         {viewportWidth > 1300 && (
-          <ArrowRight onClick={() => go('right')} aria-label="Вперёд" $size={sizes.arrowSize}>
-            <ArrowSvg viewBox="0 0 32 32" width={sizes.arrowSize * 0.8} height={sizes.arrowSize * 0.8} aria-hidden>
+          <ArrowRight onClick={() => go('right')} aria-label="Вперёд" $size={arrowSize}>
+            <ArrowSvg viewBox="0 0 32 32" width={arrowSize * 0.8} height={arrowSize * 0.8} aria-hidden>
               <path d="M12 8l8 8-8 8" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
             </ArrowSvg>
           </ArrowRight>
         )}
       </Carousel>
 
-      <TechList $gap={sizes.techGap}>
+      <TechList $gap={techGap}>
         <TechItem>
-          <LogoImg src={figmaLogo} alt="figma" $size={sizes.techLogoSize} />
-          <TechText $fs={sizes.techTextFs}>figma</TechText>
+          <LogoImg src={figmaLogo} alt="figma" $size={techLogoSize} />
+          <TechText $fs={techTextFs}>figma</TechText>
         </TechItem>
         <TechItem>
-          <LogoCircle style={{ background: '#3178C6' }} $size={sizes.techLogoSize}>TS</LogoCircle>
-          <TechText $fs={sizes.techTextFs}>typescript</TechText>
+          <LogoCircle style={{ background: '#3178C6' }} $size={techLogoSize}>TS</LogoCircle>
+          <TechText $fs={techTextFs}>typescript</TechText>
         </TechItem>
         <TechItem>
-          <LogoImg src={reactLogo} alt="React" $size={sizes.techLogoSize} />
-          <TechText $fs={sizes.techTextFs}>React</TechText>
+          <LogoImg src={reactLogo} alt="React" $size={techLogoSize} />
+          <TechText $fs={techTextFs}>React</TechText>
         </TechItem>
         <TechItem>
-          <LogoImg src={firebaseLogo} alt="firebase" $size={sizes.techLogoSize} />
-          <TechText $fs={sizes.techTextFs}>firebase</TechText>
+          <LogoImg src={firebaseLogo} alt="firebase" $size={techLogoSize} />
+          <TechText $fs={techTextFs}>firebase</TechText>
         </TechItem>
         <TechItem>
-          <LogoCircle style={{ background: '#F7DF1E', color: '#000319' }} $size={sizes.techLogoSize}>JS</LogoCircle>
-          <TechText $fs={sizes.techTextFs}>javascript</TechText>
+          <LogoCircle style={{ background: '#F7DF1E', color: '#000319' }} $size={techLogoSize}>JS</LogoCircle>
+          <TechText $fs={techTextFs}>javascript</TechText>
         </TechItem>
       </TechList>
     </Root>
@@ -439,7 +344,6 @@ const Frame = styled.div<{ $w?: number; $h?: number }>`
   border-radius: 20px;
   perspective: 1200px;
   perspective-origin: 50% 50%;
-  touch-action: pan-y;
 `
 
 const Track = styled.div<{ $instant?: boolean; $gap?: number }>`
@@ -516,6 +420,7 @@ const SlideInner = styled.div<{ $instant?: boolean }>`
   transform-origin: 50% 50%;
   backface-visibility: hidden;
   transition: ${({ $instant }) => ($instant ? 'none' : 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 320ms ease')};
+  pointer-events: auto;
 
   @media (max-width: 500px) {
     padding: 22px 22px;
@@ -541,6 +446,7 @@ const ReviewText = styled.div<{ $fs?: number; $w?: number; $h?: number }>`
   -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
 
   @media (max-width: 500px) {
     text-align: center;
@@ -556,6 +462,7 @@ const Reviewer = styled.div`
   opacity: 1;
   transform: none;
   transition: none;
+  pointer-events: auto;
 `
 
 

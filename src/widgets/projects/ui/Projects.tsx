@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import redDragonVideo from '../../../assets/reddragon.mov'
-import fitnessArtVideo from '../../../assets/fitnessart.mov'
-import profCourseVideo from '../../../assets/profcourse.mov'
-import eatDeliveryVideo from '../../../assets/eatdelivery.mov'
+import redDragonImage from '../../../assets/redDragonImage.png'
+import fitnessArtImage from '../../../assets/fitnessArtImage.png'
+import profCourseImage from '../../../assets/profCourseImage.png'
+import eatDeliveryImage from '../../../assets/eatDeliveryImage.png'
 
 const Root = styled.section`
   width: 100%;
@@ -119,7 +119,7 @@ const Card = styled.div`
   &:active { transform: translateY(-1px) scale(1.01); }
 `
 
-const VideoPlaceholder = styled.div`
+const ImagePlaceholder = styled.div`
   width: 92%;
   aspect-ratio: 552 / 360;
   margin: clamp(28px, 4vw, 48px) 2px 0 2px;
@@ -132,7 +132,7 @@ const VideoPlaceholder = styled.div`
   flex: 0 0 auto;
 `
 
-const Video = styled.video`
+const Image = styled.img`
   width: 81.5%;
   height: calc(100% - clamp(12px, 2vw, 25px));
   position: absolute;
@@ -231,16 +231,12 @@ export function Projects({ id }: ProjectsProps) {
       </Title>
       <Grid>
         <Card>
-          <VideoPlaceholder>
-            <Video
-              src={redDragonVideo}
-              muted
-              loop
-              playsInline
-              onMouseEnter={(e) => e.currentTarget.play()}
-              onMouseLeave={(e) => e.currentTarget.pause()}
+          <ImagePlaceholder>
+            <Image
+              src={redDragonImage}
+              alt="Машины Красного Дракона"
             />
-          </VideoPlaceholder>
+          </ImagePlaceholder>
           <TextBlock>
             <ProjectTitle>"Машины Красного Дракона"</ProjectTitle>
             <ProjectSubtitle>Профессиональный импорт автомобилей из Японии, Китая и Кореи - от подбора до доставки под ключ.</ProjectSubtitle>
@@ -254,16 +250,12 @@ export function Projects({ id }: ProjectsProps) {
           </TextBlock>
         </Card>
         <Card>
-          <VideoPlaceholder>
-            <Video
-              src={fitnessArtVideo}
-              muted
-              loop
-              playsInline
-              onMouseEnter={(e) => e.currentTarget.play()}
-              onMouseLeave={(e) => e.currentTarget.pause()}
+          <ImagePlaceholder>
+            <Image
+              src={fitnessArtImage}
+              alt="Проект FitnessArt"
             />
-          </VideoPlaceholder>
+          </ImagePlaceholder>
           <TextBlock>
             <ProjectTitle>Проект "FitnessArt"</ProjectTitle>
             <ProjectSubtitle>Современное фитнес-пространство с разнообразными тренировками и зонами для спорта.</ProjectSubtitle>
@@ -277,16 +269,12 @@ export function Projects({ id }: ProjectsProps) {
           </TextBlock>
         </Card>
         <Card>
-          <VideoPlaceholder>
-            <Video
-              src={profCourseVideo}
-              muted
-              loop
-              playsInline
-              onMouseEnter={(e) => e.currentTarget.play()}
-              onMouseLeave={(e) => e.currentTarget.pause()}
+          <ImagePlaceholder>
+            <Image
+              src={profCourseImage}
+              alt="Курс тренировок"
             />
-          </VideoPlaceholder>
+          </ImagePlaceholder>
           <TextBlock>
             <ProjectTitle>Курс тренировок</ProjectTitle>
             <ProjectSubtitle>Тренировки, которые работают: персональный план, поддержка 24/7 и реальные результаты.</ProjectSubtitle>
@@ -300,16 +288,12 @@ export function Projects({ id }: ProjectsProps) {
           </TextBlock>
         </Card>
         <Card>
-          <VideoPlaceholder>
-            <Video
-              src={eatDeliveryVideo}
-              muted
-              loop
-              playsInline
-              onMouseEnter={(e) => e.currentTarget.play()}
-              onMouseLeave={(e) => e.currentTarget.pause()}
+          <ImagePlaceholder>
+            <Image
+              src={eatDeliveryImage}
+              alt="Доставка еды IceYou"
             />
-          </VideoPlaceholder>
+          </ImagePlaceholder>
           <TextBlock>
             <ProjectTitle>Доставка еды "IceYou"</ProjectTitle>
             <ProjectSubtitle>Платформа онлайн-доставки еды с удобным интерфейсом.</ProjectSubtitle>

@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import { type PropsWithChildren } from 'react'
 import { ThemeProvider as SCThemeProvider } from 'styled-components'
 import { GlobalStyle } from '../../shared/styles/GlobalStyle'
 import { theme } from '../../shared/styles/theme'
