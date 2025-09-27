@@ -3,12 +3,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import reactLogo from '../../../assets/react.svg'
 import firebaseLogo from '../../../assets/firebase.png'
 import figmaLogo from '../../../assets/figma.png'
+import { AnimatedSection } from '../../../shared/ui/AnimatedSection'
 
 const Root = styled.section`
   width: 100%;
   padding-left: 16px;
   padding-right: 16px;
-  padding-top: 150px; 
+  padding-top: 0; 
   padding-bottom: 70px;
   margin-bottom: 0;
   display: flex;
@@ -20,19 +21,19 @@ const Root = styled.section`
   scroll-margin-top: 100px;
 
   @media (max-width: 800px) {
-    padding-top: 90px;
+    padding-top: 0;
     margin-bottom: 16px;
   }
 
   @media (max-width: 500px) {
-    padding-top: 70px;
+    padding-top: 0;
     padding-bottom: 40px;
   }
 `
 
 const Title = styled.h2<{ $fs?: number; $maxw?: number }>`
   margin: 0;
-  padding-top: 0;
+  padding-top: 150px;
   font-family: Inter, sans-serif;
   font-weight: 700; 
   font-size: ${({ $fs }) => ($fs ? `${$fs}px` : '48px')}; 
@@ -47,8 +48,13 @@ const Title = styled.h2<{ $fs?: number; $maxw?: number }>`
   }
 
   @media (max-width: 800px) {
+    padding-top: 90px;
     font-size: 36px;
     white-space: normal;
+  }
+
+  @media (max-width: 500px) {
+    padding-top: 70px;
   }
 `
 
@@ -175,12 +181,14 @@ export function Reviews({ id }: ReviewsProps) {
   }, [enableClickNavigation])
 
   return (
-    <Root id={id}
-    >
-      <Title $fs={titleFontSize} $maxw={titleMaxWidth}>
-        Отзывы <span>довольных клиентов</span>
-      </Title>
-      <Carousel $gap={carouselGap}>
+    <Root id={id}>
+      <AnimatedSection animationType="fadeInUp" delay={0}>
+        <Title $fs={titleFontSize} $maxw={titleMaxWidth}>
+          Отзывы <span>довольных клиентов</span>
+        </Title>
+      </AnimatedSection>
+      <AnimatedSection animationType="fadeInUp" delay={200}>
+        <Carousel $gap={carouselGap}>
         {viewportWidth > 1300 && (
           <ArrowLeft onClick={() => go('left')} aria-label="Назад" $size={arrowSize}>
             <ArrowSvg viewBox="0 0 32 32" width={arrowSize * 0.8} height={arrowSize * 0.8} aria-hidden>
@@ -291,9 +299,11 @@ export function Reviews({ id }: ReviewsProps) {
             </ArrowSvg>
           </ArrowRight>
         )}
-      </Carousel>
+        </Carousel>
+      </AnimatedSection>
 
-      <TechList $gap={techGap}>
+      <AnimatedSection animationType="fadeInUp" delay={400}>
+        <TechList $gap={techGap}>
         <TechItem>
           <LogoImg src={figmaLogo} alt="figma" $size={techLogoSize} />
           <TechText $fs={techTextFs}>figma</TechText>
@@ -314,7 +324,8 @@ export function Reviews({ id }: ReviewsProps) {
           <LogoCircle style={{ background: '#F7DF1E', color: '#000319' }} $size={techLogoSize}>JS</LogoCircle>
           <TechText $fs={techTextFs}>javascript</TechText>
         </TechItem>
-      </TechList>
+        </TechList>
+      </AnimatedSection>
     </Root>
   )
 }

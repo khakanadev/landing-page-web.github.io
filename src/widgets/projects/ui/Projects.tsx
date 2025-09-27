@@ -3,6 +3,7 @@ import redDragonImage from '../../../assets/redDragonImage.png'
 import fitnessArtImage from '../../../assets/fitnessArtImage.png'
 import profCourseImage from '../../../assets/profCourseImage.png'
 import eatDeliveryImage from '../../../assets/eatDeliveryImage.png'
+import { AnimatedSection } from '../../../shared/ui/AnimatedSection'
 
 const Root = styled.section`
   width: 100%;
@@ -224,89 +225,100 @@ type ProjectsProps = { id?: string }
 
 export function Projects({ id }: ProjectsProps) {
   return (
-    <Root id={id}
-    >
-      <Title>
-        Последние <span>проекты</span>
-      </Title>
-      <Grid>
-        <Card>
-          <ImagePlaceholder>
-            <Image
-              src={redDragonImage}
-              alt="Машины Красного Дракона"
-            />
-          </ImagePlaceholder>
-          <TextBlock>
-            <ProjectTitle>"Машины Красного Дракона"</ProjectTitle>
-            <ProjectSubtitle>Профессиональный импорт автомобилей из Японии, Китая и Кореи - от подбора до доставки под ключ.</ProjectSubtitle>
-            <ProjectLink href="https://rdcar.ru/" target="_blank" rel="noopener noreferrer">
-              Перейти на сайт
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 13L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M9 5H13V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </ProjectLink>
-          </TextBlock>
-        </Card>
-        <Card>
-          <ImagePlaceholder>
-            <Image
-              src={fitnessArtImage}
-              alt="Проект FitnessArt"
-            />
-          </ImagePlaceholder>
-          <TextBlock>
-            <ProjectTitle>Проект "FitnessArt"</ProjectTitle>
-            <ProjectSubtitle>Современное фитнес-пространство с разнообразными тренировками и зонами для спорта.</ProjectSubtitle>
-            <ProjectLink href="https://fitness-art-antei.ru/tcz-antej/" target="_blank" rel="noopener noreferrer">
-              Перейти на сайт
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 13L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M9 5H13V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </ProjectLink>
-          </TextBlock>
-        </Card>
-        <Card>
-          <ImagePlaceholder>
-            <Image
-              src={profCourseImage}
-              alt="Курс тренировок"
-            />
-          </ImagePlaceholder>
-          <TextBlock>
-            <ProjectTitle>Курс тренировок</ProjectTitle>
-            <ProjectSubtitle>Тренировки, которые работают: персональный план, поддержка 24/7 и реальные результаты.</ProjectSubtitle>
-            <ProjectLink href="https://aliorudzhev.ru/" target="_blank" rel="noopener noreferrer">
-              Перейти на сайт
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 13L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M9 5H13V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </ProjectLink>
-          </TextBlock>
-        </Card>
-        <Card>
-          <ImagePlaceholder>
-            <Image
-              src={eatDeliveryImage}
-              alt="Доставка еды IceYou"
-            />
-          </ImagePlaceholder>
-          <TextBlock>
-            <ProjectTitle>Доставка еды "IceYou"</ProjectTitle>
-            <ProjectSubtitle>Платформа онлайн-доставки еды с удобным интерфейсом.</ProjectSubtitle>
-            <ProjectLink href="https://iceyou.ru/" target="_blank" rel="noopener noreferrer">
-              Перейти на сайт
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 13L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M9 5H13V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </ProjectLink>
-          </TextBlock>
-        </Card>
-      </Grid>
+    <Root id={id}>
+      <AnimatedSection animationType="fadeInUp" delay={0}>
+        <Title>
+          Последние <span>проекты</span>
+        </Title>
+      </AnimatedSection>
+      <AnimatedSection animationType="fadeInUp" delay={200}>
+        <Grid>
+          <AnimatedSection animationType="fadeInLeft" delay={400}>
+            <Card>
+              <ImagePlaceholder>
+                <Image
+                  src={redDragonImage}
+                  alt="Машины Красного Дракона"
+                />
+              </ImagePlaceholder>
+              <TextBlock>
+                <ProjectTitle>"Машины Красного Дракона"</ProjectTitle>
+                <ProjectSubtitle>Профессиональный импорт автомобилей из Японии, Китая и Кореи - от подбора до доставки под ключ.</ProjectSubtitle>
+                <ProjectLink href="https://rdcar.ru/" target="_blank" rel="noopener noreferrer">
+                  Перейти на сайт
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 13L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M9 5H13V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </ProjectLink>
+              </TextBlock>
+            </Card>
+          </AnimatedSection>
+          <AnimatedSection animationType="fadeInRight" delay={600}>
+            <Card>
+              <ImagePlaceholder>
+                <Image
+                  src={fitnessArtImage}
+                  alt="Проект FitnessArt"
+                />
+              </ImagePlaceholder>
+              <TextBlock>
+                <ProjectTitle>Проект "FitnessArt"</ProjectTitle>
+                <ProjectSubtitle>Современное фитнес-пространство с разнообразными тренировками и зонами для спорта.</ProjectSubtitle>
+                <ProjectLink href="https://fitness-art-antei.ru/tcz-antej/" target="_blank" rel="noopener noreferrer">
+                  Перейти на сайт
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 13L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M9 5H13V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </ProjectLink>
+              </TextBlock>
+            </Card>
+          </AnimatedSection>
+          <AnimatedSection animationType="fadeInLeft" delay={800}>
+            <Card>
+              <ImagePlaceholder>
+                <Image
+                  src={profCourseImage}
+                  alt="Курс тренировок"
+                />
+              </ImagePlaceholder>
+              <TextBlock>
+                <ProjectTitle>Курс тренировок</ProjectTitle>
+                <ProjectSubtitle>Тренировки, которые работают: персональный план, поддержка 24/7 и реальные результаты.</ProjectSubtitle>
+                <ProjectLink href="https://aliorudzhev.ru/" target="_blank" rel="noopener noreferrer">
+                  Перейти на сайт
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 13L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M9 5H13V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </ProjectLink>
+              </TextBlock>
+            </Card>
+          </AnimatedSection>
+          <AnimatedSection animationType="fadeInRight" delay={1000}>
+            <Card>
+              <ImagePlaceholder>
+                <Image
+                  src={eatDeliveryImage}
+                  alt="Доставка еды IceYou"
+                />
+              </ImagePlaceholder>
+              <TextBlock>
+                <ProjectTitle>Доставка еды "IceYou"</ProjectTitle>
+                <ProjectSubtitle>Платформа онлайн-доставки еды с удобным интерфейсом.</ProjectSubtitle>
+                <ProjectLink href="https://iceyou.ru/" target="_blank" rel="noopener noreferrer">
+                  Перейти на сайт
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 13L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M9 5H13V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </ProjectLink>
+              </TextBlock>
+            </Card>
+          </AnimatedSection>
+        </Grid>
+      </AnimatedSection>
     </Root>
   )
 }

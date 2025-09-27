@@ -1,41 +1,14 @@
-import styled, { keyframes, css } from 'styled-components'
-import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { AnimatedSection } from '../../../shared/ui/AnimatedSection'
 import macbook from '../../../assets/macbook.png'
-import macbookAd from '../../../assets/macbook-ad.png'
 import countries from '../../../assets/countries.png'
-import countriesAd from '../../../assets/countries-ad.png'
 import stack from '../../../assets/stack.png'
-import stackAd from '../../../assets/stack-ad.png'
 import gridPattern from '../../../assets/grid-pattern.png'
 import development from '../../../assets/development.png'
-import developmentAd from '../../../assets/development-ad.png'
 import button from '../../../assets/button.png'
-import buttonAd from '../../../assets/button-ad.png'
 import code from '../../../assets/code.png'
-import codeAd from '../../../assets/code-ad.png'
 import bg from '../../../assets/bg.png'
 
-const fadeSlideUp = keyframes`
-  from { 
-    opacity: 0; 
-    transform: translateY(30px) scale(0.95); 
-  }
-  to { 
-    opacity: 1; 
-    transform: translateY(0) scale(1); 
-  }
-`
-
-const fadeInScale = keyframes`
-  from { 
-    opacity: 0; 
-    transform: translateY(40px) scale(0.9); 
-  }
-  to { 
-    opacity: 1; 
-    transform: translateY(0) scale(1); 
-  }
-`
 
 const Root = styled.section`
   width: 100%;
@@ -109,13 +82,14 @@ const Container = styled.div`
   justify-content: center;
 
   @media (max-width: 800px) {
+    width: 100%;
     grid-template-columns: 1fr;
     row-gap: 24px;
     & > * { margin: 0; }
   }
 `
 
-const Left = styled.div<{ $animate?: boolean }>`
+const Left = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -140,12 +114,6 @@ const Left = styled.div<{ $animate?: boolean }>`
     pointer-events: none;
   }
   
-  ${props => props.$animate && css`
-    opacity: 0;
-    animation: ${fadeInScale} 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    animation-delay: 200ms;
-  `}
-  
   &:hover img[alt='Macbook'],
   &:hover div[data-macbook-overlay] {
     transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
@@ -166,6 +134,15 @@ const Left = styled.div<{ $animate?: boolean }>`
       border-color: transparent;
       box-shadow: none;
     }
+    width: calc(100% - 32px);
+    margin: 0 16px;
+    
+    img {
+      width: 100% !important;
+      height: auto !important;
+      object-fit: contain !important;
+      display: block !important;
+    }
   }
 
   @media (max-width: 1300px) {
@@ -177,23 +154,18 @@ const Left = styled.div<{ $animate?: boolean }>`
   }
 `
 
-const Right = styled.div<{ $animate?: boolean }>`
+const Right = styled.div`
   display: grid;
   grid-template-rows: auto auto;
   row-gap: 30px;
   justify-items: start;
   margin-top: 0px;
 
-  ${props => props.$animate && css`
-    opacity: 0;
-    animation: ${fadeSlideUp} 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    animation-delay: 400ms;
-  `}
-
   @media (max-width: 800px) {
     order: 2;
     width: 100%;
     row-gap: 24px;
+    justify-items: center;
   }
 `
 
@@ -237,65 +209,21 @@ const Card = styled.div`
       border-color: transparent;
       box-shadow: none;
     }
+    width: calc(100% - 32px);
+    margin: 0 16px;
+    
+    img {
+      width: 100% !important;
+      height: auto !important;
+      object-fit: contain !important;
+      display: block !important;
+      margin: 0 !important;
+      image-rendering: auto;
+    }
   }
-
-  @media (max-width: 800px) {
-    width: 100%;
-  }
-`
-
-const MacbookImg = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  transform-origin: center;
-  
-  transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 350ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 250ms ease;
-  border-radius: 12px;
-  pointer-events: auto;
-
-  @media (max-width: 1300px) {
-    position: absolute;
-  }
-`
-
-const MacbookFrame = styled.div`
-  @media (max-width: 1300px) {
-    display: none;
-  }
-`
-
-const ResponsivePicture = styled.picture`
-  display: block;
-  line-height: 0;
-  width: 100%;
 `
 
 const MacbookOverlay = styled.div``
-
-const SmallImg = styled.img`
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  display: block;
-  border-radius: 15px;
-  transform-origin: center;
-  
-  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  &:hover {
-    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
-    filter: saturate(1.03) brightness(1.02)
-      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
-      drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
-  }
-`
 
 const CountriesOverlay = styled.div``
 
@@ -324,7 +252,7 @@ const StackSubtitle = styled.div``
 
 const StackTitle = styled.div``
 
-const Row2 = styled.div<{ $animate?: boolean }>`
+const Row2 = styled.div`
   width: min(1280px, 92vw);
   margin-top: 30px;
   display: grid;
@@ -333,13 +261,8 @@ const Row2 = styled.div<{ $animate?: boolean }>`
   align-items: start;
   justify-content: center;
 
-  ${props => props.$animate && css`
-    opacity: 0;
-    animation: ${fadeSlideUp} 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    animation-delay: 600ms;
-  `}
-
   @media (max-width: 800px) {
+    width: 100%;
     grid-template-columns: 1fr;
     row-gap: 24px;
   }
@@ -353,6 +276,7 @@ const Left2 = styled.div`
   @media (max-width: 800px) {
     order: 2;
     row-gap: 24px;
+    justify-items: center;
   }
 `
 
@@ -361,26 +285,11 @@ const Right2 = styled.div`
 
   @media (max-width: 800px) {
     order: 1;
+    display: flex;
+    justify-content: center;
   }
 `
 
-const DevImg = styled.img`
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  display: block;
-  transform-origin: center;
-  
-  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  border-radius: 12px;
-  &:hover {
-    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
-    filter: saturate(1.03) brightness(1.02)
-      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
-      drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
-  }
-`
 
 const DevCard = styled.div`
   position: relative;
@@ -419,30 +328,22 @@ const DevCard = styled.div`
       border-color: transparent;
       box-shadow: none;
     }
+    width: calc(100% - 32px);
+    margin: 0 16px;
+    
+    img {
+      width: 100% !important;
+      height: auto !important;
+      object-fit: contain !important;
+      display: block !important;
+      margin: 0 !important;
+      image-rendering: auto;
+    }
   }
 `
 
 const DevOverlay = styled.div``
 
-const BtnImg = styled.img`
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  object-position: top;
-  display: block;
-  margin: 0;
-  transform-origin: center;
-  
-  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  border-radius: 20px;
-  &:hover {
-    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
-    filter: saturate(1.03) brightness(1.02)
-      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
-      drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
-  }
-`
 
 const BtnCard = styled.div`
   position: relative;
@@ -482,6 +383,17 @@ const BtnCard = styled.div`
     &:hover::after {
       border-color: transparent;
       box-shadow: none;
+    }
+    width: calc(100% - 32px);
+    margin: 0 16px;
+    
+    img {
+      width: 100% !important;
+      height: auto !important;
+      object-fit: contain !important;
+      display: block !important;
+      margin: 0 !important;
+      image-rendering: auto;
     }
   }
 `
@@ -595,24 +507,6 @@ const BtnOverlayCta = styled.button`
   }
 `
 
-const CodeImg = styled.img`
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  display: block;
-  transform-origin: center;
-  
-  transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 350ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 250ms ease;
-  border-radius: 18px;
-  &:hover {
-    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
-    filter: saturate(1.03) brightness(1.02)
-      drop-shadow(0 14px 28px rgba(0, 0, 0, 0.32))
-      drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
-  }
-`
 
 const CodeCard = styled.div`
   position: relative;
@@ -637,6 +531,17 @@ const CodeCard = styled.div`
   @media (max-width: 800px) {
     &:hover img {
       box-shadow: none;
+    }
+    width: calc(100% - 32px);
+    margin: 0 16px;
+    
+    img {
+      width: 100% !important;
+      height: auto !important;
+      object-fit: contain !important;
+      display: block !important;
+      margin: 0 !important;
+      image-rendering: auto;
     }
   }
 `
@@ -683,98 +588,121 @@ const CodeTitle = styled.div``
 
 const CodeSubtitle = styled.div``
 
-export function Advantages() {
-  const [shouldAnimate, setShouldAnimate] = useState(false)
 
-  useEffect(() => {
-    setShouldAnimate(true)
-  }, [])
+export function Advantages() {
 
   return (
     <Root>
       <AdvantagesBg />
       <Background />
       <Content>
-        <Container>
-          <Left $animate={shouldAnimate}>
-            <ResponsivePicture>
-              <source media="(max-width: 800px)" srcSet={`${macbookAd} 1x, ${macbook} 2x`} />
-              <MacbookImg src={macbook} alt="Macbook" />
-            </ResponsivePicture>
-            <MacbookFrame />
-            <MacbookOverlay data-macbook-overlay>
-              
-            </MacbookOverlay>
-          </Left>
-          <Right $animate={shouldAnimate}>
-            <Card>
-              <ResponsivePicture>
-                <source media="(max-width: 800px)" srcSet={`${countriesAd} 1x, ${countries} 2x`} />
-                <SmallImg src={countries} alt="Countries" />
-              </ResponsivePicture>
-              <CountriesOverlay data-countries-overlay>
-                
-              </CountriesOverlay>
-            </Card>
-            <Card>
-              <ResponsivePicture>
-                <source media="(max-width: 800px)" srcSet={`${stackAd} 1x, ${stack} 2x`} />
-                <SmallImg src={stack} alt="Stack" />
-              </ResponsivePicture>
-              <StackOverlay>
-                <StackOverlayInner data-stack-overlay-inner>
-                  <StackSubtitle>
-                    
-                  </StackSubtitle>
-                  <StackTitle>
-                    
-                  </StackTitle>
-                </StackOverlayInner>
-              </StackOverlay>
-            </Card>
-          </Right>
-        </Container>
-        <Row2 $animate={shouldAnimate}>
-          <Left2>
-            <DevCard>
-              <ResponsivePicture>
-                <source media="(max-width: 800px)" srcSet={`${developmentAd} 1x, ${development} 2x`} />
-                <DevImg src={development} alt="Development" />
-              </ResponsivePicture>
-              <DevOverlay data-dev-overlay>
-                
-              </DevOverlay>
-            </DevCard>
-            <BtnCard>
-              <ResponsivePicture>
-                <source media="(max-width: 800px)" srcSet={`${buttonAd} 1x, ${button} 2x`} />
-                <BtnImg src={button} alt="Button" />
-              </ResponsivePicture>
-              <BtnOverlay>
-                <BtnOverlayInner data-button-overlay-inner>
-                  <BtnOverlayText></BtnOverlayText>
-                  <BtnOverlayCta as="a" href="https://t.me/khakanadev" target="_blank" rel="noopener noreferrer">Заказать</BtnOverlayCta>
-                </BtnOverlayInner>
-              </BtnOverlay>
-            </BtnCard>
-          </Left2>
-          <Right2>
-            <CodeCard>
-              <ResponsivePicture>
-                <source media="(max-width: 800px)" srcSet={`${codeAd} 1x, ${code} 2x`} />
-                <CodeImg src={code} alt="Code" />
-              </ResponsivePicture>
-              <CodeOverlay>
-                <CodeOverlayInner data-code-overlay-inner>
-                  <CodeTitle></CodeTitle>
-                  <CodeSubtitle>
-                    
-                  </CodeSubtitle>
-                </CodeOverlayInner>
-              </CodeOverlay>
-            </CodeCard>
-          </Right2>
-        </Row2>
+        <AnimatedSection animationType="fadeInUp" delay={0}>
+          <Container>
+            <AnimatedSection animationType="fadeInLeft" delay={200}>
+              <Left>
+                <img
+                  src={macbook}
+                  alt="Macbook"
+                  style={{ width: '100%', height: 'auto' }}
+                />
+                <MacbookOverlay data-macbook-overlay>
+                  
+                </MacbookOverlay>
+              </Left>
+            </AnimatedSection>
+            <AnimatedSection animationType="fadeInRight" delay={400}>
+              <Right>
+                <AnimatedSection animationType="fadeInScale" delay={600}>
+                  <Card>
+                    <img
+                      src={countries}
+                      alt="Countries"
+                      style={{ width: '100%', height: 'auto' }}
+                    />
+                    <CountriesOverlay data-countries-overlay>
+                      
+                    </CountriesOverlay>
+                  </Card>
+                </AnimatedSection>
+                <AnimatedSection animationType="fadeInScale" delay={800}>
+                  <Card>
+                    <img
+                      src={stack}
+                      alt="Stack"
+                      style={{ width: '100%', height: 'auto' }}
+                    />
+                    <StackOverlay>
+                      <StackOverlayInner data-stack-overlay-inner>
+                        <StackSubtitle>
+                          
+                        </StackSubtitle>
+                        <StackTitle>
+                          
+                        </StackTitle>
+                      </StackOverlayInner>
+                    </StackOverlay>
+                  </Card>
+                </AnimatedSection>
+              </Right>
+            </AnimatedSection>
+          </Container>
+        </AnimatedSection>
+        <AnimatedSection animationType="fadeInUp" delay={200}>
+          <Row2>
+            <AnimatedSection animationType="fadeInLeft" delay={400}>
+              <Left2>
+                <AnimatedSection animationType="fadeInScale" delay={600}>
+                  <DevCard>
+                    <img
+                      src={development}
+                      alt="Development"
+                      style={{ width: '100%', height: 'auto' }}
+                    />
+                    <DevOverlay data-dev-overlay>
+                      
+                    </DevOverlay>
+                  </DevCard>
+                </AnimatedSection>
+                <AnimatedSection animationType="fadeInScale" delay={800}>
+                  <BtnCard>
+                    <img
+                      src={button}
+                      alt="Button"
+                      style={{ width: '100%', height: 'auto' }}
+                    />
+                    <BtnOverlay>
+                      <BtnOverlayInner data-button-overlay-inner>
+                        <BtnOverlayText></BtnOverlayText>
+                        <BtnOverlayCta as="a" href="https://t.me/khakanadev" target="_blank" rel="noopener noreferrer">Заказать</BtnOverlayCta>
+                      </BtnOverlayInner>
+                    </BtnOverlay>
+                  </BtnCard>
+                </AnimatedSection>
+              </Left2>
+            </AnimatedSection>
+            <AnimatedSection animationType="fadeInRight" delay={600}>
+              <Right2>
+                <AnimatedSection animationType="fadeInScale" delay={800}>
+                  <CodeCard>
+                    <img
+                      src={code}
+                      alt="Code"
+                      style={{ width: '100%', height: 'auto' }}
+                    />
+                    <CodeOverlay>
+                      <CodeOverlayInner data-code-overlay-inner>
+                        <CodeTitle></CodeTitle>
+                        <CodeSubtitle>
+                          
+                        </CodeSubtitle>
+                      </CodeOverlayInner>
+                    </CodeOverlay>
+                  </CodeCard>
+                </AnimatedSection>
+              </Right2>
+            </AnimatedSection>
+          </Row2>
+        </AnimatedSection>
       </Content>
     </Root>
   )

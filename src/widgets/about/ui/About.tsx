@@ -3,6 +3,7 @@ import cardone from '../../../assets/cardone.png'
 import cardtwo from '../../../assets/cardtwo.png'
 import cardthree from '../../../assets/cardthree.png'
 import cardfour from '../../../assets/cardfour.png'
+import { AnimatedSection } from '../../../shared/ui/AnimatedSection'
 
 const Root = styled.section`
   width: 100%;
@@ -296,50 +297,61 @@ type AboutProps = { id?: string }
 
 export function About({ id }: AboutProps) {
   return (
-    <Root id={id}
-    >
+    <Root id={id}>
       <Inner>
-        <Title>
-          Ваш <span>будущий разработчик</span>
-        </Title>
-        <Grid>
-          <Card>
-            <CardContent>
-              <CardIcon src={cardone} alt="icon one" />
-              <CardText>
-                <CardTitle>Обо мне</CardTitle>
-                <CardSubtitle>Я веб-разработчик, создающий современные сайты, которые помогают бизнесу расти и находить новых клиентов.</CardSubtitle>
-              </CardText>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent>
-              <CardIcon src={cardtwo} alt="icon two" />
-              <CardText>
-                <CardTitle>Более 2 лет в разработке</CardTitle>
-                <CardSubtitle>Работаю с React, TypeScript и Figma, создаю быстрые, надёжные и современные страницы.</CardSubtitle>
-              </CardText>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent>
-              <CardIcon src={cardthree} alt="icon three" />
-              <CardText>
-                <CardTitle>Индивидуальные решения</CardTitle>
-                <CardSubtitle>Никаких шаблонов — каждый проект уникален, сроки и стоимость фиксируются заранее, а результат довожу до конца.</CardSubtitle>
-              </CardText>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent>
-              <CardIcon src={cardfour} alt="icon four" />
-              <CardText>
-                <CardTitle>Разработка сайтов с нуля</CardTitle>
-                <CardSubtitle>От лендингов и визиток до корпоративных решений и интернет-магазинов — под задачи именно вашего бизнеса.</CardSubtitle>
-              </CardText>
-            </CardContent>
-          </Card>
-        </Grid>
+        <AnimatedSection animationType="fadeInUp" delay={0}>
+          <Title>
+            Ваш <span>будущий разработчик</span>
+          </Title>
+        </AnimatedSection>
+        <AnimatedSection animationType="fadeInUp" delay={200}>
+          <Grid>
+            <AnimatedSection animationType="fadeInLeft" delay={400}>
+              <Card>
+                <CardContent>
+                  <CardIcon src={cardone} alt="icon one" />
+                  <CardText>
+                    <CardTitle>Обо мне</CardTitle>
+                    <CardSubtitle>Я веб-разработчик, создающий современные сайты, которые помогают бизнесу расти и находить новых клиентов.</CardSubtitle>
+                  </CardText>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+            <AnimatedSection animationType="fadeInRight" delay={600}>
+              <Card>
+                <CardContent>
+                  <CardIcon src={cardtwo} alt="icon two" />
+                  <CardText>
+                    <CardTitle>Более 2 лет в разработке</CardTitle>
+                    <CardSubtitle>Работаю с React, TypeScript и Figma, создаю быстрые, надёжные и современные страницы.</CardSubtitle>
+                  </CardText>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+            <AnimatedSection animationType="fadeInLeft" delay={800}>
+              <Card>
+                <CardContent>
+                  <CardIcon src={cardthree} alt="icon three" />
+                  <CardText>
+                    <CardTitle>Индивидуальные решения</CardTitle>
+                    <CardSubtitle>Никаких шаблонов — каждый проект уникален, сроки и стоимость фиксируются заранее, а результат довожу до конца.</CardSubtitle>
+                  </CardText>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+            <AnimatedSection animationType="fadeInRight" delay={1000}>
+              <Card>
+                <CardContent>
+                  <CardIcon src={cardfour} alt="icon four" />
+                  <CardText>
+                    <CardTitle>Разработка сайтов с нуля</CardTitle>
+                    <CardSubtitle>От лендингов и визиток до корпоративных решений и интернет-магазинов — под задачи именно вашего бизнеса.</CardSubtitle>
+                  </CardText>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+          </Grid>
+        </AnimatedSection>
       </Inner>
     </Root>
   )

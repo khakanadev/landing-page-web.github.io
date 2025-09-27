@@ -3,15 +3,27 @@ import sectionInput from '../../../assets/section input.png'
 import card1 from '../../../assets/card1-ad.png'
 import card2 from '../../../assets/card2-ad.png'
 import card3 from '../../../assets/card3-ad.png'
+import { AnimatedSection } from '../../../shared/ui/AnimatedSection'
 
 const Root = styled.section`
   width: 100%;
-
+  padding-top: 150px;
+  padding-bottom: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   background: #000319;
+
+  @media (max-width: 800px) {
+    padding-top: 90px;
+    padding-bottom: 40px;
+  }
+
+  @media (max-width: 500px) {
+    padding-top: 70px;
+    padding-bottom: 30px;
+  }
 `
 
 const Container = styled.div`
@@ -272,56 +284,76 @@ export function Approach() {
   return (
     <Root>
       <Container>
-        <Title>
-          От идеи <span>до результата</span>
-        </Title>
-        <Subtitle>Три понятных шага к запуску вашего проекта</Subtitle>
-        <Row>
-          <Card>
-            <Corner src={sectionInput} alt="decor" $pos="tl" />
-            <Corner src={sectionInput} alt="decor" $pos="tr" />
-            <Corner src={sectionInput} alt="decor" $pos="bl" />
-            <Corner src={sectionInput} alt="decor" $pos="br" />
-            <CardOverlay>
-              <Label><LabelText>Шаг 1</LabelText></Label>
-              <CardTitle>Анализ и обсуждение задачи</CardTitle>
-              <CardSubtitle>
-                На этом этапе мы подробно обсуждаем вашу идею и формируем техническое задание. Я уточняю все детали: какие цели должен решать сайт, какая аудитория у бизнеса, какие функции необходимы. Вместе определяем структуру и дизайн, согласовываем сроки и бюджет. Это помогает сразу выстроить прозрачные ожидания и избежать недопонимания в дальнейшем.
-              </CardSubtitle>
-            </CardOverlay>
-          </Card>
-          <Card>
-            <Corner src={sectionInput} alt="decor" $pos="tl" />
-            <Corner src={sectionInput} alt="decor" $pos="tr" />
-            <Corner src={sectionInput} alt="decor" $pos="bl" />
-            <Corner src={sectionInput} alt="decor" $pos="br" />
-            <CardOverlay>
-              <Label><LabelText>Шаг 2</LabelText></Label>
-              <CardTitle>Разработка и создание проекта</CardTitle>
-              <CardSubtitle>
-                После утверждения плана начинается работа над проектом. Я разрабатываю уникальный дизайн в Figma, затем создаю сайт на современных технологиях. Каждый блок тщательно продумывается, чтобы сайт был не только красивым, но и удобным для пользователей. В процессе показываю вам промежуточные результаты, чтобы вы всегда были в курсе прогресса.
-              </CardSubtitle>
-            </CardOverlay>
-          </Card>
-          <Card>
-            <Corner src={sectionInput} alt="decor" $pos="tl" />
-            <Corner src={sectionInput} alt="decor" $pos="tr" />
-            <Corner src={sectionInput} alt="decor" $pos="bl" />
-            <Corner src={sectionInput} alt="decor" $pos="br" />
-            <CardOverlay>
-              <Label><LabelText>Шаг 3</LabelText></Label>
-              <CardTitle>Финализация и доработка проекта</CardTitle>
-              <CardSubtitle>
-                Когда проект готов, мы вместе его тестируем: проверяем, как сайт работает на разных устройствах и в разных браузерах. Если есть пожелания, я оперативно вношу правки. После этого подключаются все нужные сервисы: формы обратной связи, чаты, аналитика. Вы получаете готовый продукт и подробную инструкцию, а также поддержку после сдачи проекта.
-              </CardSubtitle>
-            </CardOverlay>
-          </Card>
-        </Row>
-        <AltRow>
-          <AltImg src={card1} alt="Этап 1" />
-          <AltImg src={card2} alt="Этап 2" />
-          <AltImg src={card3} alt="Этап 3" />
-        </AltRow>
+        <AnimatedSection animationType="fadeInUp" delay={0}>
+          <Title>
+            От идеи <span>до результата</span>
+          </Title>
+        </AnimatedSection>
+        <AnimatedSection animationType="fadeInUp" delay={200}>
+          <Subtitle>Три понятных шага к запуску вашего проекта</Subtitle>
+        </AnimatedSection>
+        <AnimatedSection animationType="fadeInUp" delay={400}>
+          <Row>
+            <AnimatedSection animationType="fadeInLeft" delay={600}>
+              <Card>
+                <Corner src={sectionInput} alt="decor" $pos="tl" />
+                <Corner src={sectionInput} alt="decor" $pos="tr" />
+                <Corner src={sectionInput} alt="decor" $pos="bl" />
+                <Corner src={sectionInput} alt="decor" $pos="br" />
+                <CardOverlay>
+                  <Label><LabelText>Шаг 1</LabelText></Label>
+                  <CardTitle>Анализ и обсуждение задачи</CardTitle>
+                  <CardSubtitle>
+                    На этом этапе мы подробно обсуждаем вашу идею и формируем техническое задание. Я уточняю все детали: какие цели должен решать сайт, какая аудитория у бизнеса, какие функции необходимы. Вместе определяем структуру и дизайн, согласовываем сроки и бюджет. Это помогает сразу выстроить прозрачные ожидания и избежать недопонимания в дальнейшем.
+                  </CardSubtitle>
+                </CardOverlay>
+              </Card>
+            </AnimatedSection>
+            <AnimatedSection animationType="fadeInUp" delay={800}>
+              <Card>
+                <Corner src={sectionInput} alt="decor" $pos="tl" />
+                <Corner src={sectionInput} alt="decor" $pos="tr" />
+                <Corner src={sectionInput} alt="decor" $pos="bl" />
+                <Corner src={sectionInput} alt="decor" $pos="br" />
+                <CardOverlay>
+                  <Label><LabelText>Шаг 2</LabelText></Label>
+                  <CardTitle>Разработка и создание проекта</CardTitle>
+                  <CardSubtitle>
+                    После утверждения плана начинается работа над проектом. Я разрабатываю уникальный дизайн в Figma, затем создаю сайт на современных технологиях. Каждый блок тщательно продумывается, чтобы сайт был не только красивым, но и удобным для пользователей. В процессе показываю вам промежуточные результаты, чтобы вы всегда были в курсе прогресса.
+                  </CardSubtitle>
+                </CardOverlay>
+              </Card>
+            </AnimatedSection>
+            <AnimatedSection animationType="fadeInRight" delay={1000}>
+              <Card>
+                <Corner src={sectionInput} alt="decor" $pos="tl" />
+                <Corner src={sectionInput} alt="decor" $pos="tr" />
+                <Corner src={sectionInput} alt="decor" $pos="bl" />
+                <Corner src={sectionInput} alt="decor" $pos="br" />
+                <CardOverlay>
+                  <Label><LabelText>Шаг 3</LabelText></Label>
+                  <CardTitle>Финализация и доработка проекта</CardTitle>
+                  <CardSubtitle>
+                    Когда проект готов, мы вместе его тестируем: проверяем, как сайт работает на разных устройствах и в разных браузерах. Если есть пожелания, я оперативно вношу правки. После этого подключаются все нужные сервисы: формы обратной связи, чаты, аналитика. Вы получаете готовый продукт и подробную инструкцию, а также поддержку после сдачи проекта.
+                  </CardSubtitle>
+                </CardOverlay>
+              </Card>
+            </AnimatedSection>
+          </Row>
+        </AnimatedSection>
+        <AnimatedSection animationType="fadeInUp" delay={1200}>
+          <AltRow>
+            <AnimatedSection animationType="fadeInScale" delay={1400}>
+              <AltImg src={card1} alt="Этап 1" />
+            </AnimatedSection>
+            <AnimatedSection animationType="fadeInScale" delay={1600}>
+              <AltImg src={card2} alt="Этап 2" />
+            </AnimatedSection>
+            <AnimatedSection animationType="fadeInScale" delay={1800}>
+              <AltImg src={card3} alt="Этап 3" />
+            </AnimatedSection>
+          </AltRow>
+        </AnimatedSection>
       </Container>
     </Root>
   )
