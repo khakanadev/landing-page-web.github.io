@@ -26,7 +26,7 @@ export const createImagePreloader = () => {
   return { preloadImage, preloadImages }
 }
 
-export const getOptimizedImageSrc = (src: string, width?: number, quality?: number) => {
+export const getOptimizedImageSrc = (src: string, _width?: number, _quality?: number) => {
   // In a real application, you would use a service like Cloudinary or ImageKit
   // For now, we'll return the original src
   return src

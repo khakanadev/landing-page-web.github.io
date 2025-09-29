@@ -4,6 +4,13 @@ import reactLogo from '../../../assets/react.svg'
 import firebaseLogo from '../../../assets/firebase.png'
 import figmaLogo from '../../../assets/figma.png'
 import { AnimatedSection } from '../../../shared/ui/AnimatedSection'
+import andreyAvatar from '../../../assets/reviews/andrey.jpg'
+import annAvatar from '../../../assets/reviews/ann.jpg'
+import artemAvatar from '../../../assets/reviews/artem.jpg'
+import ekaterinaAvatar from '../../../assets/reviews/ekaterina.jpg'
+import kirillAvatar from '../../../assets/reviews/kirill.jpg'
+import marinaAvatar from '../../../assets/reviews/marina.jpg'
+import sergeyAvatar from '../../../assets/reviews/sergey.jpg'
 
 const Root = styled.section`
   width: 100%;
@@ -283,7 +290,12 @@ export function Reviews({ id }: ReviewsProps) {
                       {r.text}
                     </ReviewText>
                     <Reviewer onClick={enableClickNavigation ? (e) => { e.stopPropagation(); handleSlideClick() } : undefined}>
-                      <Avatar $size={avatarSize}>{getInitials(r.name)}</Avatar>
+                      {(() => {
+                        const src = getAvatarForName(r.name)
+                        return src
+                          ? <AvatarImg src={src} alt={r.name} $size={avatarSize} />
+                          : <Avatar $size={avatarSize}>{getInitials(r.name)}</Avatar>
+                      })()}
                       <ReviewerName $fs={nameFontSize} $w={nameWidth}>{r.name}</ReviewerName>
                     </Reviewer>
                   </SlideInner>
@@ -335,6 +347,31 @@ function getInitials(fullName: string) {
   const first = parts[0]?.[0] ?? ''
   const second = parts[1]?.[0] ?? ''
   return (first + second).toUpperCase()
+}
+
+function getAvatarForName(fullName: string): string | undefined {
+  const parts = fullName.trim().split(/\s+/)
+  const firstName = (parts[1] ?? parts[0] ?? '').toLowerCase().replace('ё', 'е')
+
+  switch (firstName) {
+    case 'марина':
+      return marinaAvatar
+    case 'артем':
+    case 'артём':
+      return artemAvatar
+    case 'кирилл':
+      return kirillAvatar
+    case 'анна':
+      return annAvatar
+    case 'сергей':
+      return sergeyAvatar
+    case 'екатерина':
+      return ekaterinaAvatar
+    case 'андрей':
+      return andreyAvatar
+    default:
+      return undefined
+  }
 }
 
 const Carousel = styled.div<{ $gap?: number }>`
@@ -490,6 +527,15 @@ const Avatar = styled.div<{ $size?: number }>`
   font-weight: 600;
   font-size: 16px;
   letter-spacing: 0.5px;
+`
+
+const AvatarImg = styled.img<{ $size?: number }>`
+  width: ${({ $size }) => ($size ? `${$size}px` : '50px')};
+  height: ${({ $size }) => ($size ? `${$size}px` : '50px')};
+  border-radius: 50%;
+  object-fit: cover;
+  display: inline-block;
+  background: #242938;
 `
 
 const ReviewerName = styled.div<{ $fs?: number; $w?: number }>`

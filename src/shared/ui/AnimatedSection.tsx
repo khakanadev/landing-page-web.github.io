@@ -1,50 +1,7 @@
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import { useIntersectionObserver } from '../lib/useIntersectionObserver'
-import { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 
-const fadeInUp = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`
-
-const fadeInLeft = keyframes`
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`
-
-const fadeInRight = keyframes`
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`
-
-const fadeInScale = keyframes`
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-`
 
 const AnimatedContainer = styled.div<{
   $isVisible: boolean
@@ -68,11 +25,11 @@ const AnimatedContainer = styled.div<{
     }
     return 'none';
   }};
-  animation: ${({ $isVisible, $animationType, $delay = 0, $duration = 600 }) =>
+  animation: ${({ $isVisible, $animationType, $duration = 600 }) =>
     $isVisible
       ? `${$animationType} ${$duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards`
       : 'none'};
-  animation-delay: ${({ $delay }) => $delay}ms;
+  animation-delay: ${({ $delay = 0 }) => $delay}ms;
   transition: opacity 0.3s ease, transform 0.3s ease;
   
   /* Fallback для случаев, когда анимация не срабатывает */
