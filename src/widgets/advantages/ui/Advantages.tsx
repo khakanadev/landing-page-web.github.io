@@ -98,20 +98,13 @@ const Left = styled.div`
   border-radius: 12px;
   aspect-ratio: 694 / 541;
   
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0px;
-    right: 1px;
-    bottom: -1px;
-    left: 0px;
-    border-radius: 25px;
-    border: 1.5px solid transparent;
-    box-shadow: 0 0 0 0 rgba(203, 172, 249, 0);
+  img[alt='Macbook'],
+  div[data-macbook-overlay] {
+    transform: translateY(0) scale(1) rotateZ(0);
     transform-origin: center;
-    
-    transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1), border-color 250ms ease, box-shadow 250ms ease;
-    pointer-events: none;
+    will-change: transform, filter;
+    transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 450ms cubic-bezier(0.22, 1, 0.36, 1);
   }
   
   &:hover img[alt='Macbook'],
@@ -123,17 +116,7 @@ const Left = styled.div`
     filter: none;
   }
 
-  &:hover::after {
-    border-color: rgba(203, 172, 249, 0.85);
-    box-shadow: 0 0 22px rgba(203, 172, 249, 0.5), 0 10px 22px rgba(108, 93, 211, 0.38);
-    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
-  }
-
   @media (max-width: 800px) {
-    &:hover::after {
-      border-color: transparent;
-      box-shadow: none;
-    }
     width: calc(100% - 32px);
     margin: 0 16px;
     
@@ -174,20 +157,12 @@ const Card = styled.div`
   position: relative;
   border-radius: 20px;
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: -1px; 
-    border-radius: 23px;
-    border: 1.5px solid transparent;
-    box-shadow: 0 0 0 0 rgba(203, 172, 249, 0);
+  img {
+    transform: translateY(0) scale(1) rotateZ(0);
     transform-origin: center;
-    
-    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), border-color 250ms ease, box-shadow 250ms ease;
-    pointer-events: none;
+    will-change: transform, filter;
+    transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 450ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   &:hover img,
@@ -198,17 +173,7 @@ const Card = styled.div`
       drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
   }
 
-  &:hover::after {
-    border-color: rgba(203, 172, 249, 0.6);
-    box-shadow: 0 0 18px rgba(203, 172, 249, 0.35), 0 6px 14px rgba(108, 93, 211, 0.28);
-    transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
-  }
-
   @media (max-width: 800px) {
-    &:hover::after {
-      border-color: transparent;
-      box-shadow: none;
-    }
     width: calc(100% - 32px);
     margin: 0 16px;
     
@@ -299,15 +264,13 @@ const DevCard = styled.div`
   border-radius: 12px;
   margin: 0;
 
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 12px;
-    border: 1.5px solid transparent;
-    box-shadow: 0 0 0 0 rgba(203, 172, 249, 0);
-    transition: border-color 250ms ease, box-shadow 250ms ease;
-    pointer-events: none;
+  img,
+  div[data-dev-overlay] {
+    transform: translateY(0) scale(1) rotateZ(0);
+    transform-origin: center;
+    will-change: transform, filter;
+    transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 450ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   &:hover img,
@@ -318,16 +281,7 @@ const DevCard = styled.div`
       drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
   }
 
-  &:hover::after {
-    border-color: rgba(203, 172, 249, 0.6);
-    box-shadow: 0 0 18px rgba(203, 172, 249, 0.35), 0 6px 14px rgba(108, 93, 211, 0.28);
-  }
-
   @media (max-width: 800px) {
-    &:hover::after {
-      border-color: transparent;
-      box-shadow: none;
-    }
     width: calc(100% - 32px);
     margin: 0 16px;
     
@@ -355,15 +309,13 @@ const BtnCard = styled.div`
   overflow: hidden;
   margin: 0;
 
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 20px;
-    border: 1.5px solid transparent;
-    box-shadow: 0 0 0 0 rgba(203, 172, 249, 0);
-    transition: border-color 250ms ease, box-shadow 250ms ease;
-    pointer-events: none;
+  img,
+  div[data-button-overlay-inner] {
+    transform: translateY(0) scale(1) rotateZ(0);
+    transform-origin: center;
+    will-change: transform, filter;
+    transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 450ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   &:hover img,
@@ -374,16 +326,7 @@ const BtnCard = styled.div`
       drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
   }
 
-  &:hover::after {
-    border-color: rgba(203, 172, 249, 0.6);
-    box-shadow: 0 0 18px rgba(203, 172, 249, 0.35), 0 6px 14px rgba(108, 93, 211, 0.28);
-  }
-
   @media (max-width: 800px) {
-    &:hover::after {
-      border-color: transparent;
-      box-shadow: none;
-    }
     width: calc(100% - 32px);
     margin: 0 16px;
     
@@ -516,6 +459,15 @@ const CodeCard = styled.div`
   border-radius: 18px;
   margin: 0;
 
+  img,
+  div[data-code-overlay-inner] {
+    transform: translateY(0) scale(1) rotateZ(0);
+    transform-origin: center;
+    will-change: transform, filter;
+    transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
   &:hover img,
   &:hover div[data-code-overlay-inner] {
     transform: translateY(-3px) scale(1.015) rotateZ(-0.2deg);
@@ -524,14 +476,7 @@ const CodeCard = styled.div`
       drop-shadow(0 6px 18px rgba(255, 255, 255, 0.06));
   }
 
-  &:hover img {
-    box-shadow: 0 0 0 1.5px rgba(203, 172, 249, 0.6), 0 0 18px rgba(203, 172, 249, 0.35), 0 6px 14px rgba(108, 93, 211, 0.28);
-  }
-
   @media (max-width: 800px) {
-    &:hover img {
-      box-shadow: none;
-    }
     width: calc(100% - 32px);
     margin: 0 16px;
     
