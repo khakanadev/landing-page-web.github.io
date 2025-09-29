@@ -1,12 +1,18 @@
 import styled from 'styled-components'
 import { AnimatedSection } from '../../../shared/ui/AnimatedSection'
 import macbook from '../../../assets/macbook.png'
+import macbookAd from '../../../assets/macbook-ad.png'
 import countries from '../../../assets/countries.png'
+import countriesAd from '../../../assets/countries-ad.png'
 import stack from '../../../assets/stack.png'
+import stackAd from '../../../assets/stack-ad.png'
 import gridPattern from '../../../assets/grid-pattern.png'
 import development from '../../../assets/development.png'
+import developmentAd from '../../../assets/development-ad.png'
 import button from '../../../assets/button.png'
+import buttonAd from '../../../assets/button-ad.png'
 import code from '../../../assets/code.png'
+import codeAd from '../../../assets/code-ad.png'
 import bg from '../../../assets/bg.png'
 
 
@@ -85,7 +91,9 @@ const Container = styled.div`
     width: 100%;
     grid-template-columns: 1fr;
     row-gap: 24px;
+    padding: 0 16px;
     & > * { margin: 0; }
+    justify-items: stretch;
   }
 `
 
@@ -117,8 +125,8 @@ const Left = styled.div`
   }
 
   @media (max-width: 800px) {
-    width: calc(100% - 32px);
-    margin: 0 16px;
+    width: 100%;
+    margin: 0;
     
     img {
       width: 100% !important;
@@ -148,7 +156,7 @@ const Right = styled.div`
     order: 2;
     width: 100%;
     row-gap: 24px;
-    justify-items: center;
+    justify-items: stretch;
   }
 `
 
@@ -174,8 +182,8 @@ const Card = styled.div`
   }
 
   @media (max-width: 800px) {
-    width: calc(100% - 32px);
-    margin: 0 16px;
+    width: 100%;
+    margin: 0;
     
     img {
       width: 100% !important;
@@ -230,6 +238,8 @@ const Row2 = styled.div`
     width: 100%;
     grid-template-columns: 1fr;
     row-gap: 24px;
+    padding: 0 16px;
+    justify-items: stretch;
   }
 `
 
@@ -241,7 +251,7 @@ const Left2 = styled.div`
   @media (max-width: 800px) {
     order: 2;
     row-gap: 24px;
-    justify-items: center;
+    justify-items: stretch;
   }
 `
 
@@ -252,6 +262,10 @@ const Right2 = styled.div`
     order: 1;
     display: flex;
     justify-content: center;
+  }
+
+  @media (max-width: 800px) and (min-width: 500px) {
+    width: 100%;
   }
 `
 
@@ -282,8 +296,8 @@ const DevCard = styled.div`
   }
 
   @media (max-width: 800px) {
-    width: calc(100% - 32px);
-    margin: 0 16px;
+    width: 100%;
+    margin: 0;
     
     img {
       width: 100% !important;
@@ -327,8 +341,8 @@ const BtnCard = styled.div`
   }
 
   @media (max-width: 800px) {
-    width: calc(100% - 32px);
-    margin: 0 16px;
+    width: 100%;
+    margin: 0;
     
     img {
       width: 100% !important;
@@ -477,8 +491,8 @@ const CodeCard = styled.div`
   }
 
   @media (max-width: 800px) {
-    width: calc(100% - 32px);
-    margin: 0 16px;
+    width: 100%;
+    margin: 0;
     
     img {
       width: 100% !important;
@@ -545,11 +559,14 @@ export function Advantages() {
           <Container>
             <AnimatedSection animationType="fadeInLeft" delay={200}>
               <Left>
-                <img
-                  src={macbook}
-                  alt="Macbook"
-                  style={{ width: '100%', height: 'auto' }}
-                />
+                <picture>
+                  <source media="(max-width: 800px)" srcSet={macbookAd} />
+                  <img
+                    src={macbook}
+                    alt="Macbook"
+                    style={{ width: '100%', height: 'auto' }}
+                  />
+                </picture>
                 <MacbookOverlay data-macbook-overlay>
                   
                 </MacbookOverlay>
@@ -559,11 +576,14 @@ export function Advantages() {
               <Right>
                 <AnimatedSection animationType="fadeInScale" delay={600}>
                   <Card>
-                    <img
-                      src={countries}
-                      alt="Countries"
-                      style={{ width: '100%', height: 'auto' }}
-                    />
+                    <picture>
+                      <source media="(max-width: 800px)" srcSet={countriesAd} />
+                      <img
+                        src={countries}
+                        alt="Countries"
+                        style={{ width: '100%', height: 'auto' }}
+                      />
+                    </picture>
                     <CountriesOverlay data-countries-overlay>
                       
                     </CountriesOverlay>
@@ -571,11 +591,14 @@ export function Advantages() {
                 </AnimatedSection>
                 <AnimatedSection animationType="fadeInScale" delay={800}>
                   <Card>
-                    <img
-                      src={stack}
-                      alt="Stack"
-                      style={{ width: '100%', height: 'auto' }}
-                    />
+                    <picture>
+                      <source media="(max-width: 800px)" srcSet={stackAd} />
+                      <img
+                        src={stack}
+                        alt="Stack"
+                        style={{ width: '100%', height: 'auto' }}
+                      />
+                    </picture>
                     <StackOverlay>
                       <StackOverlayInner data-stack-overlay-inner>
                         <StackSubtitle>
@@ -598,11 +621,14 @@ export function Advantages() {
               <Left2>
                 <AnimatedSection animationType="fadeInScale" delay={600}>
                   <DevCard>
-                    <img
-                      src={development}
-                      alt="Development"
-                      style={{ width: '100%', height: 'auto' }}
-                    />
+                    <picture>
+                      <source media="(max-width: 800px)" srcSet={developmentAd} />
+                      <img
+                        src={development}
+                        alt="Development"
+                        style={{ width: '100%', height: 'auto' }}
+                      />
+                    </picture>
                     <DevOverlay data-dev-overlay>
                       
                     </DevOverlay>
@@ -610,11 +636,14 @@ export function Advantages() {
                 </AnimatedSection>
                 <AnimatedSection animationType="fadeInScale" delay={800}>
                   <BtnCard>
-                    <img
-                      src={button}
-                      alt="Button"
-                      style={{ width: '100%', height: 'auto' }}
-                    />
+                    <picture>
+                      <source media="(max-width: 800px)" srcSet={buttonAd} />
+                      <img
+                        src={button}
+                        alt="Button"
+                        style={{ width: '100%', height: 'auto' }}
+                      />
+                    </picture>
                     <BtnOverlay>
                       <BtnOverlayInner data-button-overlay-inner>
                         <BtnOverlayText></BtnOverlayText>
@@ -629,11 +658,14 @@ export function Advantages() {
               <Right2>
                 <AnimatedSection animationType="fadeInScale" delay={800}>
                   <CodeCard>
-                    <img
-                      src={code}
-                      alt="Code"
-                      style={{ width: '100%', height: 'auto' }}
-                    />
+                    <picture>
+                      <source media="(max-width: 800px)" srcSet={codeAd} />
+                      <img
+                        src={code}
+                        alt="Code"
+                        style={{ width: '100%', height: 'auto' }}
+                      />
+                    </picture>
                     <CodeOverlay>
                       <CodeOverlayInner data-code-overlay-inner>
                         <CodeTitle></CodeTitle>
