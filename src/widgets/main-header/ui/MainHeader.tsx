@@ -8,6 +8,10 @@ const Root = styled.section`
   justify-content: center;
   flex-direction: column;
   margin-top: clamp(56px, 15.375vw, 123px);
+
+  @media (min-width: 800px) {
+    margin-bottom: 0; /* ensure exact spacing controlled by Advantages */
+  }
 `
 
 const fadeSlideUp = keyframes`

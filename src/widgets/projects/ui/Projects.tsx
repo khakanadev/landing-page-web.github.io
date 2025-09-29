@@ -30,36 +30,37 @@ const Title = styled.h2`
   padding: 80px 0 50px 0;
   font-family: Inter, sans-serif;
   font-weight: 700;
-  font-size: clamp(24px, 4.5vw, 48px);
+  font-size: 36px;
   line-height: 100%;
   color: #ffffff;
   width: clamp(320px, 90vw, 900px);
   height: auto;
   text-align: center;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow: visible;
+  text-overflow: unset;
 
   span {
     color: #CBACF9;
   }
 
+  @media (max-width: 1300px) and (min-width: 801px) {
+    font-size: calc(30px + (36 - 30) * ((100vw - 800px) / 500));
+  }
+
   @media (max-width: 800px) {
     padding: 60px 16px 40px 16px;
     width: calc(100% - 32px);
-    font-size: 36px;
-    white-space: normal;
-    overflow: visible;
-    text-overflow: unset;
+    font-size: 34px;
   }
 
-  @media (max-width: 480px) {
-    font-size: 36px;
+  @media (max-width: 500px) {
+    font-size: clamp(18px, 7.2vw, 34px);
   }
 `
 
 const Grid = styled.div`
-  margin-top: 50px;
+  margin-top: 20px;
   width: clamp(800px, 95vw, 1240px);
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -69,6 +70,7 @@ const Grid = styled.div`
     width: calc(100% - 32px);
     grid-template-columns: 1fr;
     gap: 20px;
+    margin-top: 0;
     margin-left: 16px;
     margin-right: 16px;
   }

@@ -27,6 +27,10 @@ const Root = styled.section`
   height: 1175px;
   background: #000319;
 
+  @media (min-width: 800px) {
+    margin-top: 64px;
+  }
+
   @media (max-width: 1300px) {
     height: auto;
     padding-top: 30px;
