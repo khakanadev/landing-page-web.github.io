@@ -252,9 +252,15 @@ const BottomSection = styled.div`
   position: relative;
   z-index: 1;
 
-  @media (max-width: 1280px) {
+  @media (max-width: 1300px) {
     width: 100%;
-    padding: 0 24px;
+    padding: 0 16px;
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    align-items: center;
+    > *:first-child { order: 2; }
+    > *:last-child { order: 1; }
   }
 
   @media (max-width: 800px) {
