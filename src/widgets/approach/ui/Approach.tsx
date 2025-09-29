@@ -8,12 +8,29 @@ import { AnimatedSection } from '../../../shared/ui/AnimatedSection'
 const Root = styled.section`
   width: 100%;
   padding-top: 64px;
+  /* add 1px top padding to overlap any previous hairline */
   padding-bottom: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   background: #000319;
+  position: relative;
+  isolation: isolate;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+
+  /* pull background 1px upward to cover seams from previous section */
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -1px;
+    height: 2px;
+    background: #000319;
+    pointer-events: none;
+  }
 
   @media (max-width: 800px) {
     padding-top: 64px;

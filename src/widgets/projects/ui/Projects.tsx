@@ -44,8 +44,9 @@ const Title = styled.h2`
     color: #CBACF9;
   }
 
-  @media (max-width: 1300px) and (min-width: 801px) {
-    font-size: calc(30px + (36 - 30) * ((100vw - 800px) / 500));
+  /* From 800px and up, use fixed 48px title size */
+  @media (min-width: 800px) {
+    font-size: 48px;
   }
 
   @media (max-width: 800px) {
