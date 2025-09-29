@@ -7,7 +7,7 @@ import { AnimatedSection } from '../../../shared/ui/AnimatedSection'
 
 const Root = styled.section`
   width: 100%;
-  padding-top: 150px;
+  padding-top: 64px;
   padding-bottom: 70px;
   display: flex;
   flex-direction: column;
@@ -16,12 +16,12 @@ const Root = styled.section`
   background: #000319;
 
   @media (max-width: 800px) {
-    padding-top: 90px;
+    padding-top: 64px;
     padding-bottom: 40px;
   }
 
   @media (max-width: 500px) {
-    padding-top: 70px;
+    padding-top: 64px;
     padding-bottom: 30px;
   }
 `

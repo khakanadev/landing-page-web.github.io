@@ -12,16 +12,16 @@ const Root = styled.section`
   align-items: center;
   justify-content: flex-start;
   height: auto;
-  padding-bottom: 100px;
+  padding-bottom: 64px;
   background: #000319;
   scroll-margin-top: 100px;
 
   @media (max-width: 1000px) {
-    padding-bottom: 70px;
+    padding-bottom: 64px;
   }
 
   @media (max-width: 600px) {
-    padding-bottom: 50px;
+    padding-bottom: 64px;
   }
 `
 

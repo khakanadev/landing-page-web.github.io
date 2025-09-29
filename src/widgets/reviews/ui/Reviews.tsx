@@ -17,7 +17,7 @@ const Root = styled.section`
   padding-left: 16px;
   padding-right: 16px;
   padding-top: 0; 
-  padding-bottom: 70px;
+  padding-bottom: 0;
   margin-bottom: 0;
   display: flex;
   flex-direction: column;
@@ -591,7 +591,7 @@ const ArrowSvg = styled.svg`
 // Tech list and logos (restored)
 const TechList = styled.div<{ $gap?: number }>`
   margin-top: 70px;
-  margin-bottom: 100px;
+  margin-bottom: 0;
   width: 100%;
   display: flex;
   align-items: center;
