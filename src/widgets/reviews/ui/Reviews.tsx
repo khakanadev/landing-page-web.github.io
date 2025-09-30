@@ -17,8 +17,7 @@ const Root = styled.section`
   padding-left: 16px;
   padding-right: 16px;
   padding-top: 0;
-  /* Add a tiny bottom padding so the background certainly covers below content */
-  padding-bottom: 1px;
+  padding-bottom: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -32,31 +31,18 @@ const Root = styled.section`
   backface-visibility: hidden;
   transform: translateZ(0); /* promote to its own layer, mitigates subpixel seams */
 
-  /* Wide screens: add more space under Reviews to separate from Approach */
   @media (min-width: 1301px) {
-    padding-bottom: 150px;
-  }
-
-  /* Hairline guard to overlap the next section by 1px on some GPUs */
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    height: 2px;
-    background: #000319;
-    pointer-events: none;
+    padding-bottom: 0;
   }
 
   @media (max-width: 800px) {
     padding-top: 0;
-    margin-bottom: 16px;
+    margin-bottom: 0;
   }
 
   @media (max-width: 500px) {
     padding-top: 0;
-    padding-bottom: 24px; /* keep some space on very small screens */
+    padding-bottom: 0;
   }
 `
 

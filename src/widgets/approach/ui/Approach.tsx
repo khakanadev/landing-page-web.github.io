@@ -7,9 +7,9 @@ import { AnimatedSection } from '../../../shared/ui/AnimatedSection'
 
 const Root = styled.section`
   width: 100%;
-  padding-top: 64px;
-  /* add 1px top padding to overlap any previous hairline */
-  padding-bottom: 70px;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 64px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,26 +20,22 @@ const Root = styled.section`
   backface-visibility: hidden;
   transform: translateZ(0);
 
-  /* pull background 1px upward to cover seams from previous section */
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: -1px;
-    height: 2px;
-    background: #000319;
-    pointer-events: none;
-  }
+  &::before { display: none; }
 
   @media (max-width: 800px) {
-    padding-top: 64px;
-    padding-bottom: 40px;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 64px;
   }
 
   @media (max-width: 500px) {
-    padding-top: 64px;
-    padding-bottom: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 64px;
+  }
+
+  @media (min-width: 500px) {
+    margin-top: clamp(64px, calc(64px + 0.70 * (100vw - 500px)), 150px);
   }
 `
 
@@ -60,13 +56,17 @@ const Title = styled.h2`
   margin: 0;
   font-family: Inter, sans-serif;
   font-weight: 700;
-  font-size: 36px;
+  font-size: 48px;
   line-height: 100%;
   color: #FFFFFF;
   text-align: center;
   
   span {
     color: #CBACF9;
+  }
+
+  @media (max-width: 1000px) {
+    font-size: 36px;
   }
 `
 
