@@ -9,7 +9,7 @@ const Root = styled.section`
   width: 100%;
   padding-top: 0;
   padding-bottom: 0;
-  margin-top: 64px;
+  padding-top: 64px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,19 +23,17 @@ const Root = styled.section`
   &::before { display: none; }
 
   @media (max-width: 800px) {
-    padding-top: 0;
+    padding-top: 100px;
     padding-bottom: 0;
-    margin-top: 64px;
   }
 
   @media (max-width: 500px) {
-    padding-top: 0;
+    padding-top: 80px;
     padding-bottom: 0;
-    margin-top: 64px;
   }
 
   @media (min-width: 500px) {
-    margin-top: clamp(64px, calc(64px + 0.70 * (100vw - 500px)), 150px);
+    padding-top: clamp(80px, calc(64px + 0.70 * (100vw - 500px)), 150px);
   }
 `
 
