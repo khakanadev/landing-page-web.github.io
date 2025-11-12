@@ -364,7 +364,7 @@ export function Footer({ id }: FooterProps) {
           </AnimatedSection>
           <AnimatedSection animationType="fadeInRight" delay={1000}>
             <SocialLinks>
-              <SocialLink href="https://github.com/KalashiQ" target="_blank" rel="noopener noreferrer">
+              <SocialLink href="https://github.com/khakanadev" target="_blank" rel="noopener noreferrer">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <linearGradient id="grad-social" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
