@@ -1,265 +1,115 @@
-import styled, { css, keyframes } from 'styled-components'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { MenuIcon, SendIcon } from 'lucide-react'
+import { Button } from '@/shared/ui/button'
+import { Separator } from '@/shared/ui/separator'
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/shared/ui/sheet'
+import { contacts, navItems } from '@/shared/config/site'
+import { useActiveSection } from '@/shared/lib/useActiveSection'
+import { cn } from '@/shared/lib/utils'
 
-const Root = styled.header`
-  width: 100%;
-  background: transparent;
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  height: 116px; 
-
-  @media (max-width: 500px) {
-    height: calc(116px * (100vw / 500));
-  }
-`
-
-const Container = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
-const Nav = styled.nav`
-  width: 451px;
-  height: 66px;
-  border-radius: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  background: linear-gradient(135deg, #04071D 0%, #0C0E23 100%);
-  position: fixed;
-  left: 50%;
-  top: 16px;
-  transform: translateX(-50%);
-  z-index: 1000;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-
-  @media (max-width: 500px) {
-    width: min(92vw, 451px);
-    height: calc(66px * (100vw / 500));
-    border-radius: calc(13px * (100vw / 500));
-    top: calc(16px * (100vw / 500));
-  }
-`
-
-const StrokeOuter = styled.div`
-  position: absolute;
-  inset: 0;
-  border-radius: 13px;
-  pointer-events: none;
-  padding: 1px;
-  background: linear-gradient(135deg, #6971A2 0%, #272A3C 1%);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-
-  @media (max-width: 500px) {
-    border-radius: calc(13px * (100vw / 500));
-  }
-`
-
-const shimmer = keyframes`
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-`
-
-const NavButton = styled.button<{ $active?: boolean }>`
-  background: transparent;
-  border: 0;
-  padding: 0;
-  color: ${({ $active }) => ($active ? 'transparent' : '#C1C2D3')};
-  font-size: 16px;
-  line-height: 110%;
-  font-weight: 500;
-  cursor: pointer;
-  position: relative;
-  transition: color 0.15s ease;
-  &:hover { color: ${({ $active }) => ($active ? 'transparent' : '#FFFFFF')}; }
-
-  ${({ $active }) => $active && css`
-    background-image: linear-gradient(90deg, #ffffff 0%, #CBACF9 50%, #ffffff 100%);
-    background-size: 200% 100%;
-    background-position: 0% 50%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    animation: ${shimmer} 1.4s ease-in-out infinite;
-    
-  `}
-  &::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: -10px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #FFFFFF;
-    opacity: 0;
-    transition: opacity 0.15s ease;
-  }
-
-  @media (max-width: 500px) {
-    font-size: calc(16px * (100vw / 500));
-    &::after {
-      bottom: calc(-10px * (100vw / 500));
-      width: calc(6px * (100vw / 500));
-      height: calc(6px * (100vw / 500));
-    }
-  }
-`
-
-const ActiveDot = styled.div<{ $visible: boolean; $x: number }>`
-  position: absolute;
-  bottom: 10px;
-  left: 0;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  transform: translate3d(${({ $x }) => $x}px, 0, 0);
-  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), opacity 160ms ease;
-  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
-  pointer-events: none;
-
-  @media (max-width: 500px) {
-    bottom: calc(10px * (100vw / 500));
-    width: calc(6px * (100vw / 500));
-    height: calc(6px * (100vw / 500));
-  }
-`
+const sectionIds = navItems.map((item) => item.id)
 
 export function Header() {
-  const [active, setActive] = useState<'about' | 'projects' | 'skills' | 'contacts' | null>(null)
-  const [isClicking, setIsClicking] = useState(false)
-  const navRef = useRef<HTMLElement | null>(null)
-  const aboutRef = useRef<HTMLButtonElement | null>(null)
-  const projectsRef = useRef<HTMLButtonElement | null>(null)
-  const skillsRef = useRef<HTMLButtonElement | null>(null)
-  const contactsRef = useRef<HTMLButtonElement | null>(null)
-  const [dotX, setDotX] = useState(0)
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id)
-    if (!el) return
-    setTimeout(() => {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 120)
-  }
+  const active = useActiveSection(sectionIds)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const idToKey: Record<string, 'about' | 'projects' | 'skills' | 'contacts'> = {
-      about: 'about',
-      projects: 'projects',
-      reviews: 'skills',
-      footer: 'contacts',
-    }
-
-    const targets = Object.keys(idToKey)
-      .map((id) => document.getElementById(id))
-      .filter(Boolean) as HTMLElement[]
-
-    if (targets.length === 0) return
-
-    let ticking = false
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (ticking) return
-        ticking = true
-        if (isClicking) {
-          requestAnimationFrame(() => { ticking = false })
-          return
-        }
-        if (window.scrollY <= 20) {
-          setActive(null)
-          requestAnimationFrame(() => { ticking = false })
-          return
-        }
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => (b.intersectionRatio || 0) - (a.intersectionRatio || 0))
-        if (visible[0]?.target?.id) {
-          const key = idToKey[visible[0].target.id]
-          if (key) setActive(key)
-        }
-        requestAnimationFrame(() => { ticking = false })
-      },
-      {
-        root: null,
-        threshold: [0.3, 0.5, 0.7],
-        rootMargin: '-80px 0px -40% 0px',
-      }
-    )
-
-    targets.forEach((el) => observer.observe(el))
-    const onScroll = () => { if (!isClicking && window.scrollY <= 20) setActive(null) }
+    const onScroll = () => setScrolled(window.scrollY > 16)
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => { observer.disconnect(); window.removeEventListener('scroll', onScroll) }
-  }, [isClicking])
-
-  useEffect(() => {
-    const computeDotX = () => {
-      const navEl = navRef.current
-      if (!navEl || !active) return
-      const map: Record<'about' | 'projects' | 'skills' | 'contacts', HTMLButtonElement | null> = {
-        about: aboutRef.current,
-        projects: projectsRef.current,
-        skills: skillsRef.current,
-        contacts: contactsRef.current,
-      }
-      const btn = map[active]
-      if (!btn) return
-      const navRect = navEl.getBoundingClientRect()
-      const btnRect = btn.getBoundingClientRect()
-      const centerX = btnRect.left + btnRect.width / 2 - navRect.left
-      setDotX(centerX - 3)
-    }
-
-    computeDotX()
-    const onResize = () => computeDotX()
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [active])
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <Root>
-      <Container>
-        <Nav ref={navRef}>
-          <StrokeOuter />
-          <NavButton ref={aboutRef} $active={active === 'about'} onClick={() => {
-            setIsClicking(true)
-            setActive('about')
-            scrollTo('about')
-            setTimeout(() => setIsClicking(false), 360)
-          }}>Обо мне</NavButton>
-          <NavButton ref={projectsRef} $active={active === 'projects'} onClick={() => {
-            setIsClicking(true)
-            setActive('projects')
-            scrollTo('projects')
-            setTimeout(() => setIsClicking(false), 360)
-          }}>Проекты</NavButton>
-          <NavButton ref={skillsRef} $active={active === 'skills'} onClick={() => {
-            setIsClicking(true)
-            setActive('skills')
-            scrollTo('reviews')
-            setTimeout(() => setIsClicking(false), 360)
-          }}>Отзывы</NavButton>
-          <NavButton ref={contactsRef} $active={active === 'contacts'} onClick={() => {
-            setIsClicking(true)
-            setActive('contacts')
-            scrollTo('footer')
-            setTimeout(() => setIsClicking(false), 360)
-          }}>Контакты</NavButton>
-          <ActiveDot $visible={!!active} $x={dotX} />
-        </Nav>
-      </Container>
-    </Root>
+    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:pt-4">
+      <div
+        className={cn(
+          'mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 rounded-2xl border px-3 pl-4 transition-colors duration-300 sm:h-16 sm:px-4 sm:pl-5',
+          scrolled
+            ? 'border-white/10 bg-[#04071d]/80 shadow-[0_8px_30px_rgb(0_0_0/0.45)] backdrop-blur-xl'
+            : 'border-transparent bg-transparent'
+        )}
+      >
+        <a href="#top" className="rounded-md text-base font-semibold tracking-tight outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
+          khakana<span className="text-brand">.dev</span>
+        </a>
+
+        <nav aria-label="Основная навигация" className="hidden md:block">
+          <ul className="flex items-center gap-1">
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  aria-current={active === item.id ? 'true' : undefined}
+                  className={cn(
+                    'inline-flex h-10 items-center rounded-lg px-3.5 text-sm font-medium text-muted-foreground outline-none transition-colors hover:bg-white/5 hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50',
+                    active === item.id && 'bg-white/5 text-brand'
+                  )}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <Button
+            asChild
+            variant="outline"
+            className="hidden h-10 rounded-full border-brand/30 bg-brand/10 px-4 text-brand hover:border-brand/60 hover:bg-brand/20 hover:text-foreground sm:inline-flex"
+          >
+            <a href={contacts.telegram} target="_blank" rel="noopener noreferrer">
+              <SendIcon />
+              Связаться
+            </a>
+          </Button>
+
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon-lg" className="md:hidden" aria-label="Открыть меню">
+                <MenuIcon className="size-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[85vw] max-w-sm border-white/10 bg-[#04071d]">
+              <SheetHeader>
+                <SheetTitle>
+                  khakana<span className="text-brand">.dev</span>
+                </SheetTitle>
+                <SheetDescription>Разработка сайтов на React</SheetDescription>
+              </SheetHeader>
+              <nav aria-label="Мобильная навигация" className="px-4">
+                <ul className="flex flex-col gap-1">
+                  {navItems.map((item) => (
+                    <li key={item.id}>
+                      <SheetClose asChild>
+                        <a
+                          href={`#${item.id}`}
+                          className={cn(
+                            'flex h-12 items-center rounded-xl px-4 text-base font-medium text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground',
+                            active === item.id && 'bg-white/5 text-brand'
+                          )}
+                        >
+                          {item.label}
+                        </a>
+                      </SheetClose>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+              <Separator className="mx-4 w-auto!" />
+              <div className="px-4">
+                <Button asChild variant="brand" size="xl" className="w-full">
+                  <a href={contacts.telegram} target="_blank" rel="noopener noreferrer">
+                    <SendIcon />
+                    Написать в Telegram
+                  </a>
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </header>
   )
 }
-
